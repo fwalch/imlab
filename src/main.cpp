@@ -30,7 +30,7 @@ int main() {
     return 0;
   }
   catch (string msg) {
-    cout << " ✘ Exception thrown: " << msg << endl;
+    cerr << " ✘ Exception thrown: " << msg << endl;
     return 1;
   }
 }

@@ -1,6 +1,11 @@
 CC = g++
-CFLAGS = -O3 -Wall --std=c++11
-LDFLAGS =
+ifdef release
+	CFLAGS = -g -O3 -Wall --std=c++11
+	LDFLAGS =
+else
+	CFLAGS = -g -O0 -Wall --std=c++11
+	LDFLAGS =
+endif
 
 SRC_DIR = src
 SRC_FILES = schema/conversion.cpp \
