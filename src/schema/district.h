@@ -15,7 +15,7 @@ struct district_t {
   char d_street_2[21];
   char d_city[21];
   char d_state[3];
-  char d_zip[9];
+  char d_zip[10];
   int64_t d_tax;
   int64_t d_ytd;
   int32_t d_next_o_id;

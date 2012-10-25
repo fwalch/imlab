@@ -19,7 +19,7 @@ struct customer_t {
   char c_city[21];
   char c_state[3];
   char c_zip[10];
-  char c_phone[16];
+  char c_phone[17];
   int64_t c_since;
   char c_credit[3];
   int64_t c_credit_lim;
