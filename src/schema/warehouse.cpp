@@ -21,10 +21,10 @@ void Warehouses::add(string elements[9]) {
   StoreBase::add_instance(warehouse);
 }
 
-void Warehouses::onNewItem(warehouse_t* item) {
-  pkIndex[item->w_id] = item;
+void Warehouses::onNewItem(warehouse_t* item, uint64_t tid) {
+  pkIndex[item->w_id] = tid;
 }
 
 warehouse_t* Warehouses::get(int32_t w_id) {
-  return pkIndex[w_id];
+  return &store[pkIndex[w_id]];
 }

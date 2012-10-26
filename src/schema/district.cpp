@@ -3,6 +3,7 @@
 #include <iostream>
 #include "district.h"
 #include "conversion.h"
+#include <tuple>
 
 using namespace std;
 
@@ -23,10 +24,10 @@ void Districts::add(string elements[11]) {
   StoreBase::add_instance(district);
 }
 
-void Districts::onNewItem(district_t* item) {
-  pkIndex[item->d_w_id][item->d_id] = item;
+void Districts::onNewItem(district_t* item, uint64_t tid) {
+  pkIndex[pkIndexType(item->d_w_id, item->d_id)] = tid;
 }
 
 district_t* Districts::get(int32_t d_w_id, int32_t d_id) {
-  return pkIndex[d_w_id][d_id];
+  return &store[pkIndex[pkIndexType(d_w_id, d_id)]];
 }

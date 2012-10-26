@@ -3,7 +3,8 @@
 
 #include <string>
 #include <vector>
-#include <unordered_map>
+#include <map>
+#include <tuple>
 #include <cstdint>
 #include "store.h"
 
@@ -29,10 +30,11 @@ struct stock_t {
 
 class Stock : public StoreBase<stock_t> {
   private:
-    std::unordered_map<int32_t, std::unordered_map<int32_t, stock_t*> > pkIndex;
+    typedef std::tuple<int32_t, int32_t> pkIndexType;
+    std::map<pkIndexType, uint64_t> pkIndex;
 
   protected:
-    void onNewItem(stock_t*);
+    void onNewItem(stock_t*, uint64_t);
 
   public:
     void add(std::string[17]);

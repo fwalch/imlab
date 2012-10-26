@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <unordered_map>
+#include <map>
 #include <cstdint>
 #include "store.h"
 
@@ -21,10 +21,10 @@ struct warehouse_t {
 
 class Warehouses : public StoreBase<warehouse_t> {
   private:
-    std::unordered_map<int32_t, warehouse_t*> pkIndex;
+    std::map<int32_t, uint64_t> pkIndex;
 
   protected:
-    void onNewItem(warehouse_t*);
+    void onNewItem(warehouse_t*, uint64_t);
 
   public:
     void add(std::string[9]);

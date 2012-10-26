@@ -22,10 +22,10 @@ void OrderLines::add(string elements[10]) {
   StoreBase::add_instance(orderline);
 }
 
-void OrderLines::onNewItem(orderline_t* item) {
-  pkIndex[item->ol_w_id][item->ol_d_id][item->ol_o_id][item->ol_number] = item;
+void OrderLines::onNewItem(orderline_t* item, uint64_t tid) {
+  pkIndex[pkIndexType(item->ol_w_id, item->ol_d_id, item->ol_o_id, item->ol_number)] = tid;
 }
 
 orderline_t* OrderLines::get(int32_t ol_w_id, int32_t ol_d_id, int32_t ol_o_id, int32_t ol_number) {
-  return pkIndex[ol_w_id][ol_d_id][ol_o_id][ol_number];
+  return &store[pkIndex[pkIndexType(ol_w_id, ol_d_id, ol_o_id, ol_number)]];
 }

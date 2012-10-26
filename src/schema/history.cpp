@@ -20,6 +20,6 @@ void History::add(string elements[8]) {
   StoreBase::add_instance(history);
 }
 
-void History::onNewItem(history_t* item) {
+void History::onNewItem(history_t* item, uint64_t tid) {
 }
 

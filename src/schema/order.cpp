@@ -19,10 +19,10 @@ void Orders::add(string elements[8]) {
   StoreBase::add_instance(order);
 }
 
-void Orders::onNewItem(order_t* item) {
-  pkIndex[item->o_w_id][item->o_d_id][item->o_id] = item;
+void Orders::onNewItem(order_t* item, uint64_t tid) {
+  pkIndex[pkIndexType(item->o_w_id, item->o_d_id, item->o_id)] = tid;
 }
 
 order_t* Orders::get(int32_t o_w_id, int32_t o_d_id, int32_t o_id) {
-  return pkIndex[o_w_id][o_d_id][o_id];
+  return &store[pkIndex[pkIndexType(o_w_id, o_d_id, o_id)]];
 }

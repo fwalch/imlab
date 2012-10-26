@@ -35,10 +35,10 @@ void Customers::add(string elements[21]) {
   StoreBase::add_instance(customer);
 }
 
-void Customers::onNewItem(customer_t* item) {
-  pkIndex[item->c_w_id][item->c_d_id][item->c_id] = item;
+void Customers::onNewItem(customer_t* item, uint64_t tid) {
+  pkIndex[pkIndexType(item->c_w_id, item->c_d_id, item->c_id)] = tid;
 }
 
 customer_t* Customers::get(int32_t c_w_id, int32_t c_d_id, int32_t c_id) {
-  return pkIndex[c_w_id][c_d_id][c_id];
+  return &store[pkIndex[pkIndexType(c_w_id, c_d_id, c_id)]];
 }

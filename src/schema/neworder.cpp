@@ -14,10 +14,10 @@ void NewOrders::add(string elements[3]) {
   StoreBase::add_instance(neworder);
 }
 
-void NewOrders::onNewItem(neworder_t* item) {
-  pkIndex[item->no_w_id][item->no_d_id][item->no_o_id] = item;
+void NewOrders::onNewItem(neworder_t* item, uint64_t tid) {
+  pkIndex[pkIndexType(item->no_w_id, item->no_d_id, item->no_o_id)] = tid;
 }
 
 neworder_t* NewOrders::get(int32_t no_w_id, int32_t no_d_id, int32_t no_o_id) {
-  return pkIndex[no_w_id][no_d_id][no_o_id];
+  return &store[pkIndex[pkIndexType(no_w_id, no_d_id, no_o_id)]];
 }

@@ -29,10 +29,10 @@ void Stock::add(string elements[17]) {
   StoreBase::add_instance(stock);
 }
 
-void Stock::onNewItem(stock_t* item) {
-  pkIndex[item->s_w_id][item->s_i_id] = item;
+void Stock::onNewItem(stock_t* item, uint64_t tid) {
+  pkIndex[pkIndexType(item->s_w_id, item->s_i_id)] = tid;
 }
 
 stock_t* Stock::get(int32_t s_w_id, int32_t s_i_id) {
- return pkIndex[s_w_id][s_i_id];
+ return &store[pkIndex[pkIndexType(s_w_id, s_i_id)]];
 }

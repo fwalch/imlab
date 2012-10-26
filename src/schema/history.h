@@ -20,7 +20,7 @@ struct history_t {
 
 class History : public StoreBase<history_t> {
   protected:
-    void onNewItem(history_t*);
+    void onNewItem(history_t*, uint64_t);
 
   public:
     void add(std::string[8]);

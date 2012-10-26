@@ -17,10 +17,10 @@ void Items::add(string elements[5]) {
   StoreBase::add_instance(item);
 }
 
-void Items::onNewItem(item_t* item) {
-  pkIndex[item->i_id] = item;
+void Items::onNewItem(item_t* item, uint64_t tid) {
+  pkIndex[item->i_id] = tid;
 }
 
 item_t* Items::get(int32_t i_id) {
-  return pkIndex[i_id];
+  return &store[pkIndex[i_id]];
 }
