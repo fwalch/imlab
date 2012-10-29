@@ -13,4 +13,4 @@ Main Memory Database
  2. Run `make release=true` to build.
  3. Execute `./obj/fakedb` (or use `make run`).
 
-Tested with gcc 4.7.2 on Arch Linux.
+Tested with gcc 4.7.2 on Arch Linux x86_64.

@@ -8,23 +8,18 @@
 #include <cstdint>
 #include "store.h"
 
-struct neworder_t {
-  int32_t no_o_id;
-  int32_t no_d_id;
-  int32_t no_w_id;
-};
-
-class NewOrders : public StoreBase<neworder_t> {
+class NewOrders : public Store {
   private:
     typedef std::tuple<int32_t, int32_t, int32_t> pkIndexType;
     std::map<pkIndexType, uint64_t> pkIndex;
 
-  protected:
-    void onNewItem(neworder_t*, uint64_t);
-
   public:
+    std::vector<int32_t> no_o_id;
+    std::vector<int32_t> no_d_id;
+    std::vector<int32_t> no_w_id;
     void add(std::string[3]);
-    neworder_t* get(int32_t, int32_t, int32_t);
+    void add_instance(int32_t no_o_id, int32_t no_d_id, int32_t no_w_id);
+    uint64_t get(int32_t, int32_t, int32_t);
 };
 
 #endif

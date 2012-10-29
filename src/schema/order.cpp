@@ -5,24 +5,30 @@
 using namespace std;
 
 void Orders::add(string elements[8]) {
-  order_t order;
-
-  order.o_id = atoi(elements[0].c_str());
-  order.o_d_id = atoi(elements[1].c_str());
-  order.o_w_id = atoi(elements[2].c_str());
-  order.o_c_id = atoi(elements[3].c_str());
-  order.o_entry_d = db_stod(elements[4].c_str());
-  order.o_carrier_id = atoi(elements[5].c_str());
-  order.o_ol_cnt = db_stod(elements[6].c_str());
-  order.o_all_local = db_stod(elements[7].c_str());
-
-  StoreBase::add_instance(order);
+  add_instance(atoi(elements[0].c_str()),
+    atoi(elements[1].c_str()),
+    atoi(elements[2].c_str()),
+    atoi(elements[3].c_str()),
+    db_stod(elements[4].c_str()),
+    atoi(elements[5].c_str()),
+    db_stod(elements[6].c_str()),
+    db_stod(elements[7].c_str()));
 }
 
-void Orders::onNewItem(order_t* item, uint64_t tid) {
-  pkIndex[pkIndexType(item->o_w_id, item->o_d_id, item->o_id)] = tid;
+void Orders::add_instance(int32_t o_id, int32_t o_d_id, int32_t o_w_id, int32_t o_c_id, int64_t o_entry_d, int32_t o_carrier_id, int64_t o_ol_cnt, int64_t o_all_local) {
+  this->o_id.push_back(o_id);
+  this->o_d_id.push_back(o_d_id);
+  this->o_w_id.push_back(o_w_id);
+  this->o_c_id.push_back(o_c_id);
+  this->o_entry_d.push_back(o_entry_d);
+  this->o_carrier_id.push_back(o_carrier_id);
+  this->o_ol_cnt.push_back(o_ol_cnt);
+  this->o_all_local.push_back(o_all_local);
+
+  pkIndex[pkIndexType(o_w_id, o_d_id, o_id)] = tid;
+  tid++;
 }
 
-order_t* Orders::get(int32_t o_w_id, int32_t o_d_id, int32_t o_id) {
-  return &store[pkIndex[pkIndexType(o_w_id, o_d_id, o_id)]];
+uint64_t Orders::get(int32_t o_w_id, int32_t o_d_id, int32_t o_id) {
+  return pkIndex[pkIndexType(o_w_id, o_d_id, o_id)];
 }

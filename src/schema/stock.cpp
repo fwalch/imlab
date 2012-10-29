@@ -6,33 +6,28 @@
 using namespace std;
 
 void Stock::add(string elements[17]) {
-  stock_t stock;
+  s_i_id.push_back(atoi(elements[0].c_str()));
+  s_w_id.push_back(atoi(elements[1].c_str()));
+  s_quantity.push_back(db_stol(elements[2]));
+  s_dist_01.push_back(elements[3]);
+  s_dist_02.push_back(elements[4]);
+  s_dist_03.push_back(elements[5]);
+  s_dist_04.push_back(elements[6]);
+  s_dist_05.push_back(elements[7]);
+  s_dist_06.push_back(elements[8]);
+  s_dist_07.push_back(elements[9]);
+  s_dist_08.push_back(elements[10]);
+  s_dist_09.push_back(elements[11]);
+  s_dist_10.push_back(elements[12]);
+  s_ytd.push_back(db_stol(elements[13]));
+  s_order_cnt.push_back(db_stol(elements[14]));
+  s_remote_cnt.push_back(db_stol(elements[15]));
+  s_data.push_back(elements[16].c_str());
 
-  stock.s_i_id = atoi(elements[0].c_str());
-  stock.s_w_id = atoi(elements[1].c_str());
-  stock.s_quantity = db_stol(elements[2]);
-  strcpy(stock.s_dist_01, elements[3].c_str());
-  strcpy(stock.s_dist_02, elements[4].c_str());
-  strcpy(stock.s_dist_03, elements[5].c_str());
-  strcpy(stock.s_dist_04, elements[6].c_str());
-  strcpy(stock.s_dist_05, elements[7].c_str());
-  strcpy(stock.s_dist_06, elements[8].c_str());
-  strcpy(stock.s_dist_07, elements[9].c_str());
-  strcpy(stock.s_dist_08, elements[10].c_str());
-  strcpy(stock.s_dist_09, elements[11].c_str());
-  strcpy(stock.s_dist_10, elements[12].c_str());
-  stock.s_ytd = db_stol(elements[13]);
-  stock.s_order_cnt = db_stol(elements[14]);
-  stock.s_remote_cnt = db_stol(elements[15]);
-  strcpy(stock.s_data, elements[16].c_str());
-
-  StoreBase::add_instance(stock);
+  pkIndex[pkIndexType(s_w_id[tid], s_i_id[tid])] = tid;
+  tid++;
 }
 
-void Stock::onNewItem(stock_t* item, uint64_t tid) {
-  pkIndex[pkIndexType(item->s_w_id, item->s_i_id)] = tid;
-}
-
-stock_t* Stock::get(int32_t s_w_id, int32_t s_i_id) {
- return &store[pkIndex[pkIndexType(s_w_id, s_i_id)]];
+uint64_t Stock::get(int32_t s_w_id, int32_t s_i_id) {
+ return pkIndex[pkIndexType(s_w_id, s_i_id)];
 }

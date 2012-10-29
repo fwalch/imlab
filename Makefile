@@ -11,7 +11,7 @@ SRC_DIR = src
 SRC_FILES = schema/conversion.cpp \
 						schema/warehouse.cpp schema/district.cpp schema/customer.cpp schema/history.cpp \
 						schema/neworder.cpp schema/order.cpp schema/orderline.cpp schema/item.cpp schema/stock.cpp \
-						import.cpp tpcc.cpp oltp.cpp timer.cpp main.cpp
+						schema/store.cpp import.cpp tpcc.cpp oltp.cpp timer.cpp main.cpp
 SOURCES = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ_DIR = obj

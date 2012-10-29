@@ -7,38 +7,33 @@
 #include <tuple>
 #include <cstdint>
 #include "store.h"
+#include "../str_vector.h"
 
-struct stock_t {
-  int32_t s_i_id;
-  int32_t s_w_id;
-  int64_t s_quantity;
-  char s_dist_01[25];
-  char s_dist_02[25];
-  char s_dist_03[25];
-  char s_dist_04[25];
-  char s_dist_05[25];
-  char s_dist_06[25];
-  char s_dist_07[25];
-  char s_dist_08[25];
-  char s_dist_09[25];
-  char s_dist_10[25];
-  int64_t s_ytd;
-  int64_t s_order_cnt;
-  int64_t s_remote_cnt;
-  char s_data[51];
-};
-
-class Stock : public StoreBase<stock_t> {
+class Stock : public Store {
   private:
     typedef std::tuple<int32_t, int32_t> pkIndexType;
     std::map<pkIndexType, uint64_t> pkIndex;
 
-  protected:
-    void onNewItem(stock_t*, uint64_t);
-
   public:
+    std::vector<int32_t> s_i_id;
+    std::vector<int32_t> s_w_id;
+    std::vector<int64_t> s_quantity;
+    str_vector<24> s_dist_01;
+    str_vector<24> s_dist_02;
+    str_vector<24> s_dist_03;
+    str_vector<24> s_dist_04;
+    str_vector<24> s_dist_05;
+    str_vector<24> s_dist_06;
+    str_vector<24> s_dist_07;
+    str_vector<24> s_dist_08;
+    str_vector<24> s_dist_09;
+    str_vector<24> s_dist_10;
+    std::vector<int64_t> s_ytd;
+    std::vector<int64_t> s_order_cnt;
+    std::vector<int64_t> s_remote_cnt;
+    str_vector<50> s_data;
     void add(std::string[17]);
-    stock_t* get(int32_t, int32_t);
+    uint64_t get(int32_t, int32_t);
 };
 
 #endif

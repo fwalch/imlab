@@ -6,29 +6,24 @@
 #include <map>
 #include <cstdint>
 #include "store.h"
+#include "../str_vector.h"
 
-struct warehouse_t {
-  int32_t w_id;
-  char w_name[11];
-  char w_street_1[21];
-  char w_street_2[21];
-  char w_city[21];
-  char w_state[3];
-  char w_zip[10];
-  uint64_t w_tax;
-  uint64_t w_ytd;
-};
-
-class Warehouses : public StoreBase<warehouse_t> {
+class Warehouses : public Store {
   private:
     std::map<int32_t, uint64_t> pkIndex;
 
-  protected:
-    void onNewItem(warehouse_t*, uint64_t);
-
   public:
+    std::vector<int32_t> w_id;
+    str_vector<10> w_name;
+    str_vector<20> w_street_1;
+    str_vector<20> w_street_2;
+    str_vector<20> w_city;
+    str_vector<2> w_state;
+    str_vector<9> w_zip;
+    std::vector<uint64_t> w_tax;
+    std::vector<uint64_t> w_ytd;
     void add(std::string[9]);
-    warehouse_t* get(int32_t);
+    uint64_t get(int32_t);
 };
 
 #endif

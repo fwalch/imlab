@@ -6,39 +6,32 @@
 using namespace std;
 
 void Customers::add(string elements[21]) {
-  customer_t customer;
-  int c_id = atoi(elements[0].c_str());
-  customer.c_id = c_id;
-  int c_d_id = atoi(elements[1].c_str());
-  customer.c_d_id = c_d_id;
-  int c_w_id = atoi(elements[2].c_str());
-  customer.c_w_id = c_w_id;
-  strcpy(customer.c_first, elements[3].c_str());
-  strcpy(customer.c_middle, elements[4].c_str());
-  strcpy(customer.c_last, elements[5].c_str());
-  strcpy(customer.c_street_1, elements[6].c_str());
-  strcpy(customer.c_street_2, elements[7].c_str());
-  strcpy(customer.c_city, elements[8].c_str());
-  strcpy(customer.c_state, elements[9].c_str());
-  strcpy(customer.c_zip, elements[10].c_str());
-  strcpy(customer.c_phone, elements[11].c_str());
-  customer.c_since = db_stod(elements[12]);
-  strcpy(customer.c_credit, elements[13].c_str());
-  customer.c_credit_lim = db_stol(elements[14]);
-  customer.c_discount = db_stol(elements[15]);
-  customer.c_balance = db_stol(elements[16]);
-  customer.c_ytd_paymenr = db_stol(elements[17]);
-  customer.c_payment_cnt = db_stol(elements[18]);
-  customer.c_delivery_cnt = db_stol(elements[19]);
-  strcpy(customer.c_data, elements[20].c_str());
+  c_id.push_back(atoi(elements[0].c_str()));
+  c_d_id.push_back(atoi(elements[1].c_str()));
+  c_w_id.push_back(atoi(elements[2].c_str()));
+  c_first.push_back(elements[3]);
+  c_middle.push_back(elements[4]);
+  c_last.push_back(elements[5]);
+  c_street_1.push_back(elements[6]);
+  c_street_2.push_back(elements[7]);
+  c_city.push_back(elements[8]);
+  c_state.push_back(elements[9]);
+  c_zip.push_back(elements[10]);
+  c_phone.push_back(elements[11]);
+  c_since.push_back(db_stod(elements[12]));
+  c_credit.push_back(elements[13].c_str());
+  c_credit_lim.push_back(db_stol(elements[14]));
+  c_discount.push_back(db_stol(elements[15]));
+  c_balance.push_back(db_stol(elements[16]));
+  c_ytd_paymenr.push_back(db_stol(elements[17]));
+  c_payment_cnt.push_back(db_stol(elements[18]));
+  c_delivery_cnt.push_back(db_stol(elements[19]));
+  c_data.push_back(elements[20]);
 
-  StoreBase::add_instance(customer);
+  pkIndex[pkIndexType(c_w_id[tid], c_d_id[tid], c_id[tid])] = tid;
+  tid++;
 }
 
-void Customers::onNewItem(customer_t* item, uint64_t tid) {
-  pkIndex[pkIndexType(item->c_w_id, item->c_d_id, item->c_id)] = tid;
-}
-
-customer_t* Customers::get(int32_t c_w_id, int32_t c_d_id, int32_t c_id) {
-  return &store[pkIndex[pkIndexType(c_w_id, c_d_id, c_id)]];
+uint64_t Customers::get(int32_t c_w_id, int32_t c_d_id, int32_t c_id) {
+  return pkIndex[pkIndexType(c_w_id, c_d_id, c_id)];
 }

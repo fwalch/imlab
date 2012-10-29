@@ -6,25 +6,20 @@
 using namespace std;
 
 void Warehouses::add(string elements[9]) {
-  warehouse_t warehouse;
+  w_id.push_back(atoi(elements[0].c_str()));
+  w_name.push_back(elements[1]);
+  w_street_1.push_back(elements[2]);
+  w_street_2.push_back(elements[3]);
+  w_city.push_back(elements[4]);
+  w_state.push_back(elements[5]);
+  w_zip.push_back(elements[6]);
+  w_tax.push_back(db_stol(elements[7]));
+  w_ytd.push_back(db_stol(elements[8]));
 
-  warehouse.w_id = atoi(elements[0].c_str());
-  strcpy(warehouse.w_name, elements[1].c_str());
-  strcpy(warehouse.w_street_1, elements[2].c_str());
-  strcpy(warehouse.w_street_2, elements[3].c_str());
-  strcpy(warehouse.w_city, elements[4].c_str());
-  strcpy(warehouse.w_state, elements[5].c_str());
-  strcpy(warehouse.w_zip, elements[6].c_str());
-  warehouse.w_tax = db_stol(elements[7]);
-  warehouse.w_ytd = db_stol(elements[8]);
-
-  StoreBase::add_instance(warehouse);
+  pkIndex[w_id[tid]] = tid;
+  tid++;
 }
 
-void Warehouses::onNewItem(warehouse_t* item, uint64_t tid) {
-  pkIndex[item->w_id] = tid;
-}
-
-warehouse_t* Warehouses::get(int32_t w_id) {
-  return &store[pkIndex[w_id]];
+uint64_t Warehouses::get(int32_t w_id) {
+  return pkIndex[w_id];
 }

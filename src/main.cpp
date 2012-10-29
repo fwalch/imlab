@@ -50,7 +50,7 @@ void runTest(Tpcc* tpcc) {
   assertQueries(tpcc, 3001);
 
   // Verify that warehouse 4 originally has 50 items of type 1:
-  assert(tpcc->stock.get(4, 1)->s_quantity == 50);
+  assert(tpcc->stock.s_quantity[tpcc->stock.get(4, 1)] == 50);
 
   int supware[2] = { 4 };
   int itemid[2] = { 1 };
@@ -63,21 +63,21 @@ void runTest(Tpcc* tpcc) {
   // more items. In the sample data there are originally 50 items.
 
   // -> now only 40 items of type 1 should be in warehouse 4:
-  assert(tpcc->stock.get(4, 1)->s_quantity == 40);
+  assert(tpcc->stock.s_quantity[tpcc->stock.get(4, 1)] == 40);
 
   assertQueries(tpcc, 3002);
 }
 
 void assertQueries(Tpcc* tpcc, int32_t o_id) {
   // Test if querying retrieves the correct object
-  order_t* order = tpcc->orders.get(4, 2, 28);
-  assert(order->o_id == 28);
-  assert(order->o_d_id == 2);
-  assert(order->o_w_id == 4);
-  assert(order->o_c_id == 258);
+  uint64_t order = tpcc->orders.get(4, 2, 28);
+  assert(tpcc->orders.o_id[order] == 28);
+  assert(tpcc->orders.o_d_id[order] == 2);
+  assert(tpcc->orders.o_w_id[order] == 4);
+  assert(tpcc->orders.o_c_id[order] == 258);
 
   // Insert additional item, test if querying still works
-  order_t order_instance = {
+  tpcc->orders.add_instance(
     o_id,
     1,
     4,
@@ -86,13 +86,12 @@ void assertQueries(Tpcc* tpcc, int32_t o_id) {
     0,
     14,
     1
-  };
-  tpcc->orders.add_instance(order_instance);
+  );
 
   // Test querying
   order = tpcc->orders.get(4, 1, o_id);
-  assert(order->o_id == o_id);
-  assert(order->o_d_id == 1);
-  assert(order->o_w_id == 4);
-  assert(order->o_c_id == 2679);
+  assert(tpcc->orders.o_id[order] == o_id);
+  assert(tpcc->orders.o_d_id[order] == 1);
+  assert(tpcc->orders.o_w_id[order] == 4);
+  assert(tpcc->orders.o_c_id[order] == 2679);
 }

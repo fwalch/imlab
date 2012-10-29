@@ -7,42 +7,37 @@
 #include <tuple>
 #include <cstdint>
 #include "store.h"
+#include "../str_vector.h"
 
-struct customer_t {
-  int32_t c_id;
-  int32_t c_d_id;
-  int32_t c_w_id;
-  char c_first[17];
-  char c_middle[3];
-  char c_last[17];
-  char c_street_1[21];
-  char c_street_2[21];
-  char c_city[21];
-  char c_state[3];
-  char c_zip[10];
-  char c_phone[17];
-  int64_t c_since;
-  char c_credit[3];
-  int64_t c_credit_lim;
-  int64_t c_discount;
-  int64_t c_balance;
-  int64_t c_ytd_paymenr;
-  int64_t c_payment_cnt;
-  int64_t c_delivery_cnt;
-  char c_data[501];
-};
-
-class Customers : public StoreBase<customer_t> {
+class Customers : public Store {
   private:
     typedef std::tuple<int32_t, int32_t, int32_t> pkIndexType;
     std::map<pkIndexType, uint64_t> pkIndex;
 
-  protected:
-    void onNewItem(customer_t*, uint64_t);
-
   public:
+    std::vector<int32_t> c_id;
+    std::vector<int32_t> c_d_id;
+    std::vector<int32_t> c_w_id;
+    str_vector<16> c_first;
+    str_vector<2> c_middle;
+    str_vector<16> c_last;
+    str_vector<20> c_street_1;
+    str_vector<20> c_street_2;
+    str_vector<20> c_city;
+    str_vector<2> c_state;
+    str_vector<9> c_zip;
+    str_vector<16> c_phone;
+    std::vector<int64_t> c_since;
+    str_vector<2> c_credit;
+    std::vector<int64_t> c_credit_lim;
+    std::vector<int64_t> c_discount;
+    std::vector<int64_t> c_balance;
+    std::vector<int64_t> c_ytd_paymenr;
+    std::vector<int64_t> c_payment_cnt;
+    std::vector<int64_t> c_delivery_cnt;
+    str_vector<500> c_data;
     void add(std::string[21]);
-    customer_t* get(int32_t, int32_t, int32_t);
+    uint64_t get(int32_t, int32_t, int32_t);
 };
 
 #endif
