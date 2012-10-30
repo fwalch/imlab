@@ -1,4 +1,5 @@
 #include <cstring>
+#include <climits>
 #include "tpcc.h"
 
 using namespace std;
@@ -37,7 +38,7 @@ void Tpcc::newOrder(int32_t w_id, int32_t d_id, int32_t c_id, int32_t items, int
     w_id
   );
 
-  for (int i = 0; i < items; i++) {
+  for (uint32_t i = 0; i < items; i++) {
     int64_t i_price = this->items.i_price[this->items.get(itemid[i])];
 
     uint64_t s = stock.get(supware[i], itemid[i]);
@@ -115,6 +116,35 @@ void Tpcc::newOrder(int32_t w_id, int32_t d_id, int32_t c_id, int32_t items, int
 
 void Tpcc::delivery(int32_t w_id, int32_t o_carrier_id, int64_t datetime) {
   for (int32_t d_id = 1; d_id <= 10; d_id++) {
+    auto neworder = newOrders.get(w_id, d_id);
+    //TODO
+    if (neworder.first == neworder.second) {
+      continue;
+    }
+    int32_t o_id = INT_MAX;
+    /*for (auto it = neworder.first; it < neworder.second; it++) {
+      int32_t no_o_id = newOrders.no_o_id[it->second];
+      if (no_o_id < o_id) {
+        o_id = no_o_id;
+      }
+    }*/
 
+    newOrders.remove(o_id, d_id, w_id);
+    uint64_t o = orders.get(w_id, d_id, o_id);
+    int64_t o_ol_cnt = orders.o_ol_cnt[o];
+    int32_t o_c_id = orders.o_c_id[o];
+
+    orders.o_carrier_id[o] = o_carrier_id;
+
+    int64_t ol_total = 0;
+    for (int32_t ol_number = 1; ol_number <= o_ol_cnt; ol_number++) {
+      uint64_t orderline = orderLines.get(w_id, d_id, o_id, ol_number);
+      int64_t ol_amount = orderLines.ol_amount[orderline];
+      ol_total += ol_amount;
+      orderLines.ol_delivery_d[orderline] = datetime;
+    }
+
+    uint64_t customer = customers.get(w_id, d_id, o_c_id);
+    customers.c_balance[customer] += ol_total;
   }
 }

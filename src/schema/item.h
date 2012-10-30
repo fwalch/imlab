@@ -3,14 +3,14 @@
 
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <cstdint>
 #include "store.h"
 #include "../str_vector.h"
 
 class Items : public Store {
   private:
-    std::map<int32_t, uint64_t> pkIndex;
+    std::unordered_map<int32_t, uint64_t> pkIndex;
 
   public:
     std::vector<int32_t> i_id;

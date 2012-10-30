@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <unordered_map>
 #include <cstdint>
 #include "store.h"
 #include "../str_vector.h"

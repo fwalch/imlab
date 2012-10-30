@@ -3,10 +3,12 @@
 
 #include <string>
 #include <vector>
+#include "../tuple_hash.h"
 
 class Store {
   protected:
     uint64_t tid;
+
   public:
     Store();
     virtual void add(std::string[]) = 0;

@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <tuple>
 #include <cstdint>
 #include "store.h"
@@ -12,7 +12,7 @@
 class Stock : public Store {
   private:
     typedef std::tuple<int32_t, int32_t> pkIndexType;
-    std::map<pkIndexType, uint64_t> pkIndex;
+    std::unordered_map<pkIndexType, uint64_t> pkIndex;
 
   public:
     std::vector<int32_t> s_i_id;
