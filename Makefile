@@ -1,4 +1,4 @@
-CC = clang++
+CC = g++
 ifdef release
 	CFLAGS = -g -O3 -Wall --std=c++11
 	LDFLAGS =

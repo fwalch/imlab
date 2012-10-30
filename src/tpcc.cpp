@@ -38,7 +38,7 @@ void Tpcc::newOrder(int32_t w_id, int32_t d_id, int32_t c_id, int32_t items, int
     w_id
   );
 
-  for (uint32_t i = 0; i < items; i++) {
+  for (int32_t i = 0; i < items; i++) {
     int64_t i_price = this->items.i_price[this->items.get(itemid[i])];
 
     uint64_t s = stock.get(supware[i], itemid[i]);
@@ -117,17 +117,20 @@ void Tpcc::newOrder(int32_t w_id, int32_t d_id, int32_t c_id, int32_t items, int
 void Tpcc::delivery(int32_t w_id, int32_t o_carrier_id, int64_t datetime) {
   for (int32_t d_id = 1; d_id <= 10; d_id++) {
     auto neworder = newOrders.get(w_id, d_id);
-    //TODO
+
+    // Equal if no matching NewOrder was found
     if (neworder.first == neworder.second) {
       continue;
     }
+
+    //TODO: min
     int32_t o_id = INT_MAX;
-    /*for (auto it = neworder.first; it < neworder.second; it++) {
+    for (auto it = neworder.first; it != neworder.second; it++) {
       int32_t no_o_id = newOrders.no_o_id[it->second];
       if (no_o_id < o_id) {
         o_id = no_o_id;
       }
-    }*/
+    }
 
     newOrders.remove(o_id, d_id, w_id);
     uint64_t o = orders.get(w_id, d_id, o_id);
