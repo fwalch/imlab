@@ -5,6 +5,9 @@
 #include <cstdint>
 #include "schema/schema.h"
 
+/**
+ * Controller class for TPC-C tables and transactions.
+ */
 class Tpcc {
   public:
     Warehouses warehouses;

@@ -34,3 +34,5 @@ $(EXECUTABLE): $(OBJECTS)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(dir $@) && $(CC) $(CFLAGS) -c $< -o $@
 
+docu: $(SOURCES)
+	doxygen Doxyfile

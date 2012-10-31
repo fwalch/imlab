@@ -12,10 +12,11 @@ void createRandomOrders(const int, Tpcc*);
 void createRandomDeliveries(const int, Tpcc*);
 
 int main() {
+  const int runs = 1E6;
+  const int newOrderCount = runs * 0.9;
+  const int deliveryCount = runs * 0.1;
+
   try {
-    const int runs = 1E6;
-    const int newOrderCount = runs * 0.9;
-    const int deliveryCount = runs * 0.1;
     Tpcc tpcc;
 
     importSampleData("data", &tpcc);

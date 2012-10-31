@@ -4,7 +4,15 @@
 #include <cstdint>
 #include "tpcc.h"
 
+/**
+ * @file
+ * Defines the C++ counterparts of oltp.script.
+ */
+
+/** Number of warehouses in the sample data */
 const unsigned Warehouses = 5;
+
+/** Number of orders in the sample data */
 const unsigned Orders = 150000;
 
 void newOrderRandom(int64_t, int32_t, Tpcc*);
