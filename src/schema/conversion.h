@@ -3,7 +3,6 @@
 
 #include <cstdint>
 #include <string>
-#include <cstdlib>
 
 /**
  * Converts a NUMERIC(x,y) string to int64_t.

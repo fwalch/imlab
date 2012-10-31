@@ -1,5 +1,7 @@
 # Imlab
 
+[![Build Status](https://secure.travis-ci.org/fwalch/imlab.png)](http://travis-ci.org/fwalch/imlab)
+
 Main Memory Database
 
     bin/    Helper scripts to get sample data etc.
