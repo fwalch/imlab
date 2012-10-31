@@ -1,5 +1,6 @@
 language: cpp
+compiler: clang
 before_install:
  - sudo apt-get update -qq
- - sudo apt-get install -qq libgtest-dev cmake
+ - sudo apt-get install -qq libgtest-dev cmake gcc
 script: make test
