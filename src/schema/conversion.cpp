@@ -1,7 +1,8 @@
+#include <cstdlib>
+#include <sstream>
 #include "conversion.h"
 
-//TODO: relies on correct number of decimal places in str
-uint64_t db_stol(std::string str) {
+int64_t db_stol(std::string str) {
   size_t pos = str.find('.');
   if (pos != std::string::npos) {
     str = str.erase(pos, 1);
@@ -10,5 +11,8 @@ uint64_t db_stol(std::string str) {
 }
 
 uint64_t db_stod(std::string str) {
-  return atol(str.c_str());
+  std::stringstream ss(str);
+  uint64_t value;
+  ss >> value;
+  return value;
 }

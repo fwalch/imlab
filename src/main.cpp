@@ -10,11 +10,12 @@ using namespace std;
 
 void createRandomOrders(const int, Tpcc*);
 void createRandomDeliveries(const int, Tpcc*);
+uint64_t getTime();
 
 int main() {
   const int runs = 1E6;
-  const int newOrderCount = runs * 0.9;
-  const int deliveryCount = runs * 0.1;
+  const int newOrderCount = (const int)(runs * 0.9);
+  const int deliveryCount = (const int)(runs * 0.1);
 
   try {
     Tpcc tpcc;
@@ -38,7 +39,7 @@ void createRandomOrders(const int newOrderCount, Tpcc* tpcc) {
   cout << " ✱ Creating " << newOrderCount << " new random orders." << endl;
 
   for (int i = 0; i < newOrderCount; i++) {
-    newOrderRandom(clock(), urand(1, Warehouses), tpcc);
+    newOrderRandom(getTime(), urand(1, Warehouses), tpcc);
   }
 
   t.stop();
@@ -51,10 +52,13 @@ void createRandomDeliveries(const int newDeliveryCount, Tpcc* tpcc) {
   cout << " ✱ Creating " << newDeliveryCount << " new random deliveries." << endl;
 
   for (int i = 0; i < newDeliveryCount; i++) {
-    deliveryRandom(clock(), urand(1, Warehouses), tpcc);
+    deliveryRandom(getTime(), urand(1, Warehouses), tpcc);
   }
 
   t.stop();
   cout << " ✔  Done in " << t.seconds << " sec (" << newDeliveryCount/t.seconds << " deliveries per second)." << endl;
 }
 
+uint64_t getTime() {
+  return (uint64_t)clock();
+}

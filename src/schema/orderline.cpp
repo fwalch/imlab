@@ -12,13 +12,13 @@ void OrderLines::add(string elements[10]) {
     atoi(elements[2].c_str()),
     atoi(elements[3].c_str()),
     atoi(elements[4].c_str()),
-    db_stod(elements[5].c_str()),
+    atoi(elements[5].c_str()),
     db_stod(elements[6].c_str()),
     db_stol(elements[7].c_str()),
     db_stol(elements[8].c_str()),
     elements[9].c_str());
 }
-void OrderLines::add_instance(int32_t ol_o_id, int32_t ol_d_id, int32_t ol_w_id, int32_t ol_number, int32_t ol_i_id, int32_t ol_supply_w_id, int64_t ol_delivery_d, int64_t ol_quantity, int64_t ol_amount, const char ol_dist_info[24]) {
+void OrderLines::add_instance(int32_t ol_o_id, int32_t ol_d_id, int32_t ol_w_id, int32_t ol_number, int32_t ol_i_id, int32_t ol_supply_w_id, uint64_t ol_delivery_d, int64_t ol_quantity, int64_t ol_amount, const char ol_dist_info[24]) {
   this->ol_o_id.push_back(ol_o_id);
   this->ol_d_id.push_back(ol_d_id);
   this->ol_w_id.push_back(ol_w_id);

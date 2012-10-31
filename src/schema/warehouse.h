@@ -20,8 +20,8 @@ class Warehouses : public Store {
     str_vector<20> w_city;
     str_vector<2> w_state;
     str_vector<9> w_zip;
-    std::vector<uint64_t> w_tax;
-    std::vector<uint64_t> w_ytd;
+    std::vector<int64_t> w_tax;
+    std::vector<int64_t> w_ytd;
     void add(std::string[9]);
     uint64_t get(int32_t);
 };

@@ -39,7 +39,7 @@ int32_t urandexcept(int32_t min, int32_t max, int32_t v) {
   return r >= v ? r+1 : r;
 }
 
-void newOrderRandom(int64_t now, int32_t w_id, Tpcc* c)
+void newOrderRandom(uint64_t now, int32_t w_id, Tpcc* c)
 {
   int32_t d_id = urand(1, 10);
   int32_t c_id = nurand(1023, 1, 3000);
@@ -66,7 +66,7 @@ void newOrderRandom(int64_t now, int32_t w_id, Tpcc* c)
   c->newOrder(w_id,d_id,c_id,ol_cnt,supware,itemid,qty,now);
 }
 
-void deliveryRandom(int64_t now, int32_t w_id, Tpcc* c) {
+void deliveryRandom(uint64_t now, int32_t w_id, Tpcc* c) {
   int32_t carrier_id = urand(1, 10);
   c->delivery(w_id, carrier_id, now);
 }

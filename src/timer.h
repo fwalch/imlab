@@ -7,7 +7,7 @@ class Timer {
 
   public:
     /** Number of ticks from start to stop */
-    unsigned long ticks;
+    long ticks;
     /** Number of seconds from start to stop */
     double seconds;
     /** Starts the timer */

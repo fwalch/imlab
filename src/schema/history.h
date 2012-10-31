@@ -14,7 +14,7 @@ class History : public Store {
     std::vector<int32_t> h_c_w_id;
     std::vector<int32_t> h_d_id;
     std::vector<int32_t> h_w_id;
-    std::vector<int64_t> h_date;
+    std::vector<uint64_t> h_date;
     std::vector<int64_t> h_amount;
     str_vector<24> h_data;
     void add(std::string[8]);

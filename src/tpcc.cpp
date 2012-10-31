@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void Tpcc::newOrder(int32_t w_id, int32_t d_id, int32_t c_id, int32_t items, int32_t supware[15], int32_t itemid[15], int32_t qty[15], int64_t datetime) {
+void Tpcc::newOrder(int32_t w_id, int32_t d_id, int32_t c_id, int32_t items, int32_t supware[15], int32_t itemid[15], int32_t qty[15], uint64_t datetime) {
   int64_t w_tax = warehouses.w_tax[warehouses.get(w_id)];
   int64_t c_discount = customers.c_discount[customers.get(w_id, d_id, c_id)];
   uint64_t d = districts.get(w_id, d_id);
@@ -98,7 +98,10 @@ void Tpcc::newOrder(int32_t w_id, int32_t d_id, int32_t c_id, int32_t items, int
       stock.s_order_cnt[s] = s_order_cnt + 1;
     }
 
-    int64_t ol_amount = qty[i] * i_price * (1.0 + w_tax + d_tax) * (1.0 - c_discount);
+    // NUMERIC(6,2)
+    // w_tax, d_tax, c_discount: NUMERIC(4,4), 1.0 => 10000
+    // i_price: NUMERIC(4,2), decimal separator shift by 2 places necessary
+    int64_t ol_amount = qty[i] * i_price * ((10000 + w_tax + d_tax) * (10000 - c_discount) / 100);
     orderLines.add_instance(
       o_id,
       d_id,
@@ -114,7 +117,7 @@ void Tpcc::newOrder(int32_t w_id, int32_t d_id, int32_t c_id, int32_t items, int
   }
 }
 
-void Tpcc::delivery(int32_t w_id, int32_t o_carrier_id, int64_t datetime) {
+void Tpcc::delivery(int32_t w_id, int32_t o_carrier_id, uint64_t datetime) {
   for (int32_t d_id = 1; d_id <= 10; d_id++) {
     auto neworder = newOrders.get(w_id, d_id);
 
@@ -139,10 +142,12 @@ void Tpcc::delivery(int32_t w_id, int32_t o_carrier_id, int64_t datetime) {
 
     orders.o_carrier_id[o] = o_carrier_id;
 
+    // NUMERIC(6,2)
     int64_t ol_total = 0;
     for (int32_t ol_number = 1; ol_number <= o_ol_cnt; ol_number++) {
       uint64_t orderline = orderLines.get(w_id, d_id, o_id, ol_number);
       int64_t ol_amount = orderLines.ol_amount[orderline];
+      // ol_amount is also NUMERIC(6,2), no shifting necessary
       ol_total += ol_amount;
       orderLines.ol_delivery_d[orderline] = datetime;
     }

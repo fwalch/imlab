@@ -11,6 +11,7 @@ class Store {
 
   public:
     Store();
+    virtual ~Store();
     virtual void add(std::string[]) = 0;
     size_t count();
 };

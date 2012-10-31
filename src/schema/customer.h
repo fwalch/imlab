@@ -27,7 +27,7 @@ class Customers : public Store {
     str_vector<2> c_state;
     str_vector<9> c_zip;
     str_vector<16> c_phone;
-    std::vector<int64_t> c_since;
+    std::vector<uint64_t> c_since;
     str_vector<2> c_credit;
     std::vector<int64_t> c_credit_lim;
     std::vector<int64_t> c_discount;

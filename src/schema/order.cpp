@@ -11,11 +11,11 @@ void Orders::add(string elements[8]) {
     atoi(elements[3].c_str()),
     db_stod(elements[4].c_str()),
     atoi(elements[5].c_str()),
-    db_stod(elements[6].c_str()),
-    db_stod(elements[7].c_str()));
+    db_stol(elements[6].c_str()),
+    db_stol(elements[7].c_str()));
 }
 
-void Orders::add_instance(int32_t o_id, int32_t o_d_id, int32_t o_w_id, int32_t o_c_id, int64_t o_entry_d, int32_t o_carrier_id, int64_t o_ol_cnt, int64_t o_all_local) {
+void Orders::add_instance(int32_t o_id, int32_t o_d_id, int32_t o_w_id, int32_t o_c_id, uint64_t o_entry_d, int32_t o_carrier_id, int64_t o_ol_cnt, int64_t o_all_local) {
   this->o_id.push_back(o_id);
   this->o_d_id.push_back(o_d_id);
   this->o_w_id.push_back(o_w_id);
