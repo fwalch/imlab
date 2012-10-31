@@ -50,7 +50,7 @@ void createRandomDeliveries(const int newDeliveryCount, Tpcc* tpcc) {
   cout << " ✱ Creating " << newDeliveryCount << " new random deliveries." << endl;
 
   for (int i = 0; i < newDeliveryCount; i++) {
-    tpcc->delivery(urand(1, Warehouses), urand(1, Carriers), clock());
+    deliveryRandom(clock(), urand(1, Warehouses), tpcc);
   }
 
   t.stop();

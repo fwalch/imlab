@@ -66,3 +66,8 @@ void newOrderRandom(int64_t now, int32_t w_id, Tpcc* c)
   c->newOrder(w_id,d_id,c_id,ol_cnt,supware,itemid,qty,now);
 }
 
+void deliveryRandom(int64_t now, int32_t w_id, Tpcc* c) {
+  int32_t carrier_id = urand(1, 10);
+  c->delivery(w_id, carrier_id, now);
+}
+
