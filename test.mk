@@ -12,10 +12,10 @@ TEST_OBJECTS = $(addprefix $(TEST_OBJ_DIR)/, $(TEST_OBJ_FILES)) $(TEST_OBJ_DIR)/
 TEST_EXECUTABLE = $(TEST_OBJ_DIR)/fakedb_test
 
 $(TEST_EXECUTABLE): $(OBJECTS) $(TEST_OBJECTS)
-	$(CC) -lpthread $(TEST_LDFLAGS) $(OBJECTS) $(TEST_OBJECTS) -o $@
+	$(CXX) -lpthread $(TEST_LDFLAGS) $(OBJECTS) $(TEST_OBJECTS) -o $@
 
 $(TEST_OBJ_DIR)/%.o: $(TEST_DIR)/%.cpp
-	mkdir -p $(dir $@) && $(CC) $(TEST_CFLAGS) -c $< -o $@
+	mkdir -p $(dir $@) && $(CXX) $(TEST_CFLAGS) -c $< -o $@
 
 test: $(TEST_EXECUTABLE)
 	./$(TEST_EXECUTABLE)

@@ -1,4 +1,6 @@
-CC = clang++
+ifndef CXX
+	CXX = clang++
+endif
 ifdef release
 	CFLAGS = -g -O3 -Weverything -Wno-c++98-compat -Wno-shadow --std=c++11
 	LDFLAGS =

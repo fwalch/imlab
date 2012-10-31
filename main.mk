@@ -18,7 +18,7 @@ run: all
 	./$(EXECUTABLE)
 
 $(EXECUTABLE): $(MAIN_OBJ) $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) $(MAIN_OBJ) -o $@
+	$(CXX) $(LDFLAGS) $(OBJECTS) $(MAIN_OBJ) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	mkdir -p $(dir $@) && $(CC) $(CFLAGS) -c $< -o $@
+	mkdir -p $(dir $@) && $(CXX) $(CFLAGS) -c $< -o $@
