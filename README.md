@@ -9,6 +9,7 @@ Main Memory Database
     docu/   Documentation output ("make docu")
     obj/    Build output ("make")
     src/    Source code
+    test/   Test source code
 
 ## Quickstart
 
@@ -21,5 +22,6 @@ Tested with Clang 3.1 on Arch Linux x86_64.
 ## Prerequisites
 
  * cURL or Wget to fetch sample data
- * GCC (or Clang) to compile
+ * Clang (or GCC) to compile
  * Doxygen and Graphviz to build docu
+ * googletest to run tests (available as `gtest` package on Ubuntu, Arch Linux [AUR])
