@@ -30,20 +30,20 @@ void NewOrders::remove(int32_t no_o_id, int32_t no_d_id, int32_t no_w_id) {
   // We have one item less now, so decrease TID for next add_instance
   uint64_t tidToSwap = --this->tid;
 
-  if (tid == tidToSwap) {
-    // If we want to delete the last item, no more actions required
-    // -> element cannot be found by index anymore, data will be overwritten
-    // on next add_instance
-    return;
+  if (tid != tidToSwap) {
+    // Move data from last item to deleted item's position
+    this->no_w_id[tid] = this->no_w_id[tidToSwap];
+    this->no_d_id[tid] = this->no_d_id[tidToSwap];
+    this->no_o_id[tid] = this->no_o_id[tidToSwap];
+
+    // Set swapped item's TID in index
+    pkIndex[pkType(this->no_w_id[tid], this->no_d_id[tid], this->no_o_id[tid])] = tid;
   }
 
-  // Move data from last item to deleted item's position
-  this->no_w_id[tid] = this->no_w_id[tidToSwap];
-  this->no_d_id[tid] = this->no_d_id[tidToSwap];
-  this->no_o_id[tid] = this->no_o_id[tidToSwap];
-
-  // Set swapped item's TID in index
-  pkIndex[pkType(this->no_w_id[tid], this->no_d_id[tid], this->no_o_id[tid])] = tid;
+  // Delete the data
+  this->no_w_id.pop_back();
+  this->no_d_id.pop_back();
+  this->no_o_id.pop_back();
 }
 
 std::pair<NewOrders::pkIndexType::iterator, NewOrders::pkIndexType::iterator> NewOrders::get(int32_t no_w_id, int32_t no_d_id) {
