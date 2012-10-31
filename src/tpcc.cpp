@@ -135,7 +135,8 @@ void Tpcc::delivery(int32_t w_id, int32_t o_carrier_id, uint64_t datetime) {
     //    -> get last element (no_o_id)
     int32_t o_id = get<2>(neworder.first->first);
 
-    newOrders.remove(o_id, d_id, w_id);
+    uint64_t neworder_tid = newOrders.get(o_id, d_id, w_id);
+    newOrders.remove(neworder_tid);
     uint64_t o = orders.get(w_id, d_id, o_id);
     int64_t o_ol_cnt = orders.o_ol_cnt[o];
     int32_t o_c_id = orders.o_c_id[o];

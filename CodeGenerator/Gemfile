@@ -1,0 +1,9 @@
+source "https://rubygems.org"
+
+gem 'antlr3'
+gem 'pry'
+
+group :test do
+  gem 'minitest'
+  gem 'rake'
+end

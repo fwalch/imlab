@@ -1,5 +1,9 @@
 # Changelog
 
+## 2012-11-07
+
+ * Code generation
+
 ## 2012-10-31
 
  * Use `std::vector`s/TIDs instead of `std::list`s/pointers

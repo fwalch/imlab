@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+$: << File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'code_generator'
+
+#begin
+  CodeGenerator::Generator.run(ARGV)
+  exit 0
+#rescue StandardError => e
+#  puts e
+#  exit 1
+#end

@@ -1,0 +1,41 @@
+// Generated <%= generation_time %>
+
+#include <climits>
+#include <cstdlib>
+#include <cstring>
+#include "<%= header_name %>"
+#include "../src/schema/conversion.h"
+
+using namespace std;
+
+void <%= class_name %>::add(string elements[<%= column_count %>]) {
+  add_instance(<%= column_conversions %>);
+}
+
+void <%= class_name %>::add_instance(<%= column_typed_variables %>) {
+  <%= column_assignments %>
+
+  <%= index_assignments %>
+  tid++;
+}
+
+void <%= class_name %>::remove(uint64_t tid) {
+  <%= index_removals %>
+
+  // We want to move the last item to the deleted item's position
+  // We have one item less now, so decrease TID for next add_instance
+  uint64_t tidToSwap = --this->tid;
+
+  if (tid != tidToSwap) {
+    // Move data from last item to deleted item's position
+    <%= column_moves('tid', 'tidToSwap') %>
+
+    // Set swapped item's TID in index
+    <%= index_assignments %>
+  }
+
+  // Delete the data
+  <%= column_fields { |c| "#{c}.pop_back();" } %>
+}
+
+<%= index_methods %>

@@ -1,0 +1,23 @@
+// Generated <%= generation_time %>
+
+#ifndef <%= header_constant %>
+#define <%= header_constant %>
+
+#include <tuple>
+<%= includes %>
+#include "schema.h"
+
+class <%= class_name %> : public Store {
+  public:
+    <%= index_members %>
+
+    <%= column_members %>
+
+    void add(std::string[<%= column_count %>]);
+    void add_instance(<%= column_types %>);
+    void remove(uint64_t);
+
+    <%= index_methods %>
+};
+
+#endif

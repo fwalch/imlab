@@ -22,4 +22,5 @@ mkdir -p $TARGET_DIR
 
 $dl
 tar xfz $TARGET_DIR/$OUTPUT_FILE -C $TARGET_DIR --wildcards '*.tbl'
+tar xfz $TARGET_DIR/$OUTPUT_FILE -C $TARGET_DIR --wildcards '*.sql'
 

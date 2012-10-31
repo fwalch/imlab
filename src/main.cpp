@@ -14,16 +14,16 @@ uint64_t getTime();
 
 int main() {
   const int runs = 1E6;
-  const int newOrderCount = (const int)(runs * 0.9);
-  const int deliveryCount = (const int)(runs * 0.1);
+  //const int newOrderCount = (const int)(runs * 0.9);
+  //const int deliveryCount = (const int)(runs * 0.1);
 
   try {
     Tpcc tpcc;
 
     importSampleData("data", &tpcc);
 
-    createRandomOrders(newOrderCount, &tpcc);
-    createRandomDeliveries(deliveryCount, &tpcc);
+    createRandomOrders(runs, &tpcc);
+    //createRandomDeliveries(deliveryCount, &tpcc);
 
     return 0;
   }

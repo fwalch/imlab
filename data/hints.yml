@@ -1,0 +1,4 @@
+neworder:
+  partial_indexes:
+    pk: no_w_id, no_d_id
+

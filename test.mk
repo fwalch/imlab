@@ -1,5 +1,5 @@
-TEST_CFLAGS = $(CFLAGS) -Wno-global-constructors
-TEST_LDFLAGS = $(LDFLAGS)
+TEST_CXXFLAGS += $(CXXFLAGS) -Wno-global-constructors
+TEST_LDFLAGS += $(LDFLAGS)
 
 TEST_DIR = test
 TEST_FILES = main.cpp conversion.cpp
@@ -15,7 +15,7 @@ $(TEST_EXECUTABLE): $(OBJECTS) $(TEST_OBJECTS)
 	$(CXX) -lpthread $(TEST_LDFLAGS) $(OBJECTS) $(TEST_OBJECTS) -o $@
 
 $(TEST_OBJ_DIR)/%.o: $(TEST_DIR)/%.cpp
-	mkdir -p $(dir $@) && $(CXX) $(TEST_CFLAGS) -c $< -o $@
+	mkdir -p $(dir $@) && $(CXX) $(TEST_CXXFLAGS) -c $< -o $@
 
 test: $(TEST_EXECUTABLE)
 	./$(TEST_EXECUTABLE)

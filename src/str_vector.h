@@ -17,7 +17,9 @@ template<size_t C> class str_vector : protected std::vector<char> {
   public:
     void push_back(std::string);
     void push_back(const char*);
+    void pop_back();
     char* operator[](size_t);
+    void set(size_t, std::string);
 };
 
 template<size_t C> char* str_vector<C>::operator[](size_t pos) {
@@ -40,6 +42,18 @@ template<size_t C> void str_vector<C>::push_back(const char* str) {
 
 template<size_t C> void str_vector<C>::push_back(std::string str) {
   this->push_back(str.c_str());
+}
+
+template<size_t C> void str_vector<C>::pop_back() {
+  for (size_t i = 0; i < realSize; i++) {
+    std::vector<char>::pop_back();
+  }
+}
+
+template<size_t C> void str_vector<C>::set(size_t index, std::string value) {
+  for (size_t i = 0; i < realSize; i++) {
+    std::vector<char>::operator[](i + index) = value[i];
+  }
 }
 
 #endif
