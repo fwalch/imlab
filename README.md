@@ -3,8 +3,9 @@
 Main Memory Database
 
     bin/    Helper scripts to get sample data etc.
-    data/   Sample data (obtain by executing helper script)
-    obj/    Build output
+    data/   Sample data ("./bin/fetch.sh")
+    docu/   Documentation output ("make docu")
+    obj/    Build output ("make")
     src/    Source code
 
 ## Quickstart
@@ -14,3 +15,9 @@ Main Memory Database
  3. Execute `./obj/fakedb` (or use `make run`).
 
 Tested with gcc 4.7.2 on Arch Linux x86_64.
+
+## Prerequisites
+
+ * cURL or Wget to fetch sample data
+ * GCC (or Clang) to compile
+ * Doxygen and Graphviz to build docu

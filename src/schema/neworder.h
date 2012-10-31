@@ -10,10 +10,10 @@
 
 class NewOrders : public Store {
   private:
-    typedef std::tuple<int32_t, int32_t, int32_t> pkIndexType;
-    typedef std::map<pkIndexType, uint64_t> pkRangeIndexType;
+    typedef std::tuple<int32_t, int32_t, int32_t> pkType;
+    typedef std::map<pkType, uint64_t> pkIndexType;
 
-    pkRangeIndexType pkRangeIndex;
+    pkIndexType pkIndex;
 
   public:
     std::vector<int32_t> no_o_id;
@@ -22,7 +22,7 @@ class NewOrders : public Store {
     void add(std::string[3]);
     void add_instance(int32_t no_o_id, int32_t no_d_id, int32_t no_w_id);
     uint64_t get(int32_t, int32_t, int32_t);
-    std::pair<pkRangeIndexType::iterator, pkRangeIndexType::iterator> get(int32_t, int32_t);
+    std::pair<pkIndexType::iterator, pkIndexType::iterator> get(int32_t, int32_t);
     void remove(int32_t no_o_id, int32_t no_d_id, int32_t no_w_id);
 };
 

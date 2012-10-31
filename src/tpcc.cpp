@@ -123,14 +123,14 @@ void Tpcc::delivery(int32_t w_id, int32_t o_carrier_id, int64_t datetime) {
       continue;
     }
 
-    //TODO: min
-    int32_t o_id = INT_MAX;
-    for (auto it = neworder.first; it != neworder.second; it++) {
-      int32_t no_o_id = newOrders.no_o_id[it->second];
-      if (no_o_id < o_id) {
-        o_id = no_o_id;
-      }
-    }
+    // Get MIN(no_o_id):
+    //  * neworder.first is start iterator
+    //    (== item with minimal no_o_id because
+    //    of sorting within map)
+    //  * iterator.first is index tuple
+    //  * index tuple is no_w_id, no_d_id, no_o_id
+    //    -> get last element (no_o_id)
+    int32_t o_id = get<2>(neworder.first->first);
 
     newOrders.remove(o_id, d_id, w_id);
     uint64_t o = orders.get(w_id, d_id, o_id);
