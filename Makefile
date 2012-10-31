@@ -25,6 +25,8 @@ all: $(EXECUTABLE)
 run: all
 	./$(EXECUTABLE)
 
+test: all
+
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)
 
