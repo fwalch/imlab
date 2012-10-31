@@ -24,4 +24,4 @@ Tested with Clang 3.1 on Arch Linux x86_64.
  * cURL or Wget to fetch sample data
  * Clang (or GCC) to compile
  * Doxygen and Graphviz to build docu
- * googletest to run tests (available as `gtest` package on Ubuntu, Arch Linux [AUR])
+ * googletest to run tests (available as `libgtest-dev` package on Ubuntu, `gtest` AUR PKGBUILD for Arch Linux)
