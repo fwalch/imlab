@@ -25,3 +25,4 @@ Tested with Clang 3.1 on Arch Linux x86_64.
  * Clang (or GCC) to compile
  * Doxygen and Graphviz to build docu
  * googletest to run tests (available as `libgtest-dev` package on Ubuntu, `gtest` AUR PKGBUILD for Arch Linux)
+   * cmake to build googletest
