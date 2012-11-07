@@ -2,7 +2,11 @@
 
 ## 2012-11-07
 
- * Code generation
+ * Code generation from SQL schema file
+
+### Performance
+
+Unchanged from last week
 
 ## 2012-10-31
 

@@ -5,7 +5,7 @@
 Main Memory Database
 
     bin/              Helper scripts to get sample data etc.
-    code-generator/   SQL -> C++ code generator; output is in "gen/"
+    CodeGenerator/    SQL -> C++ code generator; output is in "gen/"
     data/             Sample data ("./bin/fetch.sh")
     gen/              Generated source code ("./bin/generate-sql-classes.sh")
     obj/              Build output ("make")
@@ -14,7 +14,7 @@ Main Memory Database
 
 ## Quickstart
 
- 1. Run `./bin/fetch.sh` to get the sample data to populate the database with.
+ 1. Run `./bin/fetch.sh` to get the sample schema/data to populate the database with.
  2. (Optional) Regenerate the C++ classes for the SQL schema with `./bin/generate-sql-classes.sh`.
  3. (Optional) Run `make release=true test` to run unit tests.
  4. Run `make release=true` to build.
