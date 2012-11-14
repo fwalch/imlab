@@ -1,5 +1,11 @@
 # Changelog
 
+## 2012-11-14
+
+ * Implemented SQL query as C++ code (non-generated)
+ * Execute query in parallel to NewOrder transactions
+ * Enhanced code generator to support non-PK indexes
+
 ## 2012-11-07
 
  * Code generation from SQL schema file

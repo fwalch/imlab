@@ -3,27 +3,96 @@
 #include <iostream>
 #include "tpcc.h"
 #include "oltp.h"
+#include "olap.h"
 #include "import.h"
 #include "timer.h"
+#include <unistd.h>
+#include <signal.h>
+#include <sys/types.h>
 
 using namespace std;
 
-void createRandomOrders(const int, Tpcc*);
-void createRandomDeliveries(const int, Tpcc*);
 uint64_t getTime();
 
-int main() {
-  const int runs = 1E6;
-  //const int newOrderCount = (const int)(runs * 0.9);
-  //const int deliveryCount = (const int)(runs * 0.1);
+const int NewOrderCount = 1E6;
+const int QueryCount = 10;
 
+volatile bool childRunning = false;
+int executedQueries = 0;
+
+static void SIGCHLD_handler(int signal) {
+  if (signal != 17) {
+    cout << " ✘  Child terminated with signal " << signal << "." << endl;
+  }
+
+  childRunning = false;
+}
+
+int main() {
   try {
     Tpcc tpcc;
 
     importSampleData("data", &tpcc);
 
-    createRandomOrders(runs, &tpcc);
-    //createRandomDeliveries(deliveryCount, &tpcc);
+    struct sigaction sa;
+    sa.sa_handler = SIGCHLD_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    if (sigaction(SIGCHLD, &sa, NULL) == -1) {
+      throw "Error while attaching signal.";
+    }
+
+    /*
+     * Execute queries
+     */
+    Timer t;
+    t.start();
+    cout << " ✱ Running " << QueryCount << " queries." << endl;
+
+    for (int i = 0; i < QueryCount; i++) {
+      cout << "    Query result: " << lastNameOrderSum("BARBARBAR", &tpcc) << "." << endl;
+    }
+
+    t.stop();
+    cout << " ✔  Done in " << t.seconds << " sec (" << QueryCount/t.seconds << " qps)." << endl;
+
+    /*
+     * Run queries and transactions in parallel
+     */
+    t.start();
+    cout << " ✱ Running " << QueryCount << " queries and " << NewOrderCount << " NewOrder transactions in parallel." << endl;
+
+    for (int i = 0; i < NewOrderCount; i++) {
+      // Check if child still running every 10000 NewOrders
+      if (i%10000 == 0) {
+        if (!childRunning && executedQueries < QueryCount) {
+          childRunning = true;
+          executedQueries++;
+          pid_t pid = fork();
+          if (!pid) {
+            // Child: execute query
+            cout << "  ➤ Query result: " << lastNameOrderSum("BARBARBAR", &tpcc) << "." << endl;
+            return 0;
+          }
+        }
+      }
+      // Parent: run NewOrder transaction
+      newOrderRandom(getTime(), urand(1, Warehouses), &tpcc);
+    }
+
+    // Wait for child to finish
+    while (childRunning);
+
+    // Check if all queries executed; if not, run synchronously
+    // (all NewOrders are already executed, so spawning childs doesn't make sense)
+    int additionalQueries = QueryCount - executedQueries;
+
+    while (additionalQueries-- > 0) {
+      cout << "    Query result: " << lastNameOrderSum("BARBARBAR", &tpcc) << "." << endl;
+    }
+
+    t.stop();
+    cout << " ✔  Done in " << t.seconds << " sec (" << NewOrderCount/t.seconds << " tps)." << endl;
 
     return 0;
   }
@@ -31,32 +100,6 @@ int main() {
     cerr << " ✘ Exception thrown: " << msg << endl;
     return 1;
   }
-}
-
-void createRandomOrders(const int newOrderCount, Tpcc* tpcc) {
-  Timer t;
-  t.start();
-  cout << " ✱ Creating " << newOrderCount << " new random orders." << endl;
-
-  for (int i = 0; i < newOrderCount; i++) {
-    newOrderRandom(getTime(), urand(1, Warehouses), tpcc);
-  }
-
-  t.stop();
-  cout << " ✔  Done in " << t.seconds << " sec (" << newOrderCount/t.seconds << " orders per second)." << endl;
-}
-
-void createRandomDeliveries(const int newDeliveryCount, Tpcc* tpcc) {
-  Timer t;
-  t.start();
-  cout << " ✱ Creating " << newDeliveryCount << " new random deliveries." << endl;
-
-  for (int i = 0; i < newDeliveryCount; i++) {
-    deliveryRandom(getTime(), urand(1, Warehouses), tpcc);
-  }
-
-  t.stop();
-  cout << " ✔  Done in " << t.seconds << " sec (" << newDeliveryCount/t.seconds << " deliveries per second)." << endl;
 }
 
 uint64_t getTime() {

@@ -18,8 +18,12 @@ class Context
 
   def add_index(index_name, table_name, column_names)
     raise "Table #{name} does not exist (yet); cannot add index" unless @tables[table_name]
-    # TODO: support non-pk indexes
-    #@tables[table_name].add_index(index_name, column_names)
+    @tables[table_name].add_multi_index(index_name, column_names)
+  end
+
+  def add_unique_index(index_name, table_name, column_names)
+    raise "Table #{name} does not exist (yet); cannot add index" unless @tables[table_name]
+    @tables[table_name].add_index(index_name, column_names)
   end
 
   def tables

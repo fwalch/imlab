@@ -1,5 +1,3 @@
-# Generated 2012-11-07 12:31:26 UTC
-
 GEN_SRC_FILES = warehouse.cpp district.cpp customer.cpp history.cpp neworder.cpp order.cpp orderline.cpp item.cpp stock.cpp
 GEN_SOURCES = $(addprefix $(GEN_SRC_DIR)/, $(GEN_SRC_FILES))
 

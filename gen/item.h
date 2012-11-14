@@ -1,5 +1,3 @@
-// Generated 2012-11-07 12:31:26 UTC
-
 #ifndef _ITEM_H_
 #define _ITEM_H_
 
@@ -13,14 +11,14 @@
 class ItemStore : public Store {
   public:
     typedef std::tuple<int32_t> pkKeyType;
-typedef std::unordered_map<pkKeyType, uint64_t> pkIndexType;
-pkIndexType pkIndex;
+    typedef std::unordered_map<pkKeyType, uint64_t> pkIndexType;
+    pkIndexType pkIndex;
 
     std::vector<int32_t> i_id;
-std::vector<int32_t> i_im_id;
-str_vector<24> i_name;
-std::vector<int64_t> i_price;
-str_vector<50> i_data;
+    std::vector<int32_t> i_im_id;
+    str_vector<24> i_name;
+    std::vector<int64_t> i_price;
+    str_vector<50> i_data;
 
     void add(std::string[5]);
     void add_instance(int32_t, int32_t, std::string, int64_t, std::string);

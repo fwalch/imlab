@@ -1,6 +1,6 @@
 SRC_DIR = src
 SRC_FILES = schema/conversion.cpp schema/store.cpp \
-						import.cpp tpcc.cpp oltp.cpp timer.cpp
+						import.cpp tpcc.cpp oltp.cpp olap.cpp timer.cpp
 SOURCES = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ_DIR = obj

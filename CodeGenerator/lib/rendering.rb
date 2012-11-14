@@ -1,7 +1,7 @@
-require 'header_view_model'
-require 'source_view_model'
-require 'makefile_view_model'
-require 'template_renderer'
+require 'render/header_view_model'
+require 'render/source_view_model'
+require 'render/makefile_view_model'
+require 'render/template_renderer'
 
 module CodeGenerator
 module Rendering

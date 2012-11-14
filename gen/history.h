@@ -1,5 +1,3 @@
-// Generated 2012-11-07 12:31:26 UTC
-
 #ifndef _HISTORY_H_
 #define _HISTORY_H_
 
@@ -14,13 +12,13 @@ class HistoryStore : public Store {
     
 
     std::vector<int32_t> h_c_id;
-std::vector<int32_t> h_c_d_id;
-std::vector<int32_t> h_c_w_id;
-std::vector<int32_t> h_d_id;
-std::vector<int32_t> h_w_id;
-std::vector<uint64_t> h_date;
-std::vector<int64_t> h_amount;
-str_vector<24> h_data;
+    std::vector<int32_t> h_c_d_id;
+    std::vector<int32_t> h_c_w_id;
+    std::vector<int32_t> h_d_id;
+    std::vector<int32_t> h_w_id;
+    std::vector<uint64_t> h_date;
+    std::vector<int64_t> h_amount;
+    str_vector<24> h_data;
 
     void add(std::string[8]);
     void add_instance(int32_t, int32_t, int32_t, int32_t, int32_t, uint64_t, int64_t, std::string);

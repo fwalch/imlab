@@ -20,7 +20,12 @@ template<size_t C> class str_vector : protected std::vector<char> {
     void pop_back();
     char* operator[](size_t);
     void set(size_t, std::string);
+    size_t size();
 };
+
+template<size_t C> size_t str_vector<C>::size() {
+  return std::vector<char>::size() / realSize;
+}
 
 template<size_t C> char* str_vector<C>::operator[](size_t pos) {
   return &std::vector<char>::operator[](pos * realSize);

@@ -63,7 +63,7 @@ void newOrderRandom(uint64_t now, int32_t w_id, Tpcc* c)
      supware[i] = w_id;
   }
 
-  c->newOrder(w_id,d_id,c_id,ol_cnt,supware,itemid,qty,now);
+  c->newOrder(w_id, d_id, c_id, ol_cnt, supware, itemid, qty, now);
 }
 
 void deliveryRandom(uint64_t now, int32_t w_id, Tpcc* c) {

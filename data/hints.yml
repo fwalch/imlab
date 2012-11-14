@@ -1,4 +1,15 @@
+customer:
+  multi_indexes:
+    c_last: c_last
+
 neworder:
   partial_indexes:
     pk: no_w_id, no_d_id
 
+order:
+  multi_indexes:
+    o_c_id: o_c_id
+
+orderline:
+  partial_indexes:
+    pk: ol_w_id, ol_d_id, ol_o_id

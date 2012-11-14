@@ -28,4 +28,4 @@ Tested with Clang 3.1 on Arch Linux x86_64.
  * Clang (or GCC) to compile
  * googletest to run tests (available as `libgtest-dev` package on Ubuntu, `gtest` AUR PKGBUILD for Arch Linux)
    * cmake to build googletest
- * Ruby 1.9 and `antlr3` gem for C++ generation (also see `code-generator/README.md`)
+ * Ruby 1.9 and `antlr3` gem for C++ generation (also see `CodeGenerator/README.md`)
