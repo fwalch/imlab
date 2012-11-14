@@ -47,7 +47,11 @@ TEST(Integration, Integration) {
   ASSERT_EQ(40, tpcc.stock.s_quantity[s_tid]);
   ASSERT_EQ(16, tpcc.orders.count());
 
-  //ASSERT_EQ(
-  //tpcc.delivery(4, 101, 0);
+  auto c_tid = tpcc.customers.get(4, 1, 1);
+  ASSERT_EQ(-1000, tpcc.customers.c_balance[c_tid]);
+  ASSERT_EQ(16, tpcc.newOrders.count());
+  tpcc.delivery(4, 101, 0);
+  ASSERT_EQ(0, tpcc.customers.c_balance[c_tid]);
+  ASSERT_EQ(15, tpcc.newOrders.count());
 }
 
