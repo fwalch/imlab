@@ -49,12 +49,12 @@ int main() {
 
     Timer t;
     t.start();
-    cout << " ✱ Running " << QueryCount << " queries and " << NewOrderCount << " NewOrder transactions in parallel." << endl;
+    cout << " ✱ Running " << NewOrderCount << " NewOrder transactions with parallel queries." << endl;
 
     for (int i = 0; i < NewOrderCount; i++) {
       // Check if child still running every 10000 NewOrders
       if (i%10000 == 0) {
-        if (!childRunning && executedQueries < QueryCount) {
+        if (!childRunning) {
           childRunning = true;
           executedQueries++;
           pid_t pid = fork();
@@ -72,16 +72,9 @@ int main() {
     // Wait for child to finish
     while (childRunning);
 
-    // Check if all queries executed; if not, run synchronously
-    // (all NewOrders are already executed, so spawning childs doesn't make sense)
-    int additionalQueries = QueryCount - executedQueries;
-
-    while (additionalQueries-- > 0) {
-      cout << "    Query result: " << lastNameOrderSum("BARBARBAR", &tpcc) << "." << endl;
-    }
-
     t.stop();
     cout << " ✔  Done in " << t.seconds << " sec (" << NewOrderCount/t.seconds << " tps)." << endl;
+    cout << "    Executed " << executedQueries << " queries (" << executedQueries/t.seconds << " qps)." << endl;
 
     return 0;
   }
