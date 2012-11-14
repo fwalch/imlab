@@ -13,6 +13,9 @@
 using namespace std;
 
 uint64_t getTime();
+void executeQueries(Tpcc*);
+void executeQueriesAndTransactions(Tpcc*);
+void executeTransactions(Tpcc*);
 
 const int NewOrderCount = 1E6;
 const int QueryCount = 10;
@@ -30,10 +33,6 @@ static void SIGCHLD_handler(int signal) {
 
 int main() {
   try {
-    Tpcc tpcc;
-
-    importSampleData("data", &tpcc);
-
     struct sigaction sa;
     sa.sa_handler = SIGCHLD_handler;
     sigemptyset(&sa.sa_mask);
@@ -42,23 +41,13 @@ int main() {
       throw "Error while attaching signal.";
     }
 
-    /*
-     * Execute queries
-     */
+    Tpcc tpcc;
+
+    importSampleData("data", &tpcc);
+
+    executeQueries(&tpcc);
+
     Timer t;
-    t.start();
-    cout << " ✱ Running " << QueryCount << " queries." << endl;
-
-    for (int i = 0; i < QueryCount; i++) {
-      cout << "    Query result: " << lastNameOrderSum("BARBARBAR", &tpcc) << "." << endl;
-    }
-
-    t.stop();
-    cout << " ✔  Done in " << t.seconds << " sec (" << QueryCount/t.seconds << " qps)." << endl;
-
-    /*
-     * Run queries and transactions in parallel
-     */
     t.start();
     cout << " ✱ Running " << QueryCount << " queries and " << NewOrderCount << " NewOrder transactions in parallel." << endl;
 
@@ -100,6 +89,32 @@ int main() {
     cerr << " ✘ Exception thrown: " << msg << endl;
     return 1;
   }
+}
+
+void executeQueries(Tpcc* tpcc) {
+  Timer t;
+  t.start();
+  cout << " ✱ Running " << QueryCount << " queries." << endl;
+
+  for (int i = 0; i < QueryCount; i++) {
+    cout << "    Query result: " << lastNameOrderSum("BARBARBAR", tpcc) << "." << endl;
+  }
+
+  t.stop();
+  cout << " ✔  Done in " << t.seconds << " sec (" << QueryCount/t.seconds << " qps)." << endl;
+}
+
+void executeTransactions(Tpcc* tpcc) {
+  Timer t;
+  t.start();
+  cout << " ✱ Running " << NewOrderCount << " NewOrder transactions." << endl;
+
+  for (int i = 0; i < NewOrderCount; i++) {
+    newOrderRandom(getTime(), urand(1, Warehouses), tpcc);
+  }
+
+  t.stop();
+  cout << " ✔  Done in " << t.seconds << " sec (" << NewOrderCount/t.seconds << " tps)." << endl;
 }
 
 uint64_t getTime() {
