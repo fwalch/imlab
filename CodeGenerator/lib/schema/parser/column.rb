@@ -1,4 +1,4 @@
-module CodeGenerator
+module Schema
 class Column
   attr_reader :name, :cpp_collection_type, :cpp_type, :header
 

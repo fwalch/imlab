@@ -1,14 +1,15 @@
 require 'render/header_view_model'
+require 'render/collection_header_view_model'
 require 'render/source_view_model'
 require 'render/makefile_view_model'
 require 'render/template_renderer'
 
-module CodeGenerator
+module Schema
 module Rendering
   TEMPLATE_PATH = File.join(File.dirname(__FILE__), 'templates')
   TABLE_TEMPLATES = ['template.cpp.erb', 'template.h.erb'].map { |t| File.join(TEMPLATE_PATH, t) }
-  MAKEFILE_TEMPLATE = File.join(TEMPLATE_PATH, 'template.mk.erb')
   MAKEFILE_NAME = 'generated.mk'
+  HEADER_NAME = 'schema.h'
 
   def get_renderers
     renderers = {}
@@ -24,6 +25,7 @@ module Rendering
 
     files = renderers.keys
     renderers[MAKEFILE_NAME] = get_makefile_renderer(files)
+    renderers[HEADER_NAME] = get_header_renderer(files)
 
     return renderers
   end
@@ -40,8 +42,14 @@ module Rendering
 
   def get_makefile_renderer(files)
     cpp_files = files.select { |f| f.match(/\.cpp/) }
-    view_model = MakefileViewModel.new(cpp_files)
-    get_template_renderer(MAKEFILE_TEMPLATE, view_model)
+    view_model = MakefileViewModel.new('SCHEMA', cpp_files)
+    view_model.get_renderer
+  end
+
+  def get_header_renderer(files)
+    h_files = files.select { |f| f.match(/\.h/) }
+    view_model = CollectionHeaderViewModel.new('SCHEMA', h_files)
+    view_model.get_renderer
   end
 
   def get_template_renderer(path, view_model)

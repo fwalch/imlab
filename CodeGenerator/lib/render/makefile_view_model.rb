@@ -1,19 +1,24 @@
-module CodeGenerator
-  class MakefileViewModel
-    def initialize(source_files)
-      @source_files = source_files
-    end
+require 'render/template_renderer'
 
-    def source_files
-      @source_files.join(' ')
-    end
+class MakefileViewModel
+  TEMPLATE_PATH = File.join(File.dirname(__FILE__), '..', 'templates', 'template.mk.erb')
 
-    def generation_time
-      Time.now.utc.to_s
-    end
+  attr_reader :prefix
 
-    def get_binding
-      binding
-    end
+  def initialize(prefix, source_files)
+    @prefix = prefix
+    @source_files = source_files
+  end
+
+  def source_files
+    @source_files.join(' ')
+  end
+
+  def get_binding
+    binding
+  end
+
+  def get_renderer
+    TemplateRenderer.new(File.open(TEMPLATE_PATH).read, self)
   end
 end

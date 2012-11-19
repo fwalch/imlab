@@ -1,36 +1,17 @@
-require 'parser/parser'
-require 'yaml'
+require 'rubygems'
+require 'bundler'
 
-module CodeGenerator
-  class Generator
-    def self.run(args)
-      raise ArgumentError, "generate: [sql-schema-file] [hints-file] [output-dir]" if args.length != 3
+Bundler.require
 
-      schema = File.new(args[0]).read
-      hints = YAML.load_file(args[1])
-      output_dir = args[2]
-      generator = Generator.new(schema, hints, output_dir)
-      generator.execute
-    end
+class Generator
+  def self.from_schema(args)
+    require 'schema/generator'
+    Schema::Generator.run(args)
+  end
 
-    def initialize(schema, hints, output_dir)
-      @schema = schema
-      @hints = hints
-      @output_dir = output_dir
-    end
-
-    def execute
-      # Parse SQL
-      parser = Parser.new
-      context = parser.parse(@schema)
-      context.add_hints(@hints)
-
-      context.get_renderers.each do |file_name, renderer|
-        output = renderer.render
-        file_path = File.join(@output_dir, file_name)
-        File.write(file_path, output)
-      end
-    end
+  def self.from_query(args)
+    require 'query/generator'
+    Query::Generator.run(args)
   end
 end
 

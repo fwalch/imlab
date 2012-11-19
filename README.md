@@ -16,9 +16,10 @@ Main Memory Database
 
  1. Run `./bin/fetch.sh` to get the sample schema/data to populate the database with.
  2. (Optional) Regenerate the C++ classes for the SQL schema with `./bin/generate-sql-classes.sh`.
- 3. (Optional) Run `make release=true test` to run unit tests.
- 4. Run `make release=true` to build.
- 5. Execute `./obj/fakedb` (or use `make release=true run`).
+ 3. (Optional) Regenerate the C++ classes for the example SQL queries with `./bin/generate-sql-queries.sh`.
+ 4. (Optional) Run `make release=true test` to run unit tests.
+ 5. Run `make release=true` to build.
+ 6. Execute `./obj/fakedb` (or use `make release=true run`).
 
 Tested with Clang 3.1 on Arch Linux x86_64.
 
@@ -28,4 +29,4 @@ Tested with Clang 3.1 on Arch Linux x86_64.
  * Clang (or GCC) to compile
  * googletest to run tests (available as `libgtest-dev` package on Ubuntu, `gtest` AUR PKGBUILD for Arch Linux)
    * cmake to build googletest
- * Ruby 1.9 and `antlr3` gem for C++ generation (also see `CodeGenerator/README.md`)
+ * For code generator prerequisites, see `CodeGenerator/README.md`

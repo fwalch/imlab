@@ -1,0 +1,4 @@
+for (uint64_t <%= tid %> = 0; <%= tid %> < <%= store %>.count(); <%= tid %>++) {
+<%= indent attributes %>
+<%= indent consumer.consume(self) %>
+}

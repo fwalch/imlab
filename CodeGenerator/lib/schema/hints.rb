@@ -1,4 +1,4 @@
-module CodeGenerator
+module Schema
 module Hints
   PARTIAL_INDEXES = 'partial_indexes'
   MULTI_INDEXES = 'multi_indexes'

@@ -4,7 +4,6 @@ SQL -> C++ Code Generator
 
     bin/    Helper scripts & code generator executable (`generate`)
     data/   Data files
-    gen/    Generated source code (ANTLR output)
     lib/    Code generator source code
     spec/   Code generator tests
 
@@ -12,7 +11,7 @@ SQL -> C++ Code Generator
 
  1. (Optional) To regenerate the parser code from the ANTLR grammar:
    1. Run `bundle install --without test` to install necessary gems.
-   2. (Optional) To run tests, use `bundle install` and run `bundle exec rake`
+   2. (Optional) To run tests, use `bundle install` and run `bundle exec rake`.
    3. Run `./bin/generate-parser.sh` to regenerate the parser code.
  2. The code generator is now ready for use (see `../bin/generate-sql-classes.sh` for example usage).
 

@@ -1,9 +1,13 @@
 source "https://rubygems.org"
 
 gem 'antlr3'
-gem 'pry'
+gem 'activesupport', require: 'active_support/core_ext'
 
 group :test do
+  gem 'guard-minitest'
+  gem 'rb-inotify', require: false
+  gem 'rb-fsevent', require: false
+  gem 'rb-fchange', require: false
   gem 'minitest'
   gem 'rake'
 end

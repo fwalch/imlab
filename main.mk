@@ -10,6 +10,7 @@ MAIN_OBJ = $(OBJ_DIR)/main.o
 
 GEN_SRC_DIR = gen
 include $(GEN_SRC_DIR)/generated.mk
+include $(GEN_SRC_DIR)/generated_queries.mk
 
 EXECUTABLE = $(OBJ_DIR)/fakedb
 

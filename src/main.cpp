@@ -4,6 +4,8 @@
 #include "tpcc.h"
 #include "oltp.h"
 #include "olap.h"
+#include "../gen/lastname_order_sum_query.h"
+#include "../gen/tax_query.h"
 #include "import.h"
 #include "timer.h"
 #include <unistd.h>
@@ -47,7 +49,10 @@ int main() {
 
     executeQueries(&tpcc);
 
-    Timer t;
+    // Skip multithread part for this exercise
+    return 0;
+
+    /*Timer t;
     t.start();
     cout << " ✱ Running " << NewOrderCount << " NewOrder transactions with parallel queries." << endl;
 
@@ -76,7 +81,7 @@ int main() {
     cout << " ✔  Done in " << t.seconds << " sec (" << NewOrderCount/t.seconds << " tps)." << endl;
     cout << "    Executed " << executedQueries << " queries (" << executedQueries/t.seconds << " qps)." << endl;
 
-    return 0;
+    return 0;*/
   }
   catch (string msg) {
     cerr << " ✘ Exception thrown: " << msg << endl;
@@ -87,10 +92,28 @@ int main() {
 void executeQueries(Tpcc* tpcc) {
   Timer t;
   t.start();
-  cout << " ✱ Running " << QueryCount << " queries." << endl;
+  cout << " ✱ Running " << 2 * QueryCount << " queries." << endl;
 
+  // Query execution will print output
   for (int i = 0; i < QueryCount; i++) {
-    cout << "    Query result: " << lastNameOrderSum("BARBARBAR", tpcc) << "." << endl;
+    cout << " 1---" << endl;
+    cout << "sum" << endl;
+    // select sum(ol_quantity * ol_amount)
+    // from customer, "order", orderline
+    // where o_c_id = c_id
+    // and o_w_id = ol_w_id
+    // and o_d_id = ol_d_id
+    // and o_id = ol_o_id
+    // and c_last = 'BARBARBAR'
+    lastnameOrderSumQuery(tpcc);
+
+    cout << " 2---" << endl;
+    cout << "w_name|d_name|d_tax" << endl;
+    // select w_name, d_name, d_tax
+    // from warehouse, district
+    // where w_id = d_w_id
+    // and w_id = 1
+    taxQuery(tpcc);
   }
 
   t.stop();

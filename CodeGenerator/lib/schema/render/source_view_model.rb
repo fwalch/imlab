@@ -1,6 +1,6 @@
 require 'render/view_model_common'
 
-module CodeGenerator
+module Schema
 class SourceViewModel
   include ViewModel::Common
 

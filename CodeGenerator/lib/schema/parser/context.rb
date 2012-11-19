@@ -2,7 +2,7 @@ require 'parser/table'
 require 'hints'
 require 'rendering'
 
-module CodeGenerator
+module Schema
 class Context
   include Hints
   include Rendering

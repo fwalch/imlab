@@ -2,12 +2,16 @@
 
 $: << File.join(File.dirname(__FILE__), '..', 'lib')
 
-require 'code_generator'
+require 'generator'
 
 #begin
-  CodeGenerator::Generator.run(ARGV)
+  if ARGV[0]
+    Generator.send ARGV[0].gsub('-', '_'), ARGV[1...ARGV.count]
+  else
+    puts "Usage: generate [from-query|from-schema] <args>"
+  end
   exit 0
-#rescue StandardError => e
-#  puts e
+#rescue ArgumentError => e
+#  puts "generate #{e}"
 #  exit 1
 #end

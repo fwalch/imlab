@@ -1,4 +1,4 @@
-module CodeGenerator
+module Schema
 class Index
   attr_reader :name, :column_names
 

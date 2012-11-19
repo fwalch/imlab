@@ -2,7 +2,6 @@
 #define _SCHEMA_H_
 
 #include "../src/schema/store.h"
-
 #include "warehouse.h"
 #include "district.h"
 #include "customer.h"

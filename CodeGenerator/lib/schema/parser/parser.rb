@@ -1,10 +1,9 @@
-require 'SQLLexer'
-require 'SQLParser'
-
+require 'parser/SQLLexer'
+require 'parser/SQLParser'
 require 'parser/tree_visitor'
 require 'parser/context'
 
-module CodeGenerator
+module Schema
 class Parser
   def parse(schema)
     lexer = SQL::Lexer.new(schema)

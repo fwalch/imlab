@@ -8,6 +8,7 @@ cd `dirname $0`/..
 
 echo "Generating C++ code from SQL statements."
 
-cd CodeGenerator && ./bin/generate ../$SCHEMA_FILE ../$HINTS_FILE ../$OUTPUT_DIR
+mkdir -p $OUTPUT_DIR
+cd CodeGenerator && ./bin/generate from-schema ../$SCHEMA_FILE ../$HINTS_FILE ../$OUTPUT_DIR
 
 echo "Done. Now run 'make' to build the C++ code."

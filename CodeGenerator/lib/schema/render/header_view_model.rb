@@ -1,6 +1,6 @@
 require 'render/view_model_common'
 
-module CodeGenerator
+module Schema
 class HeaderViewModel
   include ViewModel::Common
 
@@ -9,7 +9,7 @@ class HeaderViewModel
   end
 
   def header_constant
-    "_#{codify(file_name).upcase}_"
+    "_#{@table.name.upcase}_H_"
   end
 
   def includes

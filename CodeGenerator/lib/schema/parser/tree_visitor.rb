@@ -1,7 +1,7 @@
 require 'antlr3'
 require 'SQLParser'
 
-module CodeGenerator
+module Schema
 class TreeVisitor
   def initialize(context, adapter=nil)
     @context = context.extend EnhancedContext

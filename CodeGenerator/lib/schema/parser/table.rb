@@ -1,7 +1,7 @@
 require 'parser/column'
 require 'parser/index'
 
-module CodeGenerator
+module Schema
 class Table
   PRIMARY_KEY_INDEX_NAME = 'pk'
 

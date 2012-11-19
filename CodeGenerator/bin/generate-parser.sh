@@ -1,7 +1,7 @@
 #!/bin/bash
 
 GRAMMAR_FILE=data/SQL.g
-OUTPUT_DIR=gen
+OUTPUT_DIR=lib/schema/parser
 
 cd `dirname $0`/..
 

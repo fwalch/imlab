@@ -1,5 +1,15 @@
 # Changelog
 
+## 2012-11-21
+
+ * Implemented generation of SQL queries from query trees
+   * Supports print, selection, table scan, cross product and hash join
+   * Query trees are hardcoded into the code generator
+   * See `CodeGenerator/lib/query/builtin` for the example queries
+ * Split code generator in two parts:
+   * Schema generation (`CodeGenerator/bin/generate from-schema`)
+   * Query generation (`CodeGenerator/bin/generate from-query`)
+
 ## 2012-11-14
 
  * Implemented SQL query as C++ code (non-generated)

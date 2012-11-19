@@ -1,0 +1,4 @@
+auto <%= v :iterator %> = <%= v :hash_table %>.find(std::make_tuple(<%= tuple_variables(:right) %>));
+if (<%= v :iterator %> != <%= v :hash_table %>.end()) {
+<%= indent @consumer.consume(self) %>
+}
