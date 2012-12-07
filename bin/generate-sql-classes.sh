@@ -1,14 +1,13 @@
 #!/bin/bash
 
-SCHEMA_FILE=data/schema.sql
-HINTS_FILE=data/hints.yml
-OUTPUT_DIR=gen
-
 cd `dirname $0`/..
 
 echo "Generating C++ code from SQL statements."
 
-mkdir -p $OUTPUT_DIR
-cd CodeGenerator && ./bin/generate from-schema ../$SCHEMA_FILE ../$HINTS_FILE ../$OUTPUT_DIR
+mkdir -p gen/tpce
+mkdir -p gen/tpcc
+cd CodeGenerator
+NAMESPACE=tpcc ./bin/generate from-schema ../data/schema.sql ../data/tpcc.hints.yml ../gen/tpcc
+NAMESPACE=tpce ./bin/generate from-schema ../data/tpce.schema.sql ../data/tpce.hints.yml ../gen/tpce
 
 echo "Done. Now run 'make' to build the C++ code."

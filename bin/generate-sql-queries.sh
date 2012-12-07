@@ -6,13 +6,13 @@ else
   QUERY_NAME=$1
 fi
 
-OUTPUT_DIR=gen
+OUTPUT_DIR=gen/tpcc
 
 cd `dirname $0`/..
 
 echo "Generating C++ code from SQL query expression tree"
 
 mkdir -p $OUTPUT_DIR
-cd CodeGenerator && ./bin/generate from-query $QUERY_NAME ../$OUTPUT_DIR
+cd CodeGenerator && NAMESPACE=tpcc ./bin/generate from-query $QUERY_NAME ../$OUTPUT_DIR
 
 echo "Done. Now run 'make' to build the C++ code."

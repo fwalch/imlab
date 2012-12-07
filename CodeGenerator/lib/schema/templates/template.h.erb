@@ -2,20 +2,27 @@
 #define <%= header_constant %>
 
 #include <tuple>
-<%= includes %>
+#include <vector>
+#include <cstdint>
+#include <unordered_map>
+#include <map>
+#include "../../src/str_dictionary.h"
 #include "schema.h"
+
+namespace <%= schema.namespace %> {
 
 class <%= class_name %> : public Store {
   public:
-    <%= index_members %>
+    <%= indexes.line(&:global_definition) %>
+    <%= columns.line(&:global_definition) %>
 
-    <%= column_members %>
+    void add(std::string[<%= columns.count %>]);
+    void add_instance(<%= columns.comma(&:local_definition) %>);
+    void remove(uint64_t tid);
 
-    void add(std::string[<%= column_count %>]);
-    void add_instance(<%= column_types %>);
-    void remove(uint64_t);
-
-    <%= index_methods %>
+    <%= indexes.line(&:get_method_signature) %>
 };
+
+}
 
 #endif

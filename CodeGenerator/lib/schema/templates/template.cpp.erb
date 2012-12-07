@@ -1,24 +1,25 @@
 #include <climits>
 #include <cstdlib>
 #include <cstring>
-#include "<%= header_name %>"
-#include "../src/schema/conversion.h"
+#include "<%= header_file_name %>"
+#include "../../src/schema/conversion.h"
 
 using namespace std;
 
-void <%= class_name %>::add(string elements[<%= column_count %>]) {
-  add_instance(<%= column_conversions %>);
+namespace <%= schema.namespace %> {
+
+void <%= class_name %>::add(string elements[<%= columns.count %>]) {
+  add_instance(<%= columns.comma_with_index { |i,c| c.from_string_variable("elements[#{i}]") } %>);
 }
 
-void <%= class_name %>::add_instance(<%= column_typed_variables %>) {
-  <%= column_assignments %>
-
-  <%= index_assignments %>
+void <%= class_name %>::add_instance(<%= columns.comma(&:local_definition) %>) {
+  <%= columns.line(&:add_from_local) %>
+  <%= indexes.line(&:assign_from_tid) %>
   tid++;
 }
 
 void <%= class_name %>::remove(uint64_t tid) {
-  <%= index_removals %>
+  <%= indexes.block(&:remove) %>
 
   // We want to move the last item to the deleted item's position
   // We have one item less now, so decrease TID for next add_instance
@@ -26,14 +27,16 @@ void <%= class_name %>::remove(uint64_t tid) {
 
   if (tid != tidToSwap) {
     // Move data from last item to deleted item's position
-    <%= column_moves('tid', 'tidToSwap') %>
+    <%= columns.line { |c| c.move_global('tid', 'tidToSwap') } %>
 
     // Set swapped item's TID in index
-    <%= index_assignments %>
+    <%= indexes.line(&:assign_from_tid) %>
   }
 
   // Delete the data
-  <%= column_fields { |c| "#{c}.pop_back();" } %>
+  <%= columns.line(&:remove) %>
 }
 
-<%= index_methods %>
+<%= indexes.block(&:get_method) %>
+
+}

@@ -4,7 +4,7 @@ int64_t lastNameOrderSum(const std::string lastName, Tpcc* tpcc) {
   int64_t sum = 0;
 
   // FROM customer WHERE c_last = ?
-  auto c_range = tpcc->customers.getByC_last(lastName);
+  auto c_range = tpcc->customers.getByC_last(lastName.c_str());
   for (auto c_it = c_range.first; c_it != c_range.second; c_it++) {
     uint64_t c_tid = c_it->second;
 

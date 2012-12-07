@@ -3,7 +3,9 @@
 
 #include <string>
 #include "tpcc.h"
+#include "tpce.h"
 
 void importSampleData(std::string, Tpcc*);
+void importSampleData(std::string, Tpce*);
 
 #endif

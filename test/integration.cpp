@@ -3,8 +3,22 @@
 #include "../src/oltp.h"
 #include "../src/olap.h"
 #include "../src/tpcc.h"
+#include "../src/tpce.h"
 
-TEST(Integration, Integration) {
+TEST(Integration, TPCE) {
+  Tpce tpce;
+
+  ASSERT_EQ(0, tpce.customers.count());
+
+  importSampleData("test/data", &tpce);
+
+  // Test if querying retrieves the correct object
+  auto c_tid = tpce.customers.get(433);
+  auto c_sid = tpce.customers.c_l_name[c_tid];
+  ASSERT_TRUE(memcmp(tpce.customers.c_l_name_dict.get(c_sid), "Labree", 6) == 0);
+}
+
+TEST(Integration, TPCC) {
   Tpcc tpcc;
 
   ASSERT_EQ(0, tpcc.warehouses.count());

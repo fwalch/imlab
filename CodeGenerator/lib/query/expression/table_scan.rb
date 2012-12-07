@@ -26,7 +26,7 @@ class TableScan
 
   def attributes
     @attributes
-      .map { |a| "auto #{a.value} = #{store}.#{a.value}[#{tid}];" }
+      .map { |a| "auto #{a.value} = #{a.get_value(store, tid)};" }
       .join("\n");
   end
 end

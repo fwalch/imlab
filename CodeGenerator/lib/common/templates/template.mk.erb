@@ -1,0 +1,12 @@
+<%= namespace %>_SRC_FILES = <%= source_files %>
+<%= namespace %>_SOURCES = $(addprefix $(GEN_SRC_DIR)/, $(<%= namespace %>_SRC_FILES))
+
+<%= namespace %>_OBJ_DIR = $(OBJ_DIR)/gen/<%= namespace_directory %>
+<%= namespace %>_OBJ_FILES = $(<%= namespace %>_SRC_FILES:.cpp=.o)
+<%= namespace %>_OBJECTS = $(addprefix $(<%= namespace %>_OBJ_DIR)/, $(<%= namespace %>_OBJ_FILES))
+
+SOURCES += $(addprefix $(GEN_SRC_DIR)/, $(<%= namespace %>_SRC_FILES))
+OBJECTS += $(addprefix $(<%= namespace %>_OBJ_DIR)/, $(<%= namespace %>_OBJ_FILES))
+
+$(<%= namespace %>_OBJ_DIR)/%.o: $(GEN_SRC_DIR)/%.cpp
+	mkdir -p $(dir $@) && $(CXX) $(CXXFLAGS) -c $< -o $@

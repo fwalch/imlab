@@ -3,6 +3,7 @@
 #include "tpcc.h"
 
 using namespace std;
+using namespace tpcc;
 
 void Tpcc::newOrder(int32_t w_id, int32_t d_id, int32_t c_id, int32_t items, int32_t supware[15], int32_t itemid[15], int32_t qty[15], uint64_t datetime) {
   int64_t w_tax = warehouses.w_tax[warehouses.get(w_id)];
@@ -47,37 +48,37 @@ void Tpcc::newOrder(int32_t w_id, int32_t d_id, int32_t c_id, int32_t items, int
     int64_t s_remote_cnt = stock.s_remote_cnt[s];
     int64_t s_order_cnt = stock.s_order_cnt[s];
 
-    char* s_dist;
+    const char* s_dist;
     switch (d_id) {
       case 1:
-        s_dist = stock.s_dist_01[s];
+        s_dist = stock.s_dist_01_dict.get(stock.s_dist_01[s]);
         break;
       case 2:
-        s_dist = stock.s_dist_02[s];
+        s_dist = stock.s_dist_02_dict.get(stock.s_dist_02[s]);
         break;
       case 3:
-        s_dist = stock.s_dist_03[s];
+        s_dist = stock.s_dist_03_dict.get(stock.s_dist_03[s]);
         break;
       case 4:
-        s_dist = stock.s_dist_04[s];
+        s_dist = stock.s_dist_04_dict.get(stock.s_dist_04[s]);
         break;
       case 5:
-        s_dist = stock.s_dist_05[s];
+        s_dist = stock.s_dist_05_dict.get(stock.s_dist_05[s]);
         break;
       case 6:
-        s_dist = stock.s_dist_06[s];
+        s_dist = stock.s_dist_06_dict.get(stock.s_dist_06[s]);
         break;
       case 7:
-        s_dist = stock.s_dist_07[s];
+        s_dist = stock.s_dist_07_dict.get(stock.s_dist_07[s]);
         break;
       case 8:
-        s_dist = stock.s_dist_08[s];
+        s_dist = stock.s_dist_08_dict.get(stock.s_dist_08[s]);
         break;
       case 9:
-        s_dist = stock.s_dist_09[s];
+        s_dist = stock.s_dist_09_dict.get(stock.s_dist_09[s]);
         break;
       case 10:
-        s_dist = stock.s_dist_10[s];
+        s_dist = stock.s_dist_10_dict.get(stock.s_dist_10[s]);
         break;
       default:
         throw "s_dist out of range";

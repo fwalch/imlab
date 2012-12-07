@@ -1,13 +1,14 @@
 # Redefine CXX only if not passed from environment variable
 ifeq ($(origin CXX), default)
 	CXX = clang++
+	CXXFLAGS += -g -Weverything -Wno-c++98-compat -Wno-shadow -Wno-disabled-macro-expansion -Wno-gnu --std=c++11
 endif
 
 ifdef release
-	CXXFLAGS += -g -O3 -Weverything -Wno-c++98-compat -Wno-shadow -Wno-disabled-macro-expansion --std=c++11
+	CXXFLAGS += -O3
 	LDFLAGS +=
 else
-	CXXFLAGS += -g -O0 -Weverything -Wno-c++98-compat -Wno-shadow -Wno-disabled-macro-expansion --std=c++11
+	CXXFLAGS += -O0
 	LDFLAGS +=
 endif
 

@@ -1,0 +1,3 @@
+auto <%= name %>Key = std::make_tuple(<%= columns.comma { |c| c.global_access('tid') } %>);
+auto <%= name %>It = <%= global_name %>.find(<%= name %>Key);
+<%= global_name %>.erase(<%= name %>It);

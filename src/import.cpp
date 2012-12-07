@@ -32,10 +32,26 @@ template<int C> void import(string path, Store* store) {
   file.close();
 }
 
+void importSampleData(string path, Tpce* store) {
+  Timer t;
+  t.start();
+  cout << " ✱ Importing TPC-E sample data." << endl;
+
+  //cout << "    Importing customers..." << endl;
+  //import<24>(path + "/Customer.txt", &store->customers);
+
+  cout << "    Importing account permissions..." << endl;
+  import<5>(path + "/AccountPermission.txt", &store->accountPermissions);
+
+  t.stop();
+  cout << " ✔  Done in " << t.seconds << " sec." << endl;
+}
+
+
 void importSampleData(string path, Tpcc* store) {
   Timer t;
   t.start();
-  cout << " ✱ Importing sample data." << endl;
+  cout << " ✱ Importing TPC-C sample data." << endl;
 
   cout << "    Importing warehouses..." << endl;
   import<9>(path + "/tpcc_warehouse.tbl", &store->warehouses);

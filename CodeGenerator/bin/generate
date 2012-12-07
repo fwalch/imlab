@@ -4,14 +4,14 @@ $: << File.join(File.dirname(__FILE__), '..', 'lib')
 
 require 'generator'
 
-#begin
+begin
   if ARGV[0]
-    Generator.send ARGV[0].gsub('-', '_'), ARGV[1...ARGV.count]
+    Generator.send ARGV[0].gsub('-', '_'), ARGV.from(1)
   else
     puts "Usage: generate [from-query|from-schema] <args>"
   end
   exit 0
-#rescue ArgumentError => e
-#  puts "generate #{e}"
-#  exit 1
-#end
+rescue CodeGeneratorArgumentError => e
+  puts "generate #{e}"
+  exit 1
+end

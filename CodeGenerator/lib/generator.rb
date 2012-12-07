@@ -3,6 +3,8 @@ require 'bundler'
 
 Bundler.require
 
+class CodeGeneratorArgumentError < ArgumentError; end
+
 class Generator
   def self.from_schema(args)
     require 'schema/generator'

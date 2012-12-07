@@ -1,9 +1,9 @@
 $: << File.dirname(__FILE__)
 
-require 'render/query_view_model'
-require 'render/makefile_view_model'
-require 'render/template_renderer'
-require 'rendering'
+require 'query/presentation/query_view_model'
+require 'common/presentation/makefile_view_model'
+require 'common/presentation/template_renderer'
+require 'query/rendering'
 
 module Query
 class Generator
@@ -12,7 +12,7 @@ class Generator
   MAKEFILE_NAME = 'generated_queries.mk'
 
   def self.run(args)
-    raise ArgumentError, "<query-name> <output-dir>" if args.length != 2
+    raise CodeGeneratorArgumentError, "<query-name> <output-dir>" if args.length != 2
 
     query_name = args[0].underscore
     output_dir = args[1]
@@ -40,7 +40,7 @@ class Generator
 
   private
   def get_builtin_query
-    require "builtin/#{@query_name}"
+    require "query/builtin/#{@query_name}"
 
     query_module = "Query::#{@query_name.camelize}".constantize
     query_tree = query_module.get_query_tree
@@ -65,7 +65,7 @@ class Generator
   def generate_makefile(source_files)
     source_files = [source_files] unless source_files.respond_to? :map
     source_files = source_files.map { |f| "#{f}.cpp" }
-    mk_view_model = MakefileViewModel.new(@query_name.upcase, source_files)
+    mk_view_model = MakefileViewModel.new(source_files, @query_name.upcase)
     makefile_renderer = mk_view_model.get_renderer
     write_file MAKEFILE_NAME, makefile_renderer
   end

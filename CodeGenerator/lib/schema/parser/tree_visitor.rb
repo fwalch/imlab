@@ -1,10 +1,10 @@
 require 'antlr3'
-require 'SQLParser'
+require 'schema/parser/SQLParser'
 
 module Schema
 class TreeVisitor
-  def initialize(context, adapter=nil)
-    @context = context.extend EnhancedContext
+  def initialize(schema_factory, adapter=nil)
+    @schema_factory = schema_factory
     @adapter = adapter
     @adapter ||= ANTLR3::AST::CommonTreeAdaptor.new
   end
@@ -36,7 +36,7 @@ class TreeVisitor
 
   def create_table(tree)
     table_name = @adapter.child_of(tree, 0).text
-    @context.add_table table_name
+    @table_factory = @schema_factory.add_table(table_name)
 
     visit_children(tree)
   end
@@ -54,7 +54,7 @@ class TreeVisitor
       end
     end
 
-    @context.add_index(index_name, table_name, column_names)
+    @schema_factory.add_index(index_name, table_name, column_names).set_multi
   end
 
   def primary_key(tree)
@@ -64,7 +64,7 @@ class TreeVisitor
       column_names << child.text
     end
 
-    @context.last_table.add_primary_key(column_names)
+    @table_factory.add_index('pk', column_names).set_primary
   end
 
   def id(tree)
@@ -72,43 +72,33 @@ class TreeVisitor
     # ID is a root node
     if @adapter.child_count(tree) > 0
       column_name = tree.text
-      @context.last_table.add_column column_name
+      @column_factory = @table_factory.add_column(column_name)
       visit_children(tree)
     end
   end
 
   def integer(tree)
-    @context.last_column.set_integer
+    @column_factory.set_integer
   end
 
   def timestamp(tree)
-    @context.last_column.set_timestamp
+    @column_factory.set_timestamp
   end
 
   def char(tree)
     max_length = @adapter.child_of(tree, 0).text
-    @context.last_column.set_char(max_length)
+    @column_factory.set_char(max_length)
   end
 
   def varchar(tree)
     max_length = @adapter.child_of(tree, 0).text
-    @context.last_column.set_varchar(max_length)
+    @column_factory.set_varchar(max_length)
   end
 
   def numeric(tree)
     overall = @adapter.child_of(tree, 0).text
     after_comma = @adapter.child_of(tree, 1).text
-    @context.last_column.set_numeric(overall, after_comma)
-  end
-
-  module EnhancedContext
-    def last_table
-      tables.last
-    end
-
-    def last_column
-      last_table.columns.last
-    end
+    @column_factory.set_numeric(overall, after_comma)
   end
 end
 end

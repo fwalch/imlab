@@ -1,5 +1,11 @@
 # Changelog
 
+## 2013-01-09
+
+ * Rewritten parts of CodeGenerator + some unit tests
+ * Implemented String Dictionary + unit tests
+ * Support for additional data sources (TPC-E)
+
 ## 2012-11-21
 
  * Implemented generation of SQL queries from query trees
