@@ -2,6 +2,7 @@ require 'schema/presentation/collection_header_view_model'
 require 'schema/presentation/schema_presenter'
 require 'common/presentation/makefile_view_model'
 require 'common/presentation/template_renderer'
+require 'common/presentation/formatter'
 
 module Schema
 class PresentationContext
@@ -46,7 +47,7 @@ class PresentationContext
 
   def get_template_renderer(path, view_model)
     template = File.new(path).read
-    TemplateRenderer.new(template, view_model)
+    Formatter.new(TemplateRenderer.new(template, view_model))
   end
 end
 end
