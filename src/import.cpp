@@ -37,8 +37,8 @@ void importSampleData(string path, Tpce* store) {
   t.start();
   cout << " ✱ Importing TPC-E sample data." << endl;
 
-  //cout << "    Importing customers..." << endl;
-  //import<24>(path + "/Customer.txt", &store->customers);
+  cout << "    Importing customers..." << endl;
+  import<24>(path + "/Customer.txt", &store->customers);
 
   cout << "    Importing account permissions..." << endl;
   import<5>(path + "/AccountPermission.txt", &store->accountPermissions);

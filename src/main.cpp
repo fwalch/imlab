@@ -28,6 +28,7 @@ int main() {
     Tpcc tpcc;
 
     importSampleData("data", &tpcc);
+    cin.get();
 
     executeQueries(&tpcc);
     executeNewOrderTransactions(&tpcc);
