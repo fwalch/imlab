@@ -1,5 +1,10 @@
 # Changelog
 
+## 2013-01-16
+
+ * Yago Facts as sample data
+ * Work on String Dictionary
+
 ## 2013-01-09
 
  * Rewritten parts of CodeGenerator + some unit tests

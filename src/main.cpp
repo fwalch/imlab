@@ -1,7 +1,6 @@
 #include <cassert>
 #include <ctime>
 #include <iostream>
-#include "tpcc.h"
 #include "oltp.h"
 #include "olap.h"
 #include "../gen/tpcc/lastname_order_sum_query.h"
@@ -25,14 +24,14 @@ const int QueryCount = 1E3;
 
 int main() {
   try {
-    Tpcc tpcc;
+    Yago yago;
 
-    importSampleData("data", &tpcc);
+    importSampleData("data", &yago);
     cin.get();
 
-    executeQueries(&tpcc);
+    /*executeQueries(&tpcc);
     executeNewOrderTransactions(&tpcc);
-    executeDeliveryTransactions(&tpcc);
+    executeDeliveryTransactions(&tpcc);*/
   }
   catch (string msg) {
     cerr << " ✘ Exception thrown: " << msg << endl;

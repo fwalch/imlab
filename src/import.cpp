@@ -47,6 +47,16 @@ void importSampleData(string path, Tpce* store) {
   cout << " ✔  Done in " << t.seconds << " sec." << endl;
 }
 
+void importSampleData(string path, Yago* store) {
+  Timer t;
+  t.start();
+  cout << " ✱ Importing Yago facts." << endl;
+
+  import<3>(path + "/yagoFacts.processed.tsv", &store->facts);
+
+  t.stop();
+  cout << " ✔  Done in " << t.seconds << " sec." << endl;
+}
 
 void importSampleData(string path, Tpcc* store) {
   Timer t;

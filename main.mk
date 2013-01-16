@@ -16,6 +16,9 @@ include $(GEN_SRC_DIR)/generated_queries.mk
 GEN_SRC_DIR = gen/tpce
 include $(GEN_SRC_DIR)/generated.mk
 
+GEN_SRC_DIR = gen/yago
+include $(GEN_SRC_DIR)/generated.mk
+
 EXECUTABLE = $(OBJ_DIR)/fakedb
 
 all: $(EXECUTABLE)

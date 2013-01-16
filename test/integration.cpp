@@ -2,8 +2,6 @@
 #include "../src/import.h"
 #include "../src/oltp.h"
 #include "../src/olap.h"
-#include "../src/tpcc.h"
-#include "../src/tpce.h"
 
 TEST(Integration, TPCE) {
   Tpce tpce;
@@ -16,6 +14,18 @@ TEST(Integration, TPCE) {
   auto c_tid = tpce.customers.get(433);
   auto c_sid = tpce.customers.c_l_name[c_tid];
   ASSERT_TRUE(memcmp(tpce.customers.c_l_name_dict.get(c_sid), "Labree", 6) == 0);
+}
+
+TEST(Integration, Yaga) {
+  Yago yago;
+
+  ASSERT_EQ(0, yago.facts.count());
+
+  importSampleData("test/data", &yago);
+
+  ASSERT_TRUE(strcmp("Jefferson County, Texas", yago.facts.subject_dict.get(yago.facts.subject[1])) == 0);
+  ASSERT_TRUE(strcmp("owns", yago.facts.predicate_dict.get(yago.facts.predicate[1])) == 0);
+  ASSERT_TRUE(strcmp("Jack Brooks Regional Airport", yago.facts.object_dict.get(yago.facts.object[1])) == 0);
 }
 
 TEST(Integration, TPCC) {
