@@ -1,6 +1,6 @@
 # Imlab
 
-[![Build Status](https://secure.travis-ci.org/fwalch/imlab.png)](http://travis-ci.org/fwalch/imlab)
+[![Build Status](https://travis-ci.org/fwalch/imlab.png?branch=string-dictionary)](http://travis-ci.org/fwalch/imlab)
 
 Main Memory Database
 
