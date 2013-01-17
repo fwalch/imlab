@@ -17,7 +17,7 @@ namespace str {
   }
 
   bool equal_to::operator()(const char* lhs, const char* rhs) const {
-    return strcmp(lhs, rhs);
+    return strcmp(lhs, rhs) == 0;
   }
 
   string dictionary::make_string(const char* value) {
