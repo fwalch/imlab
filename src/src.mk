@@ -1,7 +1,8 @@
 SRC_DIR = src
 SRC_FILES = schema/conversion.cpp schema/store.cpp \
 						import.cpp tpcc.cpp oltp.cpp olap.cpp timer.cpp \
-						str/dictionary.cpp
+						str/dictionary.cpp cmd/command.cpp cmd/tpcc_command.cpp \
+						cmd/yago_command.cpp cmd/tpce_command.cpp
 SOURCES = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ_DIR = obj
@@ -25,9 +26,6 @@ all: $(EXECUTABLE)
 
 clean:
 	rm -rf $(OBJ_DIR)
-
-run: all
-	./$(EXECUTABLE)
 
 $(EXECUTABLE): $(MAIN_OBJ) $(OBJECTS)
 	$(CXX) $(LDFLAGS) $(OBJECTS) $(MAIN_OBJ) -o $@

@@ -7,19 +7,20 @@ Main Memory Database
     bin/              Helper scripts to get sample data etc.
     CodeGenerator/    SQL -> C++ code generator; output is in "gen/"
     data/             Sample data ("./bin/fetch-tpcc.sh" and "./bin/fetch-yago.sh")
-    gen/              Generated source code ("./bin/generate-sql-classes.sh")
+    gen/              Generated source code ("./bin/generate-sql-classes.sh" and "./bin/generate-sql-queries.sh")
     obj/              Build output ("make")
     src/              Source code
     test/             Test source code
 
 ## Quickstart
 
- 1. Run `./bin/fetch-tpcc.sh` to get the sample schema/data to populate the database with. To get Yago data, use `./bin/fetch-yago.sh`.
+ 1. Run `./bin/fetch-tpcc.sh` to get the TPC-E sample schema/data. To get Yago data, use `./bin/fetch-yago.sh`.
+    There is not fetch script for TPC-E data because it has a size of multiple GB.
  2. (Optional) Regenerate the C++ classes for the SQL schema with `./bin/generate-sql-classes.sh`.
  3. (Optional) Regenerate the C++ classes for the example SQL queries with `./bin/generate-sql-queries.sh`.
  4. (Optional) Run `make release=true test` to run unit tests.
  5. Run `make release=true` to build.
- 6. Execute `./obj/fakedb` (or use `make release=true run`).
+ 6. Execute `./obj/fakedb`.
 
 Tested with Clang 3.1 on Arch Linux x86_64.
 

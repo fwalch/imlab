@@ -1,5 +1,9 @@
 # Changelog
 
+## 2013-01-23
+
+ * Command line argument parser for easier benchmarking
+
 ## 2013-01-16
 
  * Yago Facts as sample data
