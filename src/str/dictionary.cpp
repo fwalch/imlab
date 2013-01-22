@@ -1,4 +1,4 @@
-#include "str_dictionary.h"
+#include "dictionary.h"
 #include <string>
 #include <cstring>
 #include <climits>

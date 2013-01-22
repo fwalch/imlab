@@ -17,4 +17,4 @@ else
 	LDFLAGS +=
 endif
 
-include main.mk test.mk
+include src/src.mk test/test.mk

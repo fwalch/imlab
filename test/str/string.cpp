@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../src/str_dictionary.h"
+#include "../../src/str/dictionary.h"
 
 TEST(String, HasSize16) {
   ASSERT_EQ(16, sizeof(str::string));

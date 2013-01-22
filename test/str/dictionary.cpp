@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../src/str_dictionary.h"
+#include "../../src/str/dictionary.h"
 #include <climits>
 
 TEST(StringDictionary, GetString) {
