@@ -30,4 +30,4 @@ Tested with Clang 3.1 on Arch Linux x86_64.
  * Clang (or GCC) to compile
  * googletest to run tests (available as `libgtest-dev` package on Ubuntu, `gtest` AUR PKGBUILD for Arch Linux)
    * cmake to build googletest
- * For code generator prerequisites, see `CodeGenerator/README.md`
+ * For code generator prerequisites, see [`CodeGenerator/README.md`](CodeGenerator/README.md)
