@@ -36,12 +36,6 @@ class CommandExecutor {
       }
     }
 
-    void initialize() {
-      for (auto it : commands) {
-        it.second->initialize();
-      }
-    }
-
     int execute(int argc, char** argv) {
       try {
         if (argc > 0) {

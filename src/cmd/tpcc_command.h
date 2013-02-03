@@ -8,25 +8,26 @@
 class TpccCommand : public Command {
   private:
     Tpcc tpcc;
-    const int DeliveryCount = 1E6;
-    const char* DeliveryFlag = "-d";
+
     const char* DeliveryFlagDesc = "Execute Delivery transaction";
-
-    const int QueryCount = 1E3;
-    const char* QueryFlag = "-q";
     const char* QueryFlagDesc = "Execute generated queries";
-
-    const int NewOrderCount = 1E6;
-    const char* NewOrderFlag = "-n";
     const char* NewOrderFlagDesc = "Execute NewOrder transactions";
+
+    const char* DeliveryFlag = "-d";
+    const char* QueryFlag = "-q";
+    const char* NewOrderFlag = "-n";
+
+    const long DeliveryCount = 1E6;
+    const int QueryCount = 1E3;
+    const int NewOrderCount = 1E6;
 
     void executeDeliveryTransactions();
     void executeNewOrderTransactions();
     void executeQueries();
 
   public:
-    void initialize() {
-      Command::initialize();
+    TpccCommand() {
+      Command();
 
       flags[DeliveryFlag] = std::make_pair(DeliveryFlagDesc, false);
       flags[NewOrderFlag] = std::make_pair(NewOrderFlagDesc, false);

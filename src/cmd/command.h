@@ -23,7 +23,7 @@ class Command {
 
   public:
     virtual ~Command() { }
-    virtual void initialize() {
+    Command() {
       flags[WaitFlag] = std::make_pair(WaitFlagDesc, false);
     }
 
