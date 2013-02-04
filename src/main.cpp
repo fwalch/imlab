@@ -1,7 +1,5 @@
-#include <cassert>
 #include <ctime>
 #include <iostream>
-#include "tpcc.h"
 #include "oltp.h"
 #include "olap.h"
 #include "../gen/lastname_order_sum_query.h"
@@ -22,8 +20,8 @@ void executeTransactions(Tpcc*);
 const int NewOrderCount = 1E6;
 const int QueryCount = 10;
 
-volatile bool childRunning = false;
-int executedQueries = 0;
+volatile static bool childRunning = false;
+static int executedQueries = 0;
 
 static void SIGCHLD_handler(int signal) {
   if (signal != 17) {
@@ -47,12 +45,7 @@ int main() {
 
     importSampleData("data", &tpcc);
 
-    executeQueries(&tpcc);
-
-    // Skip multithread part for this exercise
-    return 0;
-
-    /*Timer t;
+    Timer t;
     t.start();
     cout << " ✱ Running " << NewOrderCount << " NewOrder transactions with parallel queries." << endl;
 
@@ -81,7 +74,7 @@ int main() {
     cout << " ✔  Done in " << t.seconds << " sec (" << NewOrderCount/t.seconds << " tps)." << endl;
     cout << "    Executed " << executedQueries << " queries (" << executedQueries/t.seconds << " qps)." << endl;
 
-    return 0;*/
+    return 0;
   }
   catch (string msg) {
     cerr << " ✘ Exception thrown: " << msg << endl;

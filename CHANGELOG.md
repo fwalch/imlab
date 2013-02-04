@@ -1,5 +1,9 @@
 # Changelog
 
+## 2013-02-06
+
+ * Reverted main to parallel query/transaction execution
+
 ## 2012-11-21
 
  * Implemented generation of SQL queries from query trees
