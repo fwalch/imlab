@@ -61,18 +61,9 @@ namespace str {
        */
       std::unordered_map<const char*, uint64_t, hash, equal_to> reverse_map;
 
-      /** Helper function */
-      string make_inline_string(const char*, size_t);
-
-      /** Helper function */
-      string make_dictionary_string(const char*, size_t);
-
     public:
       /** Placeholder SID if no String is found */
       static const uint64_t NO_VALUE = 0;
-
-      /** Placeholder str::string if no String is found */
-      static const string NO_STRING;
 
       /**
        * Inserts the given string value into the Dictionary

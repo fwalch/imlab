@@ -3,10 +3,10 @@
 #include <iostream>
 
 size_t Yago::queryWebsitesOfAllWomen() {
-  std::set<str::string> women;
-  str::string hasGender = facts.predicate_dict.get_string("hasGender");
-  str::string female = facts.object_dict.get_string("female");
-  str::string hasWebsite = facts.predicate_dict.get_string("hasWebsite");
+  std::set<uint64_t> women;
+  uint64_t hasGender = facts.predicate_dict.get("hasGender");
+  uint64_t female = facts.object_dict.get("female");
+  uint64_t hasWebsite = facts.predicate_dict.get("hasWebsite");
   size_t websites = 0;
 
   // Get all women
