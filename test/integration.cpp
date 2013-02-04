@@ -12,8 +12,7 @@ TEST(Integration, TPCE) {
 
   // Test if querying retrieves the correct object
   auto c_tid = tpce.customers.get(433);
-  auto c_sid = tpce.customers.c_l_name[c_tid];
-  ASSERT_TRUE(memcmp(tpce.customers.c_l_name_dict.get(c_sid), "Labree", 6) == 0);
+  ASSERT_TRUE(strcmp(tpce.customers.c_l_name[c_tid], "Labree") == 0);
 }
 
 TEST(Integration, Yaga) {
@@ -23,9 +22,9 @@ TEST(Integration, Yaga) {
 
   importSampleData("test/data", &yago);
 
-  ASSERT_TRUE(strcmp("Jefferson County, Texas", yago.facts.subject_dict.get(yago.facts.subject[1])) == 0);
-  ASSERT_TRUE(strcmp("owns", yago.facts.predicate_dict.get(yago.facts.predicate[1])) == 0);
-  ASSERT_TRUE(strcmp("Jack Brooks Regional Airport", yago.facts.object_dict.get(yago.facts.object[1])) == 0);
+  ASSERT_TRUE(strcmp("Jefferson County, Texas", yago.facts.subject[1]) == 0);
+  ASSERT_TRUE(strcmp("owns", yago.facts.predicate[1]) == 0);
+  ASSERT_TRUE(strcmp("Jack Brooks Regional Airport", yago.facts.object[1]) == 0);
 }
 
 TEST(Integration, TPCC) {

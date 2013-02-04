@@ -2,8 +2,7 @@ TEST_CXXFLAGS += $(CXXFLAGS) -Wno-global-constructors
 TEST_LDFLAGS += $(LDFLAGS)
 
 TEST_DIR = test
-TEST_FILES = main.cpp conversion.cpp integration.cpp str/dictionary.cpp \
-						 str/string.cpp
+TEST_FILES = main.cpp conversion.cpp integration.cpp
 TEST_SOURCES = $(addprefix $(TEST_DIR)/, $(TEST_FILES))
 
 TEST_OBJ_DIR = obj/$(TEST_DIR)
