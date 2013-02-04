@@ -11,6 +11,7 @@ class YagoCommand : public Command {
 
     const char* QueryFlagDesc = "Execute website query";
     const char* QueryFlag = "-q";
+    const long QueryCount = 100;
 
     void executeWebsiteQuery();
 

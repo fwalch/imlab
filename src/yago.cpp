@@ -24,8 +24,6 @@ size_t Yago::queryWebsitesOfAllWomen() {
   i = 0;
   for (auto predicate : facts.predicate) {
     if (predicate == hasWebsite && women.find(facts.subject[i]) != endIterator) {
-      // Print website
-      std::cout << facts.subject_dict.get(facts.subject[i]) << ": " << facts.object_dict.get(facts.object[i]) << std::endl;
       websites++;
     }
     i++;

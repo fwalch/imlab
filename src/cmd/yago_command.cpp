@@ -20,10 +20,12 @@ void YagoCommand::execute(int argc, char** argv) {
 void YagoCommand::executeWebsiteQuery() {
   Timer t;
   t.start();
-  cout << " ✱ Querying websites of all women." << endl;
+  cout << " ✱ Running " << QueryCount << " website queries." << endl;
 
-  size_t count = yago.queryWebsitesOfAllWomen();
+  for (int i = 0; i < QueryCount; i++) {
+    cout << "Found " << yago.queryWebsitesOfAllWomen() << " websites." << endl;
+  }
 
   t.stop();
-  cout << " ✔  Done in " << t.seconds << " sec; found " << count << " websites." << endl;
+  cout << " ✔  Done in " << t.seconds << " sec (" << QueryCount/t.seconds << " qps)." << endl;
 }
