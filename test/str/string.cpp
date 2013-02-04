@@ -47,3 +47,8 @@ TEST(String, GreaterThanComparison) {
   ASSERT_FALSE(string1 == string2);
 }
 
+TEST(String, EmptyStringNotEqualNoString) {
+  str::string string;
+
+  ASSERT_FALSE(string == str::dictionary::NO_STRING);
+}

@@ -153,14 +153,14 @@ namespace tpcc {
 
   std::pair<Customer::customer_wdlIndexType::iterator, Customer::customer_wdlIndexType::iterator> Customer::getByCustomer_wdl(int32_t c_w_id, int32_t c_d_id, const char* c_last, const char* c_first) {
     return std::make_pair(
-    this->customer_wdlIndex.lower_bound(std::make_tuple(c_w_id, c_d_id, this->c_last_dict.make_string(c_last), this->c_first_dict.make_string(c_first))),
-    this->customer_wdlIndex.upper_bound(std::make_tuple(c_w_id, c_d_id, this->c_last_dict.make_string(c_last), this->c_first_dict.make_string(c_first))));
+    this->customer_wdlIndex.lower_bound(std::make_tuple(c_w_id, c_d_id, this->c_last_dict.get_string(c_last), this->c_first_dict.get_string(c_first))),
+    this->customer_wdlIndex.upper_bound(std::make_tuple(c_w_id, c_d_id, this->c_last_dict.get_string(c_last), this->c_first_dict.get_string(c_first))));
   }
 
   std::pair<Customer::c_lastIndexType::iterator, Customer::c_lastIndexType::iterator> Customer::getByC_last(const char* c_last) {
     return std::make_pair(
-    this->c_lastIndex.lower_bound(std::make_tuple(this->c_last_dict.make_string(c_last))),
-    this->c_lastIndex.upper_bound(std::make_tuple(this->c_last_dict.make_string(c_last))));
+    this->c_lastIndex.lower_bound(std::make_tuple(this->c_last_dict.get_string(c_last))),
+    this->c_lastIndex.upper_bound(std::make_tuple(this->c_last_dict.get_string(c_last))));
   }
 
 }

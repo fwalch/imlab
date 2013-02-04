@@ -9,6 +9,7 @@
 class Yago {
   public:
     yago::Triple facts;
+    size_t queryWebsitesOfAllWomen();
 };
 
 #endif

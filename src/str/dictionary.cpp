@@ -4,6 +4,10 @@
 #include <climits>
 
 namespace str {
+  size_t hash::operator()(const char* value) const {
+    return std::hash<std::string>()(value);
+  }
+
   bool string::operator<(const string &other) const {
     //TODO: sort alphabetically
     return memcmp(this, &other, sizeof(string)) < 0;
@@ -13,25 +17,27 @@ namespace str {
     return memcmp(this, &other, sizeof(string)) == 0;
   }
 
-  size_t hash::operator()(const char* value) const {
-    return std::hash<std::string>()(value);
-  }
-
   bool equal_to::operator()(const char* lhs, const char* rhs) const {
     return strcmp(lhs, rhs) == 0;
   }
 
-  string dictionary::make_string(const char* value) {
-    auto len = strlen(value);
+  string dictionary::make_inline_string(const char* value, size_t len) {
     string string;
-    if (len < 15) {
-      string.len = (uint8_t)len;
-      strcpy(string.value, value);
-      if (len != 14) {
-        memset(string.value + len, 0, 15 - len);
-      }
+    string.len = (uint8_t)len;
+    strcpy(string.value, value);
+    if (len != 14) {
+      memset(string.value + len, 0, 15 - len);
     }
-    else if (len < UINT_MAX) {
+    return string;
+  }
+
+  const string dictionary::NO_STRING = {
+    .flags = 0xFE,
+  };
+
+  string dictionary::make_dictionary_string(const char* value, size_t len) {
+    string string;
+    if (len < UINT_MAX) {
       string.len = 0xFF;
       // TODO: what if string has only length <3?
       memcpy(string.head, value, 3);
@@ -44,6 +50,25 @@ namespace str {
       throw "String too long; cannot proceed";
     }
     return string;
+  }
+
+  string dictionary::get_string(const char* value) {
+    auto len = strlen(value);
+    if (len < 15) {
+      return make_inline_string(value, len);
+    }
+    if (get(value) == NO_VALUE) {
+      return NO_STRING;
+    }
+    return make_dictionary_string(value, len);
+  }
+
+  string dictionary::make_string(const char* value) {
+    size_t len = strlen(value);
+    if (len < 15) {
+      return make_inline_string(value, len);
+    }
+    return make_dictionary_string(value, len);
   }
 
   uint64_t dictionary::insert(const char* value) {

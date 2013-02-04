@@ -64,7 +64,7 @@ module TextColumnPresenter
   end
 
   def local_to_index_key_value
-    "#{global_dictionary_name}.make_string(#{super})"
+    "#{global_dictionary_name}.get_string(#{super})"
   end
 
   def add_from(variable_name)

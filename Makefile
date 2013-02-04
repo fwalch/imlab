@@ -5,7 +5,7 @@ endif
 
 # Define clang flags
 ifeq ($(CXX), clang++)
-	CXXFLAGS += -g -Weverything -Wno-c++98-compat -Wno-shadow -Wno-disabled-macro-expansion -Wno-gnu --std=c++11
+	CXXFLAGS += -g -Weverything -Wno-c++98-compat -Wno-shadow -Wno-disabled-macro-expansion -Wno-gnu -Wno-c99-extensions --std=c++11
 	LDFLAGS +=
 endif
 

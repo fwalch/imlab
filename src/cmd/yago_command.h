@@ -9,7 +9,17 @@ class YagoCommand : public Command {
   private:
     Yago yago;
 
+    const char* QueryFlagDesc = "Execute website query";
+    const char* QueryFlag = "-q";
+
+    void executeWebsiteQuery();
+
   public:
+    YagoCommand() {
+      Command();
+
+      flags[QueryFlag] = std::make_pair(QueryFlagDesc, false);
+    }
     void execute(int argc, char** argv);
 };
 

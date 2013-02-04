@@ -14,7 +14,7 @@ Main Memory Database Lab Course
 
 ## Quickstart
 
- 1. Run `./bin/fetch-tpcc.sh` to get the TPC-E sample schema/data. To get Yago data, use `./bin/fetch-yago.sh`.
+ 1. Run `./bin/fetch-tpcc.sh` to get the TPC-C sample schema/data. To get Yago data, use `./bin/fetch-yago.sh`.
     There is not fetch script for TPC-E data because it has a size of multiple GB.
  2. (Optional) Regenerate the C++ classes for the SQL schema with `./bin/generate-sql-classes.sh`.
  3. (Optional) Regenerate the C++ classes for the example SQL queries with `./bin/generate-sql-queries.sh`.
