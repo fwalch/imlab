@@ -2,7 +2,7 @@
 
 ## 2013-02-06
 
- * Final implementation - string dictionary
+ * Final implementation - string dictionary without str::string data structure
 
 ## 2013-01-23
 
