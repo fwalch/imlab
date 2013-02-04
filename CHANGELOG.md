@@ -2,7 +2,7 @@
 
 ## 2013-02-06
 
- * Final implementation - string dictionary
+ * Final implementation - string vector
 
 ## 2013-01-23
 
