@@ -13,7 +13,6 @@ size_t Yago::queryWebsitesOfAllWomen() {
       // Store to find website
       women.insert(facts.subject[i]);
     }
-    i++;
   }
 
   // Get all websites
@@ -22,7 +21,6 @@ size_t Yago::queryWebsitesOfAllWomen() {
     if (strcmp(facts.predicate[i], "hasWebsite") == 0 && women.find(facts.subject[i]) != endIterator) {
       websites++;
     }
-    i++;
   }
 
   return websites;
