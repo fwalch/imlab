@@ -5,8 +5,8 @@ module TaxQuery
   def self.get_query_tree
     ## IUs
     # for print
-    w_name = Expression::Attribute.new('w_name', 'char*', -> v { "w_name_dict.get(#{v})"})
-    d_name = Expression::Attribute.new('d_name', 'char*', -> v { "d_name_dict.get(#{v})"})
+    w_name = Expression::Attribute.new('w_name', 'char*')
+    d_name = Expression::Attribute.new('d_name', 'char*')
     d_tax = Expression::Attribute.new('d_tax', 'int64_t')
 
     # for warehouse <-> district join

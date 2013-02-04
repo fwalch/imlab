@@ -11,7 +11,7 @@ void lastnameOrderSumQuery(Tpcc* tpcc) {
   auto v_2 = std::unordered_set<std::tuple<int32_t>>();
   for (uint64_t customers_tid = 0; customers_tid < tpcc->customers.count(); customers_tid++) {
     auto c_id = tpcc->customers.c_id[customers_tid];
-    auto c_last = tpcc->customers.c_last_dict.get(tpcc->customers.c_last[customers_tid]);
+    auto c_last = tpcc->customers.c_last[customers_tid];
     if (strcmp(c_last, "BARBARBAR") == 0) {
       v_2.insert(std::make_tuple(c_id));
     }

@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <unordered_map>
 #include <map>
-#include "../../src/str/dictionary.h"
+#include "../../src/str/vector.h"
 #include "schema.h"
 
 namespace tpcc {
@@ -18,14 +18,12 @@ namespace tpcc {
     pkIndexType pkIndex;
     std::vector<int32_t> i_id;
     std::vector<int32_t> i_im_id;
-    std::vector<str::string> i_name;
-    str::dictionary i_name_dict;
+    str::vector<24> i_name;
     std::vector<int64_t> i_price;
-    std::vector<str::string> i_data;
-    str::dictionary i_data_dict;
+    str::vector<50> i_data;
 
     void add(std::string[5]);
-    void add_instance(int32_t i_id, int32_t i_im_id, const char* i_name, int64_t i_price, const char* i_data);
+    void add_instance(int32_t i_id, int32_t i_im_id, std::string i_name, int64_t i_price, std::string i_data);
     void remove(uint64_t tid);
 
     uint64_t get(int32_t i_id);

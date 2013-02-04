@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <unordered_map>
 #include <map>
-#include "../../src/str/dictionary.h"
+#include "../../src/str/vector.h"
 #include "schema.h"
 
 namespace yago {
@@ -14,15 +14,12 @@ namespace yago {
   class Triple : public Store {
     public:
 
-    std::vector<str::string> subject;
-    str::dictionary subject_dict;
-    std::vector<str::string> predicate;
-    str::dictionary predicate_dict;
-    std::vector<str::string> object;
-    str::dictionary object_dict;
+    str::vector<100> subject;
+    str::vector<23> predicate;
+    str::vector<211> object;
 
     void add(std::string[3]);
-    void add_instance(const char* subject, const char* predicate, const char* object);
+    void add_instance(std::string subject, std::string predicate, std::string object);
     void remove(uint64_t tid);
 
 

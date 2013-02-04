@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <unordered_map>
 #include <map>
-#include "../../src/str/dictionary.h"
+#include "../../src/str/vector.h"
 #include "schema.h"
 
 namespace tpcc {

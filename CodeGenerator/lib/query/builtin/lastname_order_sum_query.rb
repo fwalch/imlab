@@ -5,7 +5,7 @@ module LastnameOrderSumQuery
   def self.get_query_tree
     ## IUs
     # for customer selection
-    c_last = Expression::Attribute.new('c_last', 'char*', -> v { "c_last_dict.get(#{v})"})
+    c_last = Expression::Attribute.new('c_last', 'char*')
     c_last_const = Expression::Constant.new('"BARBARBAR"', 'std::string')
 
     # for customer <-> order join

@@ -9,10 +9,10 @@ using namespace std;
 namespace tpcc {
 
   void History::add(string elements[8]) {
-    add_instance(atoi(elements[0].c_str()), atoi(elements[1].c_str()), atoi(elements[2].c_str()), atoi(elements[3].c_str()), atoi(elements[4].c_str()), db_stod(elements[5]), db_stol(elements[6]), elements[7].c_str());
+    add_instance(atoi(elements[0].c_str()), atoi(elements[1].c_str()), atoi(elements[2].c_str()), atoi(elements[3].c_str()), atoi(elements[4].c_str()), db_stod(elements[5]), db_stol(elements[6]), elements[7]);
   }
 
-  void History::add_instance(int32_t h_c_id, int32_t h_c_d_id, int32_t h_c_w_id, int32_t h_d_id, int32_t h_w_id, uint64_t h_date, int64_t h_amount, const char* h_data) {
+  void History::add_instance(int32_t h_c_id, int32_t h_c_d_id, int32_t h_c_w_id, int32_t h_d_id, int32_t h_w_id, uint64_t h_date, int64_t h_amount, std::string h_data) {
     this->h_c_id.push_back(h_c_id);
     this->h_c_d_id.push_back(h_c_d_id);
     this->h_c_w_id.push_back(h_c_w_id);
@@ -20,8 +20,7 @@ namespace tpcc {
     this->h_w_id.push_back(h_w_id);
     this->h_date.push_back(h_date);
     this->h_amount.push_back(h_amount);
-    auto h_data_str = this->h_data_dict.make_string(h_data);
-    this->h_data.push_back(h_data_str);
+    this->h_data.push_back(h_data);
 
     tid++;
   }
@@ -42,7 +41,7 @@ namespace tpcc {
       this->h_w_id[tid] = this->h_w_id[tidToSwap];
       this->h_date[tid] = this->h_date[tidToSwap];
       this->h_amount[tid] = this->h_amount[tidToSwap];
-      this->h_data[tid] = this->h_data[tidToSwap];
+      this->h_data.set(tid, this->h_data[tidToSwap]);
 
       // Set swapped item's TID in index
 
@@ -56,8 +55,6 @@ namespace tpcc {
     this->h_w_id.pop_back();
     this->h_date.pop_back();
     this->h_amount.pop_back();
-    auto h_data_sid = this->h_data.back();
-    this->h_data_dict.remove(h_data_sid);
     this->h_data.pop_back();
   }
 

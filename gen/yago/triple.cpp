@@ -9,16 +9,13 @@ using namespace std;
 namespace yago {
 
   void Triple::add(string elements[3]) {
-    add_instance(elements[0].c_str(), elements[1].c_str(), elements[2].c_str());
+    add_instance(elements[0], elements[1], elements[2]);
   }
 
-  void Triple::add_instance(const char* subject, const char* predicate, const char* object) {
-    auto subject_str = this->subject_dict.make_string(subject);
-    this->subject.push_back(subject_str);
-    auto predicate_str = this->predicate_dict.make_string(predicate);
-    this->predicate.push_back(predicate_str);
-    auto object_str = this->object_dict.make_string(object);
-    this->object.push_back(object_str);
+  void Triple::add_instance(std::string subject, std::string predicate, std::string object) {
+    this->subject.push_back(subject);
+    this->predicate.push_back(predicate);
+    this->object.push_back(object);
 
     tid++;
   }
@@ -32,23 +29,17 @@ namespace yago {
 
     if (tid != tidToSwap) {
       // Move data from last item to deleted item's position
-      this->subject[tid] = this->subject[tidToSwap];
-      this->predicate[tid] = this->predicate[tidToSwap];
-      this->object[tid] = this->object[tidToSwap];
+      this->subject.set(tid, this->subject[tidToSwap]);
+      this->predicate.set(tid, this->predicate[tidToSwap]);
+      this->object.set(tid, this->object[tidToSwap]);
 
       // Set swapped item's TID in index
 
     }
 
     // Delete the data
-    auto subject_sid = this->subject.back();
-    this->subject_dict.remove(subject_sid);
     this->subject.pop_back();
-    auto predicate_sid = this->predicate.back();
-    this->predicate_dict.remove(predicate_sid);
     this->predicate.pop_back();
-    auto object_sid = this->object.back();
-    this->object_dict.remove(object_sid);
     this->object.pop_back();
   }
 

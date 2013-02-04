@@ -32,54 +32,20 @@ module NumericColumnPresenter
 end
 
 module TextColumnPresenter
-  def type
-    'const char*'
+  def length
+    @column.attributes[:length]
   end
 
-  def index_key_type
-    'str::string'
+  def type
+    'std::string'
   end
 
   def collection_type
-    "std::vector<str::string>"
+    "str::vector<#{length}>"
   end
 
-  def dictionary_name
-    "#{name}_dict"
-  end
-
-  def global_dictionary_name
-    "this->#{dictionary_name}"
-  end
-
-  def global_definition
-    [
-      super,
-      "str::dictionary #{dictionary_name}"
-    ]
-  end
-
-  def from_string_variable(variable_name)
-    "#{super}.c_str()"
-  end
-
-  def local_to_index_key_value
-    "#{global_dictionary_name}.get_string(#{super})"
-  end
-
-  def add_from(variable_name)
-    [
-      "auto #{variable_name}_str = #{global_dictionary_name}.make_string(#{variable_name})",
-      "#{global_name}.push_back(#{variable_name}_str)"
-    ]
-  end
-
-  def remove
-    [
-      "auto #{local_name}_sid = #{global_name}.back()",
-      "#{global_dictionary_name}.remove(#{local_name}_sid)",
-      super
-    ]
+  def assign_from(tid_variable, value_variable)
+    "#{global_name}.set(#{tid_variable}, #{value_variable})"
   end
 end
 

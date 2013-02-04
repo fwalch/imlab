@@ -9,10 +9,10 @@ using namespace std;
 namespace tpcc {
 
   void Orderline::add(string elements[10]) {
-    add_instance(atoi(elements[0].c_str()), atoi(elements[1].c_str()), atoi(elements[2].c_str()), atoi(elements[3].c_str()), atoi(elements[4].c_str()), atoi(elements[5].c_str()), db_stod(elements[6]), db_stol(elements[7]), db_stol(elements[8]), elements[9].c_str());
+    add_instance(atoi(elements[0].c_str()), atoi(elements[1].c_str()), atoi(elements[2].c_str()), atoi(elements[3].c_str()), atoi(elements[4].c_str()), atoi(elements[5].c_str()), db_stod(elements[6]), db_stol(elements[7]), db_stol(elements[8]), elements[9]);
   }
 
-  void Orderline::add_instance(int32_t ol_o_id, int32_t ol_d_id, int32_t ol_w_id, int32_t ol_number, int32_t ol_i_id, int32_t ol_supply_w_id, uint64_t ol_delivery_d, int64_t ol_quantity, int64_t ol_amount, const char* ol_dist_info) {
+  void Orderline::add_instance(int32_t ol_o_id, int32_t ol_d_id, int32_t ol_w_id, int32_t ol_number, int32_t ol_i_id, int32_t ol_supply_w_id, uint64_t ol_delivery_d, int64_t ol_quantity, int64_t ol_amount, std::string ol_dist_info) {
     this->ol_o_id.push_back(ol_o_id);
     this->ol_d_id.push_back(ol_d_id);
     this->ol_w_id.push_back(ol_w_id);
@@ -22,8 +22,7 @@ namespace tpcc {
     this->ol_delivery_d.push_back(ol_delivery_d);
     this->ol_quantity.push_back(ol_quantity);
     this->ol_amount.push_back(ol_amount);
-    auto ol_dist_info_str = this->ol_dist_info_dict.make_string(ol_dist_info);
-    this->ol_dist_info.push_back(ol_dist_info_str);
+    this->ol_dist_info.push_back(ol_dist_info);
     this->pkIndex[std::make_tuple(this->ol_w_id[tid], this->ol_d_id[tid], this->ol_o_id[tid], this->ol_number[tid])] = tid;
     tid++;
   }
@@ -49,7 +48,7 @@ namespace tpcc {
       this->ol_delivery_d[tid] = this->ol_delivery_d[tidToSwap];
       this->ol_quantity[tid] = this->ol_quantity[tidToSwap];
       this->ol_amount[tid] = this->ol_amount[tidToSwap];
-      this->ol_dist_info[tid] = this->ol_dist_info[tidToSwap];
+      this->ol_dist_info.set(tid, this->ol_dist_info[tidToSwap]);
 
       // Set swapped item's TID in index
       this->pkIndex[std::make_tuple(this->ol_w_id[tid], this->ol_d_id[tid], this->ol_o_id[tid], this->ol_number[tid])] = tid;
@@ -65,8 +64,6 @@ namespace tpcc {
     this->ol_delivery_d.pop_back();
     this->ol_quantity.pop_back();
     this->ol_amount.pop_back();
-    auto ol_dist_info_sid = this->ol_dist_info.back();
-    this->ol_dist_info_dict.remove(ol_dist_info_sid);
     this->ol_dist_info.pop_back();
   }
 
