@@ -15,10 +15,10 @@ namespace tpcc {
   void Item::add_instance(int32_t i_id, int32_t i_im_id, const char* i_name, int64_t i_price, const char* i_data) {
     this->i_id.push_back(i_id);
     this->i_im_id.push_back(i_im_id);
-    auto i_name_str = this->i_name_dict.make_string(i_name);
+    auto i_name_str = this->i_name_dict.insert(i_name);
     this->i_name.push_back(i_name_str);
     this->i_price.push_back(i_price);
-    auto i_data_str = this->i_data_dict.make_string(i_data);
+    auto i_data_str = this->i_data_dict.insert(i_data);
     this->i_data.push_back(i_data_str);
     this->pkIndex[std::make_tuple(this->i_id[tid])] = tid;
     tid++;

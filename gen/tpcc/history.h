@@ -21,7 +21,7 @@ namespace tpcc {
     std::vector<int32_t> h_w_id;
     std::vector<uint64_t> h_date;
     std::vector<int64_t> h_amount;
-    std::vector<str::string> h_data;
+    std::vector<uint64_t> h_data;
     str::dictionary h_data_dict;
 
     void add(std::string[8]);

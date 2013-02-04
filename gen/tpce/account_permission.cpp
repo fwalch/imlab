@@ -14,13 +14,13 @@ namespace tpce {
 
   void AccountPermission::add_instance(int32_t ap_ca_id, const char* ap_acl, const char* ap_tax_id, const char* ap_l_name, const char* ap_f_name) {
     this->ap_ca_id.push_back(ap_ca_id);
-    auto ap_acl_str = this->ap_acl_dict.make_string(ap_acl);
+    auto ap_acl_str = this->ap_acl_dict.insert(ap_acl);
     this->ap_acl.push_back(ap_acl_str);
-    auto ap_tax_id_str = this->ap_tax_id_dict.make_string(ap_tax_id);
+    auto ap_tax_id_str = this->ap_tax_id_dict.insert(ap_tax_id);
     this->ap_tax_id.push_back(ap_tax_id_str);
-    auto ap_l_name_str = this->ap_l_name_dict.make_string(ap_l_name);
+    auto ap_l_name_str = this->ap_l_name_dict.insert(ap_l_name);
     this->ap_l_name.push_back(ap_l_name_str);
-    auto ap_f_name_str = this->ap_f_name_dict.make_string(ap_f_name);
+    auto ap_f_name_str = this->ap_f_name_dict.insert(ap_f_name);
     this->ap_f_name.push_back(ap_f_name_str);
     this->pkIndex[std::make_tuple(this->ap_ca_id[tid])] = tid;
     tid++;

@@ -13,11 +13,11 @@ namespace yago {
   }
 
   void Triple::add_instance(const char* subject, const char* predicate, const char* object) {
-    auto subject_str = this->subject_dict.make_string(subject);
+    auto subject_str = this->subject_dict.insert(subject);
     this->subject.push_back(subject_str);
-    auto predicate_str = this->predicate_dict.make_string(predicate);
+    auto predicate_str = this->predicate_dict.insert(predicate);
     this->predicate.push_back(predicate_str);
-    auto object_str = this->object_dict.make_string(object);
+    auto object_str = this->object_dict.insert(object);
     this->object.push_back(object_str);
 
     tid++;

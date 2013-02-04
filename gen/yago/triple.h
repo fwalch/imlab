@@ -14,11 +14,11 @@ namespace yago {
   class Triple : public Store {
     public:
 
-    std::vector<str::string> subject;
+    std::vector<uint64_t> subject;
     str::dictionary subject_dict;
-    std::vector<str::string> predicate;
+    std::vector<uint64_t> predicate;
     str::dictionary predicate_dict;
-    std::vector<str::string> object;
+    std::vector<uint64_t> object;
     str::dictionary object_dict;
 
     void add(std::string[3]);

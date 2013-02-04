@@ -16,26 +16,26 @@ namespace tpcc {
     this->c_id.push_back(c_id);
     this->c_d_id.push_back(c_d_id);
     this->c_w_id.push_back(c_w_id);
-    auto c_first_str = this->c_first_dict.make_string(c_first);
+    auto c_first_str = this->c_first_dict.insert(c_first);
     this->c_first.push_back(c_first_str);
-    auto c_middle_str = this->c_middle_dict.make_string(c_middle);
+    auto c_middle_str = this->c_middle_dict.insert(c_middle);
     this->c_middle.push_back(c_middle_str);
-    auto c_last_str = this->c_last_dict.make_string(c_last);
+    auto c_last_str = this->c_last_dict.insert(c_last);
     this->c_last.push_back(c_last_str);
-    auto c_street_1_str = this->c_street_1_dict.make_string(c_street_1);
+    auto c_street_1_str = this->c_street_1_dict.insert(c_street_1);
     this->c_street_1.push_back(c_street_1_str);
-    auto c_street_2_str = this->c_street_2_dict.make_string(c_street_2);
+    auto c_street_2_str = this->c_street_2_dict.insert(c_street_2);
     this->c_street_2.push_back(c_street_2_str);
-    auto c_city_str = this->c_city_dict.make_string(c_city);
+    auto c_city_str = this->c_city_dict.insert(c_city);
     this->c_city.push_back(c_city_str);
-    auto c_state_str = this->c_state_dict.make_string(c_state);
+    auto c_state_str = this->c_state_dict.insert(c_state);
     this->c_state.push_back(c_state_str);
-    auto c_zip_str = this->c_zip_dict.make_string(c_zip);
+    auto c_zip_str = this->c_zip_dict.insert(c_zip);
     this->c_zip.push_back(c_zip_str);
-    auto c_phone_str = this->c_phone_dict.make_string(c_phone);
+    auto c_phone_str = this->c_phone_dict.insert(c_phone);
     this->c_phone.push_back(c_phone_str);
     this->c_since.push_back(c_since);
-    auto c_credit_str = this->c_credit_dict.make_string(c_credit);
+    auto c_credit_str = this->c_credit_dict.insert(c_credit);
     this->c_credit.push_back(c_credit_str);
     this->c_credit_lim.push_back(c_credit_lim);
     this->c_discount.push_back(c_discount);
@@ -43,7 +43,7 @@ namespace tpcc {
     this->c_ytd_paymenr.push_back(c_ytd_paymenr);
     this->c_payment_cnt.push_back(c_payment_cnt);
     this->c_delivery_cnt.push_back(c_delivery_cnt);
-    auto c_data_str = this->c_data_dict.make_string(c_data);
+    auto c_data_str = this->c_data_dict.insert(c_data);
     this->c_data.push_back(c_data_str);
     this->pkIndex[std::make_tuple(this->c_w_id[tid], this->c_d_id[tid], this->c_id[tid])] = tid;
     this->customer_wdlIndex.insert(std::make_pair(std::make_tuple(this->c_w_id[tid], this->c_d_id[tid], this->c_last[tid], this->c_first[tid]), tid));
@@ -153,14 +153,14 @@ namespace tpcc {
 
   std::pair<Customer::customer_wdlIndexType::iterator, Customer::customer_wdlIndexType::iterator> Customer::getByCustomer_wdl(int32_t c_w_id, int32_t c_d_id, const char* c_last, const char* c_first) {
     return std::make_pair(
-    this->customer_wdlIndex.lower_bound(std::make_tuple(c_w_id, c_d_id, this->c_last_dict.get_string(c_last), this->c_first_dict.get_string(c_first))),
-    this->customer_wdlIndex.upper_bound(std::make_tuple(c_w_id, c_d_id, this->c_last_dict.get_string(c_last), this->c_first_dict.get_string(c_first))));
+    this->customer_wdlIndex.lower_bound(std::make_tuple(c_w_id, c_d_id, this->c_last_dict.get(c_last), this->c_first_dict.get(c_first))),
+    this->customer_wdlIndex.upper_bound(std::make_tuple(c_w_id, c_d_id, this->c_last_dict.get(c_last), this->c_first_dict.get(c_first))));
   }
 
   std::pair<Customer::c_lastIndexType::iterator, Customer::c_lastIndexType::iterator> Customer::getByC_last(const char* c_last) {
     return std::make_pair(
-    this->c_lastIndex.lower_bound(std::make_tuple(this->c_last_dict.get_string(c_last))),
-    this->c_lastIndex.upper_bound(std::make_tuple(this->c_last_dict.get_string(c_last))));
+    this->c_lastIndex.lower_bound(std::make_tuple(this->c_last_dict.get(c_last))),
+    this->c_lastIndex.upper_bound(std::make_tuple(this->c_last_dict.get(c_last))));
   }
 
 }

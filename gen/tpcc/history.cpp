@@ -20,7 +20,7 @@ namespace tpcc {
     this->h_w_id.push_back(h_w_id);
     this->h_date.push_back(h_date);
     this->h_amount.push_back(h_amount);
-    auto h_data_str = this->h_data_dict.make_string(h_data);
+    auto h_data_str = this->h_data_dict.insert(h_data);
     this->h_data.push_back(h_data_str);
 
     tid++;

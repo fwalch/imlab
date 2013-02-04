@@ -14,17 +14,17 @@ namespace tpcc {
 
   void Warehouse::add_instance(int32_t w_id, const char* w_name, const char* w_street_1, const char* w_street_2, const char* w_city, const char* w_state, const char* w_zip, int64_t w_tax, int64_t w_ytd) {
     this->w_id.push_back(w_id);
-    auto w_name_str = this->w_name_dict.make_string(w_name);
+    auto w_name_str = this->w_name_dict.insert(w_name);
     this->w_name.push_back(w_name_str);
-    auto w_street_1_str = this->w_street_1_dict.make_string(w_street_1);
+    auto w_street_1_str = this->w_street_1_dict.insert(w_street_1);
     this->w_street_1.push_back(w_street_1_str);
-    auto w_street_2_str = this->w_street_2_dict.make_string(w_street_2);
+    auto w_street_2_str = this->w_street_2_dict.insert(w_street_2);
     this->w_street_2.push_back(w_street_2_str);
-    auto w_city_str = this->w_city_dict.make_string(w_city);
+    auto w_city_str = this->w_city_dict.insert(w_city);
     this->w_city.push_back(w_city_str);
-    auto w_state_str = this->w_state_dict.make_string(w_state);
+    auto w_state_str = this->w_state_dict.insert(w_state);
     this->w_state.push_back(w_state_str);
-    auto w_zip_str = this->w_zip_dict.make_string(w_zip);
+    auto w_zip_str = this->w_zip_dict.insert(w_zip);
     this->w_zip.push_back(w_zip_str);
     this->w_tax.push_back(w_tax);
     this->w_ytd.push_back(w_ytd);

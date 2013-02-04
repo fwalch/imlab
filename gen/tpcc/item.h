@@ -18,10 +18,10 @@ namespace tpcc {
     pkIndexType pkIndex;
     std::vector<int32_t> i_id;
     std::vector<int32_t> i_im_id;
-    std::vector<str::string> i_name;
+    std::vector<uint64_t> i_name;
     str::dictionary i_name_dict;
     std::vector<int64_t> i_price;
-    std::vector<str::string> i_data;
+    std::vector<uint64_t> i_data;
     str::dictionary i_data_dict;
 
     void add(std::string[5]);

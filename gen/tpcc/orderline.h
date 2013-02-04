@@ -25,7 +25,7 @@ namespace tpcc {
     std::vector<uint64_t> ol_delivery_d;
     std::vector<int64_t> ol_quantity;
     std::vector<int64_t> ol_amount;
-    std::vector<str::string> ol_dist_info;
+    std::vector<uint64_t> ol_dist_info;
     str::dictionary ol_dist_info_dict;
 
     void add(std::string[10]);

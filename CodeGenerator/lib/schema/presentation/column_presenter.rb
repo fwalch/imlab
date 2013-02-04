@@ -37,11 +37,11 @@ module TextColumnPresenter
   end
 
   def index_key_type
-    'str::string'
+    'uint64_t'
   end
 
   def collection_type
-    "std::vector<str::string>"
+    "std::vector<uint64_t>"
   end
 
   def dictionary_name
@@ -64,12 +64,12 @@ module TextColumnPresenter
   end
 
   def local_to_index_key_value
-    "#{global_dictionary_name}.get_string(#{super})"
+    "#{global_dictionary_name}.get(#{super})"
   end
 
   def add_from(variable_name)
     [
-      "auto #{variable_name}_str = #{global_dictionary_name}.make_string(#{variable_name})",
+      "auto #{variable_name}_str = #{global_dictionary_name}.insert(#{variable_name})",
       "#{global_name}.push_back(#{variable_name}_str)"
     ]
   end

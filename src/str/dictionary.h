@@ -8,53 +8,6 @@
 
 namespace str {
   /**
-   * Data structure for holding a String Dictionary String
-   *
-   * Short strings (<15 characters) are stored within the data structure,
-   * longer strings are stored within an accompanying String Dictionary.
-   *
-   * @sa str::dictionary
-   */
-  union string {
-    /** Long string version */
-    struct {
-      /** 0xFF (indicating a long string) */
-      uint8_t flags;
-      /** First three characters of string */
-      char head[3];
-      /** Length of the string (without NULL terminator) */
-      uint32_t length;
-      /** String Identifier (SID) within the accompanying String Dictionary */
-      uint64_t sid;
-    };
-    /** Short string version */
-    struct {
-      /** Length of the string (without NULL terminator) */
-      uint8_t len;
-      /** String content (including NULL terminator) */
-      char value[15];
-    };
-
-    /**
-     * Compares a given String with the current instance
-     *
-     * @param str String to compare current instance to
-     * @return TRUE if current instance less than given
-     *   String, FALSE otherwise.
-     */
-    bool operator<(const string& str) const;
-
-    /**
-     * Compares a given String with the current instance.
-     *
-     * @param str String to compare current instance to.
-     * @return TRUE if current instance is equal to given
-     *   String, FALSE otherwise.
-     */
-    bool operator==(const string& str) const;
-  };
-
-  /**
    * Hash function calculator for the String Dictionary's index structure.
    *
    * @sa str::dictionary
@@ -140,16 +93,6 @@ namespace str {
       uint64_t get(const char* value);
 
       /**
-       * Gets the value of a given String
-       *
-       * @warning No checks are done to verify that the given String is valid (e.g. belongs to this dictionary)!
-       *
-       * @param str String to get value of
-       * @return String value
-       */
-      const char* get(string& str);
-
-      /**
        * Gets the string value for a given SID
        *
        * @warning No checks are done to verify that the given SID is valid!
@@ -173,21 +116,6 @@ namespace str {
       void remove(uint64_t sid);
 
       /**
-       * Removes the given String from the Dictionary
-       *
-       * @warning
-       *   No checks are done to verify that the given String
-       *   is valid (e.g. belongs to this dictionary)!
-       *
-       * The String is only actually deleted if it is only
-       * referenced once. Otherwise, the reference counter
-       * in the index is decreased.
-       *
-       * @param str String to delete
-       */
-      void remove(string& str);
-
-      /**
        * Assigns a new value to the String with the given SID
        *
        * @warning No checks are done to verify that the given SID is valid!
@@ -199,26 +127,6 @@ namespace str {
        * @param value New value of the String
        */
       void update(uint64_t& sid, const char* value);
-
-      /**
-       * Creates a new String and inserts it into the String Dictionary
-       *
-       * @param value Value to insert into the Dictionary
-       * @return Inserted String
-       */
-      string make_string(const char* value);
-
-      /**
-       * Creates a new String for comparison purposes
-       *
-       * @attention
-       *   If the value is not already in the Dictionary,
-       *   it is NOT inserted.
-       *
-       * @param value Value to get String for
-       * @return String data structure
-       */
-      string get_string(const char* value);
 
       /** Destructor */
       ~dictionary();

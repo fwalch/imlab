@@ -15,17 +15,17 @@ namespace tpcc {
   void District::add_instance(int32_t d_id, int32_t d_w_id, const char* d_name, const char* d_street_1, const char* d_street_2, const char* d_city, const char* d_state, const char* d_zip, int64_t d_tax, int64_t d_ytd, int32_t d_next_o_id) {
     this->d_id.push_back(d_id);
     this->d_w_id.push_back(d_w_id);
-    auto d_name_str = this->d_name_dict.make_string(d_name);
+    auto d_name_str = this->d_name_dict.insert(d_name);
     this->d_name.push_back(d_name_str);
-    auto d_street_1_str = this->d_street_1_dict.make_string(d_street_1);
+    auto d_street_1_str = this->d_street_1_dict.insert(d_street_1);
     this->d_street_1.push_back(d_street_1_str);
-    auto d_street_2_str = this->d_street_2_dict.make_string(d_street_2);
+    auto d_street_2_str = this->d_street_2_dict.insert(d_street_2);
     this->d_street_2.push_back(d_street_2_str);
-    auto d_city_str = this->d_city_dict.make_string(d_city);
+    auto d_city_str = this->d_city_dict.insert(d_city);
     this->d_city.push_back(d_city_str);
-    auto d_state_str = this->d_state_dict.make_string(d_state);
+    auto d_state_str = this->d_state_dict.insert(d_state);
     this->d_state.push_back(d_state_str);
-    auto d_zip_str = this->d_zip_dict.make_string(d_zip);
+    auto d_zip_str = this->d_zip_dict.insert(d_zip);
     this->d_zip.push_back(d_zip_str);
     this->d_tax.push_back(d_tax);
     this->d_ytd.push_back(d_ytd);

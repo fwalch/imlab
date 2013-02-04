@@ -87,33 +87,3 @@ TEST(StringDictionary, DeleteOriginalAndUpdatedString) {
   ASSERT_EQ(0, dic.get("SomeOtherString"));
 }
 
-TEST(StringDictionary, MakeShortString) {
-  auto dic = str::dictionary();
-  auto string = dic.make_string("SomeString");
-  ASSERT_EQ(10, string.len);
-  ASSERT_TRUE(memcmp(string.value, "SomeString", 10) == 0);
-}
-
-TEST(StringDictionary, MakeLongString) {
-  auto dic = str::dictionary();
-  auto str = "SomeLooooooooooooooooooooooooooooongString";
-  auto string = dic.make_string(str);
-  ASSERT_EQ(0xFF, string.len);
-  ASSERT_TRUE(memcmp(string.head, str, 3) == 0);
-  ASSERT_EQ(42, string.length);
-  ASSERT_TRUE(strcmp(dic.get(string.sid), str) == 0);
-}
-
-TEST(StringDictionary, GetLongString) {
-  auto dic = str::dictionary();
-  auto str = "SomeLooooooooooooooooooooooooooooongString";
-  auto string = dic.make_string(str);
-  ASSERT_TRUE(strcmp(dic.get(string), str) == 0);
-}
-
-TEST(StringDictionary, GetShortString) {
-  auto dic = str::dictionary();
-  auto str = "SomeString";
-  auto string = dic.make_string(str);
-  ASSERT_TRUE(strcmp(dic.get(string), str) == 0);
-}

@@ -22,7 +22,7 @@ namespace tpcc {
     this->ol_delivery_d.push_back(ol_delivery_d);
     this->ol_quantity.push_back(ol_quantity);
     this->ol_amount.push_back(ol_amount);
-    auto ol_dist_info_str = this->ol_dist_info_dict.make_string(ol_dist_info);
+    auto ol_dist_info_str = this->ol_dist_info_dict.insert(ol_dist_info);
     this->ol_dist_info.push_back(ol_dist_info_str);
     this->pkIndex[std::make_tuple(this->ol_w_id[tid], this->ol_d_id[tid], this->ol_o_id[tid], this->ol_number[tid])] = tid;
     tid++;
