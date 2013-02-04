@@ -5,6 +5,7 @@
 
 namespace str {
   bool string::operator<(const string &other) const {
+    //TODO: sort alphabetically
     return memcmp(this, &other, sizeof(string)) < 0;
   }
 

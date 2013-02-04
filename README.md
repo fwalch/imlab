@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/fwalch/imlab.png?branch=string-dictionary)](http://travis-ci.org/fwalch/imlab)
 
-Main Memory Database
+Main Memory Database Lab Course
 
     bin/              Helper scripts to get sample data etc.
     CodeGenerator/    SQL -> C++ code generator; output is in "gen/"

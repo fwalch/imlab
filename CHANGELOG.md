@@ -1,5 +1,9 @@
 # Changelog
 
+## 2013-02-06
+
+ * Final implementation - string dictionary
+
 ## 2013-01-23
 
  * Command line argument parser for easier benchmarking
