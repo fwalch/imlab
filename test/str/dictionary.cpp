@@ -117,3 +117,21 @@ TEST(StringDictionary, GetShortString) {
   auto string = dic.make_string(str);
   ASSERT_TRUE(strcmp(dic.get(string), str) == 0);
 }
+
+TEST(StringDictionary, UpdateStringWithSameLength) {
+  auto dic = str::dictionary();
+  auto str1 = "asdf";
+  auto str2 = "asdg";
+
+  uint64_t sid = dic.insert(str1);
+  const char* strPtr = dic.get(sid);
+  ASSERT_TRUE(strcmp(str1, strPtr) == 0);
+
+  uint64_t previousSid = sid;
+  dic.update(sid, str2);
+
+  ASSERT_EQ(previousSid, sid);
+  ASSERT_TRUE(strcmp(str2, strPtr) == 0);
+
+  ASSERT_TRUE(strcmp(dic.get(sid), str2) == 0);
+}
