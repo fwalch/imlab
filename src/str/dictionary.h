@@ -116,7 +116,7 @@ namespace str {
 
     public:
       /** Placeholder SID if no String is found */
-      static const uint64_t NO_VALUE = 0;
+      static const uint64_t NO_VALUE;
 
       /** Placeholder str::string if no String is found */
       static const string NO_STRING;

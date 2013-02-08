@@ -135,3 +135,21 @@ TEST(StringDictionary, UpdateStringWithSameLength) {
 
   ASSERT_TRUE(strcmp(dic.get(sid), str2) == 0);
 }
+
+TEST(StringDictionary, EmptyString) {
+  auto dic = str::dictionary();
+  auto sid = dic.insert("");
+
+  ASSERT_NE(str::dictionary::NO_VALUE, sid);
+  ASSERT_FALSE(str::dictionary::NO_STRING == dic.get_string(""));
+  ASSERT_FALSE(str::dictionary::NO_STRING == dic.make_string(""));
+}
+
+TEST(StringDictionary, GetStringDoesNotInsert) {
+  auto dic = str::dictionary();
+  auto sid = dic.insert("");
+
+  ASSERT_NE(str::dictionary::NO_VALUE, sid);
+  ASSERT_FALSE(str::dictionary::NO_STRING == dic.get_string(""));
+  ASSERT_FALSE(str::dictionary::NO_STRING == dic.make_string(""));
+}

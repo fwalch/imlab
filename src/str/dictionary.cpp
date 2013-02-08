@@ -14,7 +14,8 @@ namespace str {
   }
 
   bool string::operator==(const string &other) const {
-    return memcmp(this, &other, sizeof(string)) == 0;
+    return (((uint64_t*)&other)[0] ^ ((uint64_t*)this)[0]) == 0
+      && (((uint64_t*)&other)[1] ^ ((uint64_t*)this)[1]) == 0;
   }
 
   bool equal_to::operator()(const char* lhs, const char* rhs) const {
@@ -25,8 +26,11 @@ namespace str {
     string string;
     string.len = (uint8_t)len;
     strcpy(string.value, value);
-    if (len != 14) {
-      memset(string.value + len, 0, 15 - len);
+    if (len < 14) {
+      // Copy zeros to remaining space in struct
+      // One characters is always already written
+      // (string terminator \0)
+      memset(string.value + len + 1, 0, 14 - len);
     }
     return string;
   }
@@ -35,15 +39,14 @@ namespace str {
     .flags = 0xFE,
   };
 
+  const uint64_t dictionary::NO_VALUE = 0;
+
   string dictionary::make_dictionary_string(const char* value, size_t len) {
     string string;
     if (len < UINT_MAX) {
       string.len = 0xFF;
-      // TODO: what if string has only length <3?
       memcpy(string.head, value, 3);
       string.length = (uint32_t)len;
-      // TODO: First 3 characters already stored in string structure,
-      // so don't store in dictionary (?)
       string.sid = this->insert(value);
     }
     else {
