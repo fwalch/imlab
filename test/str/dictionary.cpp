@@ -91,7 +91,7 @@ TEST(StringDictionary, MakeShortString) {
   auto dic = str::dictionary();
   auto string = dic.make_string("SomeString");
   ASSERT_EQ(10, string.len);
-  ASSERT_TRUE(memcmp(string.value, "SomeString", 10) == 0);
+  ASSERT_TRUE(strcmp(string.value, "SomeString") == 0);
 }
 
 TEST(StringDictionary, MakeLongString) {

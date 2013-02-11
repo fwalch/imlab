@@ -1,26 +1,13 @@
 #include "dictionary.h"
-#include <string>
 #include <cstring>
 #include <climits>
 
 namespace str {
-  size_t hash::operator()(const char* value) const {
-    return std::hash<std::string>()(value);
-  }
+  const string dictionary::NO_STRING = {
+    .flags = 0xFE,
+  };
 
-  bool string::operator<(const string &other) const {
-    //TODO: sort alphabetically
-    return memcmp(this, &other, sizeof(string)) < 0;
-  }
-
-  bool string::operator==(const string &other) const {
-    return (((uint64_t*)&other)[0] ^ ((uint64_t*)this)[0]) == 0
-      && (((uint64_t*)&other)[1] ^ ((uint64_t*)this)[1]) == 0;
-  }
-
-  bool equal_to::operator()(const char* lhs, const char* rhs) const {
-    return strcmp(lhs, rhs) == 0;
-  }
+  const uint64_t dictionary::NO_VALUE = 0;
 
   string dictionary::make_inline_string(const char* value, size_t len) {
     string string;
@@ -34,12 +21,6 @@ namespace str {
     }
     return string;
   }
-
-  const string dictionary::NO_STRING = {
-    .flags = 0xFE,
-  };
-
-  const uint64_t dictionary::NO_VALUE = 0;
 
   string dictionary::make_dictionary_string(const char* value, size_t len) {
     string string;

@@ -53,21 +53,3 @@ TEST(String, EmptyStringNotEqualNoString) {
   ASSERT_FALSE(string == str::dictionary::NO_STRING);
 }
 
-TEST(String, Equals) {
-  str::string string;
-  memset(&string, 1, sizeof(str::string));
-  char array[sizeof(str::string)];
-  memset(array, 1, sizeof(str::string));
-  str::string* arrayPtr = (str::string*)array;
-
-  ASSERT_TRUE(string == *arrayPtr);
-
-  array[4] = 0;
-  ASSERT_FALSE(string == *arrayPtr);
-
-  array[12] = 0;
-  ASSERT_FALSE(string == *arrayPtr);
-
-  array[4] = 1;
-  ASSERT_FALSE(string == *arrayPtr);
-}

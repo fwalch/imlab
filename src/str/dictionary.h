@@ -1,90 +1,14 @@
 #ifndef _STR_DICTIONARY_H_
 #define _STR_DICTIONARY_H_
 
+#include "equal_to.h"
+#include "hash.h"
+#include "string.h"
 #include <cstdint>
-#include <unordered_map>
 #include <tuple>
-#include <string>
+#include <unordered_map>
 
 namespace str {
-  /**
-   * Data structure for holding a String Dictionary String
-   *
-   * Short strings (<15 characters) are stored within the data structure,
-   * longer strings are stored within an accompanying String Dictionary.
-   *
-   * @sa str::dictionary
-   */
-  union string {
-    /** Long string version */
-    struct {
-      /** 0xFF (indicating a long string) */
-      uint8_t flags;
-      /** First three characters of string */
-      char head[3];
-      /** Length of the string (without NULL terminator) */
-      uint32_t length;
-      /** String Identifier (SID) within the accompanying String Dictionary */
-      uint64_t sid;
-    };
-    /** Short string version */
-    struct {
-      /** Length of the string (without NULL terminator) */
-      uint8_t len;
-      /** String content (including NULL terminator) */
-      char value[15];
-    };
-
-    /**
-     * Compares a given String with the current instance
-     *
-     * @param str String to compare current instance to
-     * @return TRUE if current instance less than given
-     *   String, FALSE otherwise.
-     */
-    bool operator<(const string& str) const;
-
-    /**
-     * Compares a given String with the current instance.
-     *
-     * @param str String to compare current instance to.
-     * @return TRUE if current instance is equal to given
-     *   String, FALSE otherwise.
-     */
-    bool operator==(const string& str) const;
-  };
-
-  /**
-   * Hash function calculator for the String Dictionary's index structure.
-   *
-   * @sa str::dictionary
-   */
-  struct hash {
-    /**
-     * Calculates the hash value of the given string value.
-     *
-     * @param value String value to calculate hash value for.
-     * @return Hash value of the given string.
-     */
-    size_t operator()(const char* value) const;
-  };
-
-  /**
-   * Equality calculator for the String Dictionary's index structure.
-   *
-   * @sa str::dictionary
-   */
-  struct equal_to {
-    /**
-     * Determines whether the given strings are equal.
-     *
-     * @param lhs Lefthand string to compare
-     * @param rhs Righthand string to compare
-     * @return TRUE if the strings are equal, FALSE otherwise.
-     */
-    bool operator()(const char* lhs, const char* rhs) const;
-  };
-
   /**
    * Data structure to hold the string dictionary.
    *
@@ -108,10 +32,10 @@ namespace str {
        */
       std::unordered_map<const char*, uint64_t, hash, equal_to> reverse_map;
 
-      /** Helper function */
+      /** Create an str::string with value stored outside the dictionary */
       string make_inline_string(const char*, size_t);
 
-      /** Helper function */
+      /** Create an str::string with value stored within the dictionary */
       string make_dictionary_string(const char*, size_t);
 
     public:
