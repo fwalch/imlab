@@ -1,10 +1,10 @@
 #include "yago.h"
-#include <set>
+#include <unordered_set>
 #include <iostream>
 #include <cstring>
 
 size_t Yago::queryWebsitesOfAllWomen() {
-  std::set<std::string> women;
+  std::unordered_set<std::string> women;
   size_t websites = 0;
 
   // Get all women
