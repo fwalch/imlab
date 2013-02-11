@@ -1,9 +1,9 @@
 #include "yago.h"
-#include <set>
+#include <unordered_set>
 #include <iostream>
 
 size_t Yago::queryWebsitesOfAllWomen() {
-  std::set<uint64_t> women;
+  std::unordered_set<uint64_t> women;
   uint64_t hasGender = facts.predicate_dict.get("hasGender");
   uint64_t female = facts.object_dict.get("female");
   uint64_t hasWebsite = facts.predicate_dict.get("hasWebsite");

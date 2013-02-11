@@ -1,43 +1,13 @@
 #ifndef _STR_DICTIONARY_H_
 #define _STR_DICTIONARY_H_
 
+#include "equal_to.h"
+#include "hash.h"
 #include <cstdint>
-#include <unordered_map>
 #include <tuple>
-#include <string>
+#include <unordered_map>
 
 namespace str {
-  /**
-   * Hash function calculator for the String Dictionary's index structure.
-   *
-   * @sa str::dictionary
-   */
-  struct hash {
-    /**
-     * Calculates the hash value of the given string value.
-     *
-     * @param value String value to calculate hash value for.
-     * @return Hash value of the given string.
-     */
-    size_t operator()(const char* value) const;
-  };
-
-  /**
-   * Equality calculator for the String Dictionary's index structure.
-   *
-   * @sa str::dictionary
-   */
-  struct equal_to {
-    /**
-     * Determines whether the given strings are equal.
-     *
-     * @param lhs Lefthand string to compare
-     * @param rhs Righthand string to compare
-     * @return TRUE if the strings are equal, FALSE otherwise.
-     */
-    bool operator()(const char* lhs, const char* rhs) const;
-  };
-
   /**
    * Data structure to hold the string dictionary.
    *
@@ -63,7 +33,7 @@ namespace str {
 
     public:
       /** Placeholder SID if no String is found */
-      static const uint64_t NO_VALUE = 0;
+      static const uint64_t NO_VALUE;
 
       /**
        * Inserts the given string value into the Dictionary

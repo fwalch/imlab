@@ -1,16 +1,9 @@
 #include "dictionary.h"
-#include <string>
 #include <cstring>
 #include <climits>
 
 namespace str {
-  size_t hash::operator()(const char* value) const {
-    return std::hash<std::string>()(value);
-  }
-
-  bool equal_to::operator()(const char* lhs, const char* rhs) const {
-    return strcmp(lhs, rhs) == 0;
-  }
+  const uint64_t dictionary::NO_VALUE = 0;
 
   uint64_t dictionary::insert(const char* value) {
     auto reverse_it = reverse_map.find(value);
@@ -56,14 +49,24 @@ namespace str {
     auto it = map.find(sid);
     uint32_t* refCount = &std::get<0>(it->second);
     if (*refCount == 1) {
-      // Update string
-      // TODO: optimize if new string fits into memory of old
+      // Delete value from index
       const char* oldValue = std::get<1>(it->second);
       auto reverse_it = reverse_map.find(oldValue);
       reverse_map.erase(reverse_it);
-      delete[] oldValue;
 
-      char* newValue = new char[strlen(value) + 1];
+      char* newValue;
+      size_t valueLength = strlen(value);
+      if (strlen(oldValue) == valueLength) {
+        // New string has exactly the same length - copy
+        // over old string
+        newValue = (char*)oldValue;
+      }
+      else {
+        // Allocate new string
+        delete[] oldValue;
+        newValue = new char[valueLength + 1];
+      }
+
       strcpy(newValue, value);
       map[sid] = std::make_tuple(1, newValue);
       reverse_map[newValue] = sid;

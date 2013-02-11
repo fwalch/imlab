@@ -13,7 +13,7 @@ TEST(Integration, TPCE) {
   // Test if querying retrieves the correct object
   auto c_tid = tpce.customers.get(433);
   auto c_sid = tpce.customers.c_l_name[c_tid];
-  ASSERT_TRUE(memcmp(tpce.customers.c_l_name_dict.get(c_sid), "Labree", 6) == 0);
+  ASSERT_TRUE(strcmp(tpce.customers.c_l_name_dict.get(c_sid), "Labree") == 0);
 }
 
 TEST(Integration, Yaga) {
