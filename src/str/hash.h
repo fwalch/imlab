@@ -1,7 +1,6 @@
 #ifndef _STR_HASH_H_
 #define _STR_HASH_H_
 
-#include "string.h"
 #include <string>
 
 namespace str {
@@ -18,14 +17,6 @@ namespace str {
      * @return Hash value of the given string.
      */
     size_t operator()(const char* value) const;
-
-    /**
-     * Calculates the hash value of the given string.
-     *
-     * @param value String to calculate hash value for.
-     * @return Hash value of the given string.
-     */
-    size_t operator()(const str::string value) const;
   };
 }
 

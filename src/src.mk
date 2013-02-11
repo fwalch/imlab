@@ -3,7 +3,7 @@ SRC_FILES = schema/conversion.cpp schema/store.cpp \
 						import.cpp tpcc.cpp oltp.cpp olap.cpp timer.cpp \
 						str/dictionary.cpp cmd/command.cpp cmd/tpcc_command.cpp \
 						cmd/yago_command.cpp cmd/tpce_command.cpp yago.cpp \
-						str/string.cpp str/hash.cpp str/equal_to.cpp
+						str/hash.cpp str/equal_to.cpp
 SOURCES = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ_DIR = obj
