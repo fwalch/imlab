@@ -1,7 +1,6 @@
 #include "dictionary.h"
 #include <cstring>
 #include <climits>
-#include <iostream>
 
 namespace str {
   const string dictionary::NO_STRING = {

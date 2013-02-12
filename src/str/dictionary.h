@@ -48,12 +48,13 @@ namespace str {
 
       /**
        * Determines the ordering of the given strings.
+       *
        * @param lhs Left value
        * @param rhs Right value
-       * @return True of left value is less than right value,
-       *   false otherwise
+       * @return TRUE if left value is less than right value,
+       *   FALSE otherwise
        */
-      bool less(const string &lhs, const string &rhs);
+      bool less(const string& lhs, const string& rhs);
 
       /**
        * Inserts the given string value into the Dictionary
