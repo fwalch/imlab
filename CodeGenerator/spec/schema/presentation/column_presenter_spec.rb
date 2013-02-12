@@ -7,7 +7,7 @@ describe 'ColumnPresenter' do
     column = MiniTest::Mock.new
     column.expect(:name, 'column_name')
 
-    presenter = Schema::ColumnPresenter.new(column)
+    presenter = Schema::ColumnPresenter.new(column, nil)
 
     presenter.name.must_equal 'column_name'
     column.verify
@@ -16,7 +16,7 @@ describe 'ColumnPresenter' do
   it 'should provide a factory method' do
     Schema::SomeColumnPresenter = Module.new
     column = Struct.new(:type).new(:some)
-    presenter = Schema::ColumnPresenter.create(column)
+    presenter = Schema::ColumnPresenter.create(column, nil)
     presenter.kind_of?(Schema::SomeColumnPresenter).must_equal true
   end
 end
