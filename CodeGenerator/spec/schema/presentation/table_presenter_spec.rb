@@ -17,7 +17,7 @@ describe 'TablePresenter' do
   end
 
   it 'should present columns' do
-    columns = [Schema::Column.new('a', nil)]
+    columns = [Schema::Column.new('a', nil, nil)]
     table = Schema::Table.new('table_name', columns, [])
 
     presenter = Schema::TablePresenter.new(table, nil)
