@@ -7,7 +7,7 @@ describe 'IndexPresenter' do
     index = MiniTest::Mock.new
     index.expect(:name, 'index_name')
 
-    presenter = Schema::IndexPresenter.new(index)
+    presenter = Schema::IndexPresenter.new(index, nil)
 
     presenter.name.must_equal 'index_name'
     index.verify
@@ -15,8 +15,8 @@ describe 'IndexPresenter' do
 
   it 'should provide a factory method' do
     Schema::SomeIndexPresenter = Module.new
-    index = Struct.new(:type).new(:some)
-    presenter = Schema::IndexPresenter.create(index)
+    index = Struct.new(:type, :columns, :partial_columns).new(:some, [], [])
+    presenter = Schema::IndexPresenter.create(index, nil)
     presenter.kind_of?(Schema::SomeIndexPresenter).must_equal true
   end
 end

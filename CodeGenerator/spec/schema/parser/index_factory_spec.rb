@@ -23,12 +23,6 @@ describe 'IndexFactory' do
     factory.create_index([]).wont_be_nil
   end
 
-  it 'should allow partial index type' do
-    factory = Schema::IndexFactory.new('column_name', ['a', 'b'])
-    factory.set_partial
-    factory.create_index([]).wont_be_nil
-  end
-
   it 'should have a default index type' do
     factory = Schema::IndexFactory.new('column_name', ['a', 'b'])
     factory.create_index([]).wont_be_nil
