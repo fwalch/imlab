@@ -14,8 +14,10 @@ namespace <%= schema.namespace %> {
 class <%= class_name %> : public Store {
   public:
     <%= indexes.line(&:global_definition) %>
+
     <%= columns.line(&:global_definition) %>
 
+    <%= "#{class_name}();" if generate_constructor? %>
     void add(std::string[<%= columns.count %>]);
     void add_instance(<%= columns.comma(&:local_definition) %>);
     void remove(uint64_t tid);

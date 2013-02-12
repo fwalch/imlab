@@ -40,15 +40,6 @@ namespace str {
      *   String, FALSE otherwise.
      */
     bool operator==(const string& str) const;
-
-    /**
-     * Compares a given String with the current instance.
-     *
-     * @param str String to compare current instance to.
-     * @return TRUE if current instance is less than given
-     *   String, FALSE otherwise.
-     */
-    bool operator<(const string& str) const;
   };
 }
 

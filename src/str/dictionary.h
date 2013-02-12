@@ -4,8 +4,9 @@
 #include "equal_to.h"
 #include "hash.h"
 #include "string.h"
+#include "../tuple_less.h"
 #include <cstdint>
-#include <tuple>
+#include <cstring>
 #include <unordered_map>
 
 namespace str {
@@ -46,6 +47,15 @@ namespace str {
       static const string NO_STRING;
 
       /**
+       * Determines the ordering of the given strings.
+       * @param lhs Left value
+       * @param rhs Right value
+       * @return True of left value is less than right value,
+       *   false otherwise
+       */
+      bool less(const string &lhs, const string &rhs);
+
+      /**
        * Inserts the given string value into the Dictionary
        *
        * @param value Value to insert
@@ -71,7 +81,7 @@ namespace str {
        * @param str String to get value of
        * @return String value
        */
-      const char* get(string& str);
+      const char* get(const string& str);
 
       /**
        * Gets the string value for a given SID
@@ -81,7 +91,7 @@ namespace str {
        * @param sid String Identifier to get value for
        * @return String value
        */
-      const char* get(uint64_t sid);
+      const char* get(const uint64_t sid);
 
       /**
        * Removes the String with the given SID from the Dictionary
@@ -109,7 +119,7 @@ namespace str {
        *
        * @param str String to delete
        */
-      void remove(string& str);
+      void remove(const string& str);
 
       /**
        * Assigns a new value to the String with the given SID
@@ -149,4 +159,15 @@ namespace str {
   };
 }
 
+template<> struct element_less<str::string> {
+  void* argument;
+
+  element_less(void* argument) : argument(argument) { }
+
+  bool operator()(const str::string &lhs, const str::string &rhs) const {
+    return ((str::dictionary*)argument)->less(lhs, rhs);
+  }
+};
+
 #endif
+

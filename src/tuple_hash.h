@@ -18,7 +18,7 @@ namespace std {
     };
   }
 
-  template <typename ... TT> struct hash<tuple<TT...>> {
+  template<typename ... TT> struct hash<tuple<TT...>> {
     size_t operator()(const tuple<TT...>& t) const {
       size_t seed = 0;
       HashValueImpl<tuple<TT...> >::apply(seed, t);

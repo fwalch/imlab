@@ -16,6 +16,7 @@ namespace tpce {
     typedef std::tuple<int32_t> pkKeyType;
     typedef std::unordered_map<pkKeyType, uint64_t> pkIndexType;
     pkIndexType pkIndex;
+
     std::vector<int32_t> c_id;
     std::vector<str::string> c_tax_id;
     str::dictionary c_tax_id_dict;

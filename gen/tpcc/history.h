@@ -28,7 +28,6 @@ namespace tpcc {
     void add_instance(int32_t h_c_id, int32_t h_c_d_id, int32_t h_c_w_id, int32_t h_d_id, int32_t h_w_id, uint64_t h_date, int64_t h_amount, const char* h_data);
     void remove(uint64_t tid);
 
-
   };
 
 }

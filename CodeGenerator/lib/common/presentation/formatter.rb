@@ -10,7 +10,16 @@ class Formatter
 
   def render
     indent = 0
-    renderer.render.split("\n").map do |line|
+    previous_line_empty = false
+    renderer.render.split("\n").select do |line|
+      current_line_empty = line =~ /^\s*$/
+      if previous_line_empty and current_line_empty
+        false
+      else
+        previous_line_empty = current_line_empty
+        true
+      end
+    end.map do |line|
       indent -= 1 if line =~ /}\s*;?\s*$/
 
       indentation = ''

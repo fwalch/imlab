@@ -17,11 +17,18 @@ namespace tpcc {
     typedef std::unordered_map<pkKeyType, uint64_t> pkIndexType;
     pkIndexType pkIndex;
     typedef std::tuple<int32_t, int32_t, str::string, str::string> customer_wdlKeyType;
-    typedef std::multimap<customer_wdlKeyType, uint64_t> customer_wdlIndexType;
+    typedef tuple_less<customer_wdlKeyType> customer_wdlComparisonType;
+    void* customer_wdlComparisonParameters[4];
+    customer_wdlComparisonType customer_wdlComparison;
+    typedef std::multimap<customer_wdlKeyType, uint64_t, customer_wdlComparisonType> customer_wdlIndexType;
     customer_wdlIndexType customer_wdlIndex;
     typedef std::tuple<str::string> c_lastKeyType;
-    typedef std::multimap<c_lastKeyType, uint64_t> c_lastIndexType;
+    typedef tuple_less<c_lastKeyType> c_lastComparisonType;
+    void* c_lastComparisonParameters[1];
+    c_lastComparisonType c_lastComparison;
+    typedef std::multimap<c_lastKeyType, uint64_t, c_lastComparisonType> c_lastIndexType;
     c_lastIndexType c_lastIndex;
+
     std::vector<int32_t> c_id;
     std::vector<int32_t> c_d_id;
     std::vector<int32_t> c_w_id;
@@ -55,6 +62,7 @@ namespace tpcc {
     std::vector<str::string> c_data;
     str::dictionary c_data_dict;
 
+    Customer();
     void add(std::string[21]);
     void add_instance(int32_t c_id, int32_t c_d_id, int32_t c_w_id, const char* c_first, const char* c_middle, const char* c_last, const char* c_street_1, const char* c_street_2, const char* c_city, const char* c_state, const char* c_zip, const char* c_phone, uint64_t c_since, const char* c_credit, int64_t c_credit_lim, int64_t c_discount, int64_t c_balance, int64_t c_ytd_paymenr, int64_t c_payment_cnt, int64_t c_delivery_cnt, const char* c_data);
     void remove(uint64_t tid);

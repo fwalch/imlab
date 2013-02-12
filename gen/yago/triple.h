@@ -25,7 +25,6 @@ namespace yago {
     void add_instance(const char* subject, const char* predicate, const char* object);
     void remove(uint64_t tid);
 
-
   };
 
 }

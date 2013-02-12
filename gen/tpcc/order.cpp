@@ -32,16 +32,13 @@ namespace tpcc {
     auto pkIt = this->pkIndex.find(pkKey);
     this->pkIndex.erase(pkIt);
 
-
     auto order_wdcKey = std::make_tuple(this->o_w_id[tid], this->o_d_id[tid], this->o_c_id[tid], this->o_id[tid]);
     auto order_wdcIt = this->order_wdcIndex.find(order_wdcKey);
     this->order_wdcIndex.erase(order_wdcIt);
 
-
     auto o_c_idKey = std::make_tuple(this->o_c_id[tid]);
     auto o_c_idIt = this->o_c_idIndex.find(o_c_idKey);
     this->o_c_idIndex.erase(o_c_idIt);
-
 
     // We want to move the last item to the deleted item's position
     // We have one item less now, so decrease TID for next add_instance

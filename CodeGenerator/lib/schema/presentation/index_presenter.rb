@@ -4,12 +4,8 @@ require 'schema/presentation/presentation_enumerable'
 
 module Schema
 module MultiIndexPresenter
-  def index_type
-    "std::multimap<#{key_type_name}, #{value_type}>"
-  end
-
-  def index_type_iterator
-    "#{table.class_name}::#{index_type_name}::iterator"
+  def collection_type
+    'std::multimap'
   end
 
   def get_method_retval
@@ -34,10 +30,6 @@ end
 module PartialIndexPresenter
   def partial_columns
     @partial_columns ||= @index.partial_columns.map { |p| PresentationEnumerable.new(p.map { |c| ColumnPresenter.create(c, table) }) }
-  end
-
-  def index_type_iterator
-    "#{table.class_name}::#{index_type_name}::iterator"
   end
 
   def collection_type
@@ -68,6 +60,51 @@ module PartialIndexPresenter
   end
 end
 
+module ComparingIndexPresenter
+  def global_definition
+    [
+      "typedef #{key_type} #{key_type_name}",
+      "typedef #{key_comparison_type} #{key_comparison_type_name}",
+      "void* #{key_comparison_parameters_name}[#{columns.count}]",
+      "#{key_comparison_type_name} #{key_comparison_name}",
+      "typedef #{index_type} #{index_type_name}",
+      "#{index_type_name} #{local_name}"
+    ]
+  end
+
+  def constructor_assignments
+    [
+      "#{key_comparison_parameters_name}{#{key_comparison_parameters}}",
+      "#{key_comparison_name}(#{key_comparison_parameters_name})",
+      "#{local_name}(#{key_comparison_name})",
+    ]
+  end
+
+  def index_type
+    "#{collection_type}<#{key_type_name}, #{value_type}, #{key_comparison_type_name}>"
+  end
+
+  def key_comparison_parameters_name
+    "#{name}ComparisonParameters"
+  end
+
+  def key_comparison_type
+    "tuple_less<#{key_type_name}>"
+  end
+
+  def key_comparison_type_name
+    "#{name}ComparisonType"
+  end
+
+  def key_comparison_name
+    "#{name}Comparison"
+  end
+
+  def key_comparison_parameters
+    columns.comma { |c| c.respond_to?(:comparer_parameter) ? c.comparer_parameter : 'NULL' }
+  end
+end
+
 class IndexPresenter < Presenter
   attr_reader :table
 
@@ -78,6 +115,10 @@ class IndexPresenter < Presenter
 
   def name
     @index.name
+  end
+
+  def index_type_iterator
+    "#{table.class_name}::#{index_type_name}::iterator"
   end
 
   def get_method_name
@@ -168,6 +209,10 @@ class IndexPresenter < Presenter
     "std::make_tuple(#{columns.comma(&:local_to_index_key_value)})"
   end
 
+  def needs_constructor?
+    respond_to?(:constructor_assignments)
+  end
+
   def columns
     @columns ||= PresentationEnumerable.new(@index.columns.map { |c| ColumnPresenter.create(c, table) })
   end
@@ -180,6 +225,7 @@ class IndexPresenter < Presenter
       presenter.extend index_module if index_module
     end
     presenter.extend PartialIndexPresenter if index.partial_columns.any?
+    presenter.extend ComparingIndexPresenter if presenter.columns.any? { |c| c.respond_to?(:comparer_parameter) }
     return presenter
   end
 end

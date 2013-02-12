@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "../tuple_hash.h"
+#include "../tuple_less.h"
 
 class Store {
   protected:

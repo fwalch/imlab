@@ -8,6 +8,11 @@ using namespace std;
 
 namespace <%= schema.namespace %> {
 
+  <% if generate_constructor? %>
+    <%= class_name %>::<%= class_name %>() : <%= indexes.select(&:needs_constructor?).comma(&:constructor_assignments) %> {
+    }
+  <% end %>
+
 void <%= class_name %>::add(string elements[<%= columns.count %>]) {
   add_instance(<%= columns.comma_with_index { |i,c| c.from_string_variable("elements[#{i}]") } %>);
 }

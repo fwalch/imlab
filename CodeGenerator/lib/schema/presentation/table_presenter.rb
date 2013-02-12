@@ -31,6 +31,10 @@ class TablePresenter < Presenter
     name.camelize
   end
 
+  def generate_constructor?
+    indexes.any?(&:needs_constructor?)
+  end
+
   def columns
     @columns ||= PresentationEnumerable.new(@table.columns.map { |c| ColumnPresenter.create(c, self) })
   end

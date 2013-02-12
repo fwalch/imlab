@@ -1,7 +1,5 @@
 module Schema
 class PresentationEnumerable
-  include Enumerable
-
   def initialize(collection)
     @collection = collection
   end
@@ -32,6 +30,18 @@ class PresentationEnumerable
 
   def empty?
     @collection.empty?
+  end
+
+  def any?(&block)
+    @collection.any?(&block)
+  end
+
+  def count
+    @collection.count
+  end
+
+  def select(&block)
+    PresentationEnumerable.new(@collection.select(&block))
   end
 end
 end

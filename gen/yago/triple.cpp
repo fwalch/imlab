@@ -25,7 +25,6 @@ namespace yago {
 
   void Triple::remove(uint64_t tid) {
 
-
     // We want to move the last item to the deleted item's position
     // We have one item less now, so decrease TID for next add_instance
     uint64_t tidToSwap = --this->tid;
@@ -51,7 +50,5 @@ namespace yago {
     this->object_dict.remove(object_sid);
     this->object.pop_back();
   }
-
-
 
 }

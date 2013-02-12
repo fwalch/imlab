@@ -8,6 +8,9 @@ using namespace std;
 
 namespace tpcc {
 
+  Customer::Customer() : customer_wdlComparisonParameters{NULL, NULL, &c_last_dict, &c_first_dict}, customer_wdlComparison(customer_wdlComparisonParameters), customer_wdlIndex(customer_wdlComparison), c_lastComparisonParameters{&c_last_dict}, c_lastComparison(c_lastComparisonParameters), c_lastIndex(c_lastComparison) {
+  }
+
   void Customer::add(string elements[21]) {
     add_instance(atoi(elements[0].c_str()), atoi(elements[1].c_str()), atoi(elements[2].c_str()), elements[3].c_str(), elements[4].c_str(), elements[5].c_str(), elements[6].c_str(), elements[7].c_str(), elements[8].c_str(), elements[9].c_str(), elements[10].c_str(), elements[11].c_str(), db_stod(elements[12]), elements[13].c_str(), db_stol(elements[14]), db_stol(elements[15]), db_stol(elements[16]), db_stol(elements[17]), db_stol(elements[18]), db_stol(elements[19]), elements[20].c_str());
   }
@@ -56,16 +59,13 @@ namespace tpcc {
     auto pkIt = this->pkIndex.find(pkKey);
     this->pkIndex.erase(pkIt);
 
-
     auto customer_wdlKey = std::make_tuple(this->c_w_id[tid], this->c_d_id[tid], this->c_last[tid], this->c_first[tid]);
     auto customer_wdlIt = this->customer_wdlIndex.find(customer_wdlKey);
     this->customer_wdlIndex.erase(customer_wdlIt);
 
-
     auto c_lastKey = std::make_tuple(this->c_last[tid]);
     auto c_lastIt = this->c_lastIndex.find(c_lastKey);
     this->c_lastIndex.erase(c_lastIt);
-
 
     // We want to move the last item to the deleted item's position
     // We have one item less now, so decrease TID for next add_instance

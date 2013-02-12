@@ -31,7 +31,6 @@ namespace tpce {
     auto pkIt = this->pkIndex.find(pkKey);
     this->pkIndex.erase(pkIt);
 
-
     // We want to move the last item to the deleted item's position
     // We have one item less now, so decrease TID for next add_instance
     uint64_t tidToSwap = --this->tid;

@@ -16,6 +16,7 @@ namespace tpcc {
     typedef std::tuple<int32_t, int32_t, int32_t, int32_t> pkKeyType;
     typedef std::map<pkKeyType, uint64_t> pkIndexType;
     pkIndexType pkIndex;
+
     std::vector<int32_t> ol_o_id;
     std::vector<int32_t> ol_d_id;
     std::vector<int32_t> ol_w_id;

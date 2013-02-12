@@ -22,6 +22,7 @@ namespace tpcc {
     typedef std::tuple<int32_t> o_c_idKeyType;
     typedef std::multimap<o_c_idKeyType, uint64_t> o_c_idIndexType;
     o_c_idIndexType o_c_idIndex;
+
     std::vector<int32_t> o_id;
     std::vector<int32_t> o_d_id;
     std::vector<int32_t> o_w_id;

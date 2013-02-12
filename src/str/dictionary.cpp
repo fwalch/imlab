@@ -1,6 +1,7 @@
 #include "dictionary.h"
 #include <cstring>
 #include <climits>
+#include <iostream>
 
 namespace str {
   const string dictionary::NO_STRING = {
@@ -8,6 +9,20 @@ namespace str {
   };
 
   const uint64_t dictionary::NO_VALUE = 0;
+
+  bool dictionary::less(const string &lhs, const string &rhs) {
+    int headCompare = memcmp(lhs.head, rhs.head, 3);
+    // Return if first three characters distinct
+    if (headCompare != 0) {
+      return headCompare < 0;
+    }
+    // Compare short strings with memcmp
+    if (lhs.flags != 0xFF && rhs.flags != 0xFF) {
+      return memcmp(lhs.value, rhs.value, 15) < 0;
+    }
+    // Compare rest of string
+    return strcmp(&get(lhs)[3], &get(rhs)[3]) < 0;
+  }
 
   string dictionary::make_inline_string(const char* value, size_t len) {
     string string;
@@ -71,7 +86,7 @@ namespace str {
     return sid;
   }
 
-  const char* dictionary::get(string &str) {
+  const char* dictionary::get(const string &str) {
     if (str.len == 0xFF) {
       return get(str.sid);
     }
@@ -90,7 +105,7 @@ namespace str {
     return std::get<1>(map[sid]);
   }
 
-  void dictionary::remove(string &str) {
+  void dictionary::remove(const string &str) {
     if (str.len == 0xFF) {
       remove(str.sid);
     }

@@ -40,6 +40,10 @@ module TextColumnPresenter
     'str::string'
   end
 
+  def comparer_parameter
+    "&#{dictionary_name}"
+  end
+
   def collection_type
     "std::vector<str::string>"
   end

@@ -28,7 +28,6 @@ namespace tpcc {
 
   void History::remove(uint64_t tid) {
 
-
     // We want to move the last item to the deleted item's position
     // We have one item less now, so decrease TID for next add_instance
     uint64_t tidToSwap = --this->tid;
@@ -60,7 +59,5 @@ namespace tpcc {
     this->h_data_dict.remove(h_data_sid);
     this->h_data.pop_back();
   }
-
-
 
 }
