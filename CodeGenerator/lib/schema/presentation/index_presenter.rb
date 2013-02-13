@@ -65,7 +65,7 @@ module ComparingIndexPresenter
     [
       "typedef #{key_type} #{key_type_name}",
       "typedef #{key_comparison_type} #{key_comparison_type_name}",
-      "void* #{key_comparison_parameters_name}[#{columns.count}]",
+      "const void* #{key_comparison_parameters_name}[#{columns.count}]",
       "#{key_comparison_type_name} #{key_comparison_name}",
       "typedef #{index_type} #{index_type_name}",
       "#{index_type_name} #{local_name}"

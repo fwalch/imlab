@@ -9,7 +9,7 @@ namespace str {
 
   const uint64_t dictionary::NO_VALUE = 0;
 
-  bool dictionary::less(const string &lhs, const string &rhs) {
+  bool dictionary::less(const string& lhs, const string& rhs) const {
     int headCompare = memcmp(lhs.head, rhs.head, 3);
     // Return if first three characters distinct
     if (headCompare != 0) {
@@ -23,7 +23,7 @@ namespace str {
     return strcmp(&get(lhs)[3], &get(rhs)[3]) < 0;
   }
 
-  string dictionary::make_inline_string(const char* value, size_t len) {
+  string dictionary::make_inline_string(const char* value, size_t len) const {
     string string;
     string.len = (uint8_t)len;
     strcpy(string.value, value);
@@ -36,13 +36,17 @@ namespace str {
     return string;
   }
 
-  string dictionary::make_dictionary_string(const char* value, size_t len) {
+  inline string dictionary::make_dictionary_string(const char* value, size_t len) {
+    return make_dictionary_string(value, len, this->insert(value));
+  }
+
+  string dictionary::make_dictionary_string(const char* value, size_t len, uint64_t sid) const {
     string string;
     if (len < UINT_MAX) {
       string.len = 0xFF;
       memcpy(string.head, value, 3);
       string.length = (uint32_t)len;
-      string.sid = this->insert(value);
+      string.sid = sid;
     }
     else {
       throw "String too long; cannot proceed";
@@ -50,15 +54,16 @@ namespace str {
     return string;
   }
 
-  string dictionary::get_string(const char* value) {
-    auto len = strlen(value);
+  string dictionary::get_string(const char* value) const {
+    size_t len = strlen(value);
     if (len < 15) {
       return make_inline_string(value, len);
     }
-    if (get(value) == NO_VALUE) {
+    uint64_t sid = get(value);
+    if (sid == NO_VALUE) {
       return NO_STRING;
     }
-    return make_dictionary_string(value, len);
+    return make_dictionary_string(value, len, sid);
   }
 
   string dictionary::make_string(const char* value) {
@@ -85,14 +90,14 @@ namespace str {
     return sid;
   }
 
-  const char* dictionary::get(const string &str) {
+  const char* dictionary::get(const string& str) const {
     if (str.len == 0xFF) {
       return get(str.sid);
     }
     return str.value;
   }
 
-  uint64_t dictionary::get(const char* value) {
+  uint64_t dictionary::get(const char* value) const {
     auto it = reverse_map.find(value);
     if (it == reverse_map.end()) {
       return NO_VALUE;
@@ -100,11 +105,15 @@ namespace str {
     return it->second;
   }
 
-  const char* dictionary::get(uint64_t sid) {
-    return std::get<1>(map[sid]);
+  const char* dictionary::get(uint64_t sid) const {
+    auto it = map.find(sid);
+    if (it == map.end()) {
+      return NULL;
+    }
+    return std::get<1>(it->second);
   }
 
-  void dictionary::remove(const string &str) {
+  void dictionary::remove(const string& str) {
     if (str.len == 0xFF) {
       remove(str.sid);
     }

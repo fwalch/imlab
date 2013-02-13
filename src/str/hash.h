@@ -6,7 +6,7 @@
 
 namespace str {
   /**
-   * Hash function calculator for the String Dictionary's index structure.
+   * Hash function calculator for the String Dictionary's index structures.
    *
    * @sa str::dictionary
    */

@@ -22,4 +22,4 @@ test: $(TEST_EXECUTABLE)
 	./$(TEST_EXECUTABLE)
 
 $(TEST_OBJ_DIR)/libgtest.a:
-	mkdir -p $(TEST_OBJ_DIR) && cd $(TEST_OBJ_DIR) && cmake /usr/src/gtest && make
+	mkdir -p $(TEST_OBJ_DIR) && cd $(TEST_OBJ_DIR) && CXXFLAGS= LDFLAGS= cmake /usr/src/gtest && make

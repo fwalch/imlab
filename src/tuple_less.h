@@ -2,35 +2,43 @@
 #define _TUPLE_LESS_H_
 
 #include <tuple>
+#include <functional>
+#include <cstddef>
 
 template<typename T> struct element_less {
-  void* argument;
+  const void* argument;
 
-  element_less(void* argument) : argument(argument) { }
+  element_less(const void* argument) : argument(argument) { }
 
-  bool operator()(const T &lhs, const T &rhs) const {
+  bool operator()(const T& lhs, const T& rhs) const {
     return std::less<T>()(lhs, rhs);
   }
 };
 
 template<typename T, size_t Index = std::tuple_size<T>::value - 1> struct tuple_less {
-  void** arguments;
+  const void** arguments;
 
-  tuple_less(void** arguments) : arguments(arguments) { }
+  tuple_less(const void** arguments) : arguments(arguments) { }
 
-  bool operator()(const T &lhs, const T &rhs) {
+  bool operator()(const T& lhs, const T& rhs) {
     return tuple_less<T, Index - 1>(arguments)(lhs, rhs)
-      || element_less<typename std::tuple_element<Index, T>::type>(arguments[Index])(std::get<Index>(lhs), std::get<Index>(rhs));
+      || element_less<typename std::tuple_element<Index, T>::type>(arguments[Index])(
+           std::get<Index>(lhs),
+           std::get<Index>(rhs)
+         );
   }
 };
 
 template<typename T> struct tuple_less<T, 0> {
-  void** arguments;
+  const void** arguments;
 
-  tuple_less(void** arguments) : arguments(arguments) { }
+  tuple_less(const void** arguments) : arguments(arguments) { }
 
-  bool operator()(const T &lhs, const T &rhs) {
-    return element_less<typename std::tuple_element<0, T>::type>(arguments[0])(std::get<0>(lhs), std::get<0>(rhs));
+  bool operator()(const T& lhs, const T& rhs) {
+    return element_less<typename std::tuple_element<0, T>::type>(arguments[0])(
+      std::get<0>(lhs),
+      std::get<0>(rhs)
+    );
   }
 };
 

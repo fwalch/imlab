@@ -18,13 +18,13 @@ namespace tpcc {
     pkIndexType pkIndex;
     typedef std::tuple<int32_t, int32_t, str::string, str::string> customer_wdlKeyType;
     typedef tuple_less<customer_wdlKeyType> customer_wdlComparisonType;
-    void* customer_wdlComparisonParameters[4];
+    const void* customer_wdlComparisonParameters[4];
     customer_wdlComparisonType customer_wdlComparison;
     typedef std::multimap<customer_wdlKeyType, uint64_t, customer_wdlComparisonType> customer_wdlIndexType;
     customer_wdlIndexType customer_wdlIndex;
     typedef std::tuple<str::string> c_lastKeyType;
     typedef tuple_less<c_lastKeyType> c_lastComparisonType;
-    void* c_lastComparisonParameters[1];
+    const void* c_lastComparisonParameters[1];
     c_lastComparisonType c_lastComparison;
     typedef std::multimap<c_lastKeyType, uint64_t, c_lastComparisonType> c_lastIndexType;
     c_lastIndexType c_lastIndex;

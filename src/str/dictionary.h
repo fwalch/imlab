@@ -34,10 +34,13 @@ namespace str {
       std::unordered_map<const char*, uint64_t, hash, equal_to> reverse_map;
 
       /** Create an str::string with value stored outside the dictionary */
-      string make_inline_string(const char*, size_t);
+      string make_inline_string(const char*, size_t) const;
 
       /** Create an str::string with value stored within the dictionary */
       string make_dictionary_string(const char*, size_t);
+
+      /** Create an str::string with value stored within the dictionary */
+      string make_dictionary_string(const char*, size_t, uint64_t) const;
 
     public:
       /** Placeholder SID if no String is found */
@@ -54,7 +57,7 @@ namespace str {
        * @return TRUE if left value is less than right value,
        *   FALSE otherwise
        */
-      bool less(const string& lhs, const string& rhs);
+      bool less(const string& lhs, const string& rhs) const;
 
       /**
        * Inserts the given string value into the Dictionary
@@ -72,7 +75,7 @@ namespace str {
        * @param value Value to get SID of
        * @return String Identifier (SID)
        */
-      uint64_t get(const char* value);
+      uint64_t get(const char* value) const;
 
       /**
        * Gets the value of a given String
@@ -82,7 +85,7 @@ namespace str {
        * @param str String to get value of
        * @return String value
        */
-      const char* get(const string& str);
+      const char* get(const string& str) const;
 
       /**
        * Gets the string value for a given SID
@@ -92,7 +95,7 @@ namespace str {
        * @param sid String Identifier to get value for
        * @return String value
        */
-      const char* get(const uint64_t sid);
+      const char* get(const uint64_t sid) const;
 
       /**
        * Removes the String with the given SID from the Dictionary
@@ -153,7 +156,7 @@ namespace str {
        * @param value Value to get String for
        * @return String data structure
        */
-      string get_string(const char* value);
+      string get_string(const char* value) const;
 
       /** Destructor */
       ~dictionary();
@@ -161,12 +164,12 @@ namespace str {
 }
 
 template<> struct element_less<str::string> {
-  void* argument;
+  const str::dictionary* dictionary;
 
-  element_less(void* argument) : argument(argument) { }
+  element_less(const void* argument) : dictionary((str::dictionary*)argument) { }
 
-  bool operator()(const str::string &lhs, const str::string &rhs) const {
-    return ((str::dictionary*)argument)->less(lhs, rhs);
+  bool operator()(const str::string& lhs, const str::string& rhs) const {
+    return dictionary->less(lhs, rhs);
   }
 };
 
